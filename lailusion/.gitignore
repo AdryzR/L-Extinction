@@ -1,0 +1,20 @@
+# Project local config:
+.cache/
+.dir-locals.el
+.project_keep
+.vscode
+compile_commands.json
+
+# Temporary files:
+*~
+*.log
+\#*\#
+*.gcno
+*.gcda
+coding-style-reports.log
+
+# Compiled/Binary files:
+vgcore.*
+*.out
+*.o
+LaIlusion
