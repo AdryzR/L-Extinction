@@ -1,0 +1,9 @@
+wolf3d
+map
+*.o
+libmy.a
+coding-style-reports.log
+*.o
+*.cor
+*.s
+.vscode
