@@ -30,9 +30,9 @@ char *my_strstr(char *str, char const *to_find)
 
     if (*to_find == '\0')
         return str;
-    for (e; to_find[e] && to_find[e] != '\0'; e++);
-    for (count; str[count] && str[count] != '\0'; count++);
-    for (i; str[i] && str[i] != '\0'; i++) {
+    for (e; to_find[e]; e++);
+    for (count; str[count]; count++);
+    for (i; str[i]; i++) {
         r = i;
         if (my_strstr2(i, e, str, to_find)) {
             str[count] = '\0';

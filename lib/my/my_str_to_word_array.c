@@ -67,6 +67,8 @@ int set_words(char **words, char *str, char *delim)
         }
         word_len = size_of_word(str, delim);
         words[pos_words] = malloc(sizeof(char) * (word_len + 1));
+        if (!words[pos_words])
+            return 84;
         for (pos_char = 0; !is_delim(*str, delim) && *str; str++) {
             words[pos_words][pos_char] = *str;
             pos_char++;
@@ -86,6 +88,8 @@ char **my_str_to_word_array(char *str, char *delim)
         return NULL;
     words_count = number_of_words(str, delim);
     words = malloc(sizeof(char *) * (words_count + 1));
+    if (!words)
+        return NULL;
     for (size_t i = 0; i < words_count + 1; i++)
         words[i] = NULL;
     is_error = set_words(words, str, delim);

@@ -10,7 +10,11 @@
 
 int my_str_isnum(char const *str)
 {
-    for (int i = 0; str[i]; i++) {
+    int i = 0;
+
+    if (str[0] == '-')
+        i = 1;
+    for (; str[i]; i++) {
         if (my_char_isnum(str[i]) == 0)
             return 0;
     }
