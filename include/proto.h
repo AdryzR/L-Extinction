@@ -6,27 +6,16 @@
 */
 
 #include "circle.h"
-#include "mylist.h"
 #include "script.h"
 #include "macro.h"
 #include "enum.h"
 #include "display.h"
 #include "../lib/my/my.h"
 #include <math.h>
-#include <SFML/Graphics/RenderWindow.h>
-#include <SFML/Graphics/Texture.h>
-#include <SFML/Graphics/Sprite.h>
-#include <SFML/Graphics/CircleShape.h>
-#include <SFML/Graphics/RectangleShape.h>
-#include <SFML/Graphics/Text.h>
-#include <SFML/Graphics/Font.h>
-#include <SFML/Audio/SoundBuffer.h>
-#include <SFML/Audio/Sound.h>
 #include <SFML/System.h>
-#include <SFML/Graphics/Color.h>
-#include <SFML/System/Export.h>
-#include <SFML/System/Time.h>
-#include <SFML/System/Types.h>
+#include <SFML/Audio.h>
+#include <SFML/Graphics.h>
+#include <SFML/Window.h>
 #include <unistd.h>
 #include <stddef.h>
 #include <sys/types.h>
@@ -40,22 +29,22 @@
 #include <sys/sysmacros.h>
 #include <stdbool.h>
 #ifndef PROTO_H_
+    #include "../lib/my/mylist.h"
     #define PROTO_H_
 
-int open_script(script_t *script, char *filepath);
+int open_script(script_t *script, char *filepath, game_t *game);
 
 sfSprite *init_sprite(sfTexture *texture);
 
 entity_t *init_entity(game_t *game, sfTexture **texture, script_t *script);
 
-void destroy_main(game_t *game, entity_t *entity, sfTexture **texture);
+void destroy_main(game_t *game, sfTexture **texture);
 
-void destroy_window(game_t *game, sfTexture *texture_background);
+void destroy_window(game_t *game);
 
-void destroy_entity(entity_t *entity, sfTexture **texture);
+void destroy_fx(game_t *game);
 
-int init_main(game_t *game, entity_t **entity, sfTexture **texture,
-    script_t *script);
+int init_main(game_t *game, sfTexture **texture);
 
 int init_background(game_t *game, sfTexture *texture);
 
@@ -65,9 +54,9 @@ int init_text_quit(text_t *text_quit);
 
 int init_window(game_t *game);
 
-int display_loop(game_t *game, entity_t *entity);
+int display_loop(game_t *game);
 
-int display_main(game_t *game, entity_t *entity);
+int display_main(game_t *game);
 
 void display_window(game_t *game);
 
@@ -117,6 +106,48 @@ void display_plane_bis(game_t *game, plane_t *current, entity_t *entity);
 
 player_t *init_player(game_t *game, player_t *player);
 
-int init_map(game_t *game, script_t *script);
+int init_map(game_t *game, sfTexture *texture);
+
+void destroy_text(text_t *text);
+
+void update_menu(game_t *game, text_t *text_start, text_t *text_quit);
+
+int init_text_quit(text_t *text_quit);
+
+int init_text_start(text_t *text_start);
+
+int init_menu(text_t *text_quit, text_t *text_start, game_t *game,
+    sfTexture *texture_menu);
+
+int display_menu_loop(game_t *game, text_t *text_start, text_t *text_quit);
+
+int int_pointer_len(int *pointer);
+
+int is_wall(game_t *game, int x, int y);
+
+ray_casting_t *cast_single_ray(ray_casting_t *ray_struct, game_t **game);
+
+void render_wall_column(game_t *game, float column,
+    float wall_height, sfColor color);
+
+void cast_all_rays(player_t *player, game_t **game);
+
+int **free_matrix(int **matrix);
+
+void destroy_window_menu(game_t *game, sfTexture *texture_background);
+
+int wolf(game_t *game);
+
+int menu(game_t *game);
+
+sfColor set_wall_color(float offset_x, float offset_y);
+
+bool is_movement(key_struct_t *key);
+
+sfVertexArray *create_floor(float column, float bottom);
+
+sfVertexArray *create_sky(float top, float column);
+
+void draw_player(game_t *game);
 
 #endif /* PROTO_H_ */

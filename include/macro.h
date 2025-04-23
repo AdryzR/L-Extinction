@@ -6,10 +6,12 @@
 */
 
 #ifndef MACRO_H_
-    #define WINDOW_HEIGHT 800
-    #define WINDOW_WIDTH 600
     #define MACRO_H_
-    #define BACKGROUND "assets/background/map.jpg"
+    #define WINDOW_HEIGHT 1080
+    #define WINDOW_WIDTH 1920
+    #define M_PI 3.14
+    #define FOV 60 * (M_PI / 180)
+    #define WALL "assets/wall.bmp"
     #define MENU "assets/background/menu.png"
     #define TOWER "assets/entity/tower.png"
     #define PLANE "assets/entity/plane.png"
@@ -18,5 +20,14 @@
     #define SOUND "assets/fx/coup.mp3"
     #define RANDOM_MIN 0
     #define RANDOM_MAX 8
+    #define PLAYER_ROTATION_SPEED 1 * (M_PI / 180)
+    #define PLAYER_MOVE_SPEED 1
+    #define PLAYER_RADIUS 5
+    #define PLAYER_COS cosf(fmodf(game->player->angle, 2 * M_PI))
+    #define PLAYER_SIN sinf(fmodf(game->player->angle, 2 * M_PI))
+    #define PLAYER_COS_MOVE PLAYER_MOVE_SPEED * PLAYER_COS
+    #define PLAYER_SIN_MOVE PLAYER_MOVE_SPEED * PLAYER_SIN
+    #define SKY_BLUE sfColor_fromRGB(135, 206, 235)
+    #define GREEN_GRASS sfColor_fromRGB(34, 139, 34)
 
 #endif /* MACRO_H_ */

@@ -1,0 +1,50 @@
+/*
+** EPITECH PROJECT, 2024
+** G-ING-210-STG-2-1-wolf3d-mateo.antoni-christ
+** File description:
+** cast_all_rays.c
+*/
+
+#include "proto.h"
+
+sfColor set_wall_color(float offset_x, float offset_y)
+{
+    if (fabsf(offset_x) >= fabsf(offset_y))
+        return sfColor_fromRGB(200, 200, 200);
+    return sfColor_fromRGB(170, 170, 170);
+}
+
+static list_object_t *init_obj(int x, ray_casting_t *ray_struct)
+{
+    list_object_t *object = malloc(sizeof(list_object_t));
+
+    object->id = x;
+    object->data = ray_struct->wall_height;
+    object->offset_x = ray_struct->offset_x;
+    object->offset_y = ray_struct->offset_y;
+    return object;
+}
+
+void cast_all_rays(player_t *player, game_t **game)
+{
+    ray_casting_t ray_struct = {0};
+
+    (*game)->wall_height = free_linklist((*game)->wall_height);
+    for (float x = 0; x < WINDOW_WIDTH; ++x) {
+        ray_struct.angle = fmod((fmod(player->angle, 2 * M_PI) - FOV / 2.0) +
+        (x / WINDOW_WIDTH) * FOV, 2 * M_PI);
+        ray_struct.x = player->x;
+        ray_struct.y = player->y;
+        ray_struct.distance_to_wall = 0.0;
+        ray_struct = *cast_single_ray(&ray_struct, game);
+        if (ray_struct.distance_to_wall < 0) {
+            push_to_end_list(&(*game)->wall_height, init_obj(-1, &ray_struct));
+            continue;
+        }
+        ray_struct.distance_to_wall *=
+        (cosf(fmodf(player->angle, 2 * M_PI) - ray_struct.angle));
+        ray_struct.wall_height = (double)(TILE_SIZE * WINDOW_HEIGHT) /
+        ray_struct.distance_to_wall;
+        push_to_end_list(&(*game)->wall_height, init_obj(x, &ray_struct));
+    }
+}

@@ -7,26 +7,31 @@
 
 #include "proto.h"
 
-static int add_map(game_t *game, script_t *script, int i)
+static bool line_valid(char *line)
 {
-    for (int k = 0; k < MAP_WIDTH; ++k) {
-        if (script->tab[i][k] == '\0' ||
-        my_char_isnum(script->tab[i][k]) == 0) {
-            write(2, "Invalid map file\n", 18);
-            return 84;
-        }
-        game->map[i][k] = script->tab[i][k] - 48;
+    for (int k = 0; line[k]; ++k) {
+        if (line[k] != '#' && line[k] != ' ' && line[k] != 'P')
+            return false;
     }
-    return 0;
+    return true;
 }
 
-int init_map(game_t *game, script_t *script)
+static bool check_map_valid(char **map)
 {
-    for (int i = 0; i < MAP_HEIGHT; ++i) {
-        if (!script->tab[i])
-            return 84;
-        if (add_map(game, script, i) == 84)
-            return 84;
+    for (int i = 0; map[i]; ++i) {
+        if (line_valid(map[i]) == 0)
+            return false;
     }
+    return true;
+}
+
+int init_map(game_t *game, sfTexture *texture)
+{
+    game->wall = init_sprite(texture);
+    if (!game->wall)
+        return 84;
+    sfSprite_setTexture(game->wall, texture, sfTrue);
+    if (check_map_valid(game->map.map2D) == false)
+        return 84;
     return 0;
 }

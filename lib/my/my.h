@@ -7,6 +7,8 @@
 
 #include "mylist.h"
 #include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
 #ifndef MY_H_
     #define MY_H_
 
@@ -97,5 +99,38 @@ int my_char_isnum(char c);
 int my_printf(const char *format, ...);
 
 void my_rev_list(linked_list_t **begin);
+
+char *my_strndup(char const *src, int n);
+
+int my_str_isalphanum(char const *str);
+
+void *my_realloc(void *ptr, size_t size);
+
+void *my_memcpy(void *dest, const void *src, size_t n);
+
+FILE *safe_fopen(char *filepath, char *mode);
+
+char *safe_string_parsing(FILE *fd);
+
+int delete_in_list(linked_list_t **begin, int id);
+
+int push_to_end_list(linked_list_t **begin, list_object_t *object);
+
+linked_list_t *free_linklist(linked_list_t *link);
+
+void free_tab(char **tab);
+
+void print_tab(char **tab);
+
+void free_object(list_object_t *object);
+
+int push_to_begin_list(linked_list_t **begin, list_object_t *object);
+
+void delete_function(linked_list_t *prev,
+    linked_list_t **current, linked_list_t **begin);
+
+void pop_back(linked_list_t **begin);
+
+void pop_front(linked_list_t **begin);
 
 #endif /* MY_H_ */

@@ -5,17 +5,15 @@
 ** game.h
 */
 
-#include <SFML/Graphics/Sprite.h>
-#include <SFML/Audio/SoundBuffer.h>
-#include <SFML/System/Export.h>
-#include <SFML/System/Time.h>
-#include <SFML/System/Types.h>
-#include <SFML/Audio/Sound.h>
-#include <SFML/Graphics/Color.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
 #ifndef GAME_H_
+    #include <SFML/System.h>
+    #include <SFML/Audio.h>
+    #include <SFML/Graphics.h>
+    #include <SFML/Window.h>
+    #include "../lib/my/mylist.h"
     #define GAME_H_
 
 typedef struct object_s {
@@ -29,10 +27,21 @@ typedef struct {
     float angle;
 } player_t;
 
+typedef struct {
+    float angle;
+    float x;
+    float y;
+    float distance_to_wall;
+    float offset_x;
+    float offset_y;
+    int test_x;
+    int test_y;
+    float wall_height;
+} ray_casting_t;
+
     #define TILE_SIZE 64
     #define MAP_WIDTH 8
     #define MAP_HEIGHT 8
-
 
 typedef struct windows_s {
     sfRenderWindow *windows;
@@ -42,30 +51,41 @@ typedef struct windows_s {
 typedef struct text_s {
     sfFont *font;
     sfText *contain;
+    sfFloatRect hitbox;
 } text_t;
+
+typedef struct {
+    char **map2D;
+    int height;
+} map_t;
+
+typedef struct {
+    bool Z;
+    bool S;
+    bool Q;
+    bool D;
+    bool Up;
+    bool Down;
+    bool shift;
+} key_struct_t;
 
 typedef struct game_s {
     windows_t windows;
     sfSound *sound;
     sfSoundBuffer *sound_buffer;
-    object_t cursor;
     int multiplicator;
-    int land;
-    int dead;
     text_t text;
     int time;
-    sfRectangleShape *bot_lft;
-    sfRectangleShape *bot_rht;
-    sfRectangleShape *top_lft;
-    sfRectangleShape *top_rht;
+    linked_list_t *wall_height;
+    sfSprite *wall;
     sfClock *clock;
-    bool box_visible;
-    bool sprite_visible;
     float lastchance;
     float lastchancebis;
     bool i;
+    float camera_y;
     player_t *player;
-    int map[MAP_HEIGHT][MAP_WIDTH];
+    map_t map;
+    key_struct_t key;
 } game_t;
 
 #endif /* GAME_H_ */

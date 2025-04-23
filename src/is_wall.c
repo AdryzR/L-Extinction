@@ -7,9 +7,10 @@
 
 #include "proto.h"
 
-int is_wall(int x, int y)
+int is_wall(game_t *game, int x, int y)
 {
-    if (map[x][y] == 1)
+    if (!game->map.map2D ||
+        game->map.map2D[y / TILE_SIZE][x / TILE_SIZE] == '#')
         return 1;
     return 0;
 }

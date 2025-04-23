@@ -5,78 +5,45 @@
 ** init_main.c
 */
 
-#include <SFML/Graphics/RenderWindow.h>
-#include <SFML/Graphics/Texture.h>
-#include <SFML/Graphics/Sprite.h>
-#include <SFML/Audio/SoundBuffer.h>
-#include <SFML/Audio/Sound.h>
-#include <SFML/System.h>
-#include <SFML/Graphics/Color.h>
-#include <SFML/System/Export.h>
-#include <SFML/System/Time.h>
-#include <SFML/System/Types.h>
-#include <stdlib.h>
 #include "proto.h"
 
-static void init_scaling(game_t *game)
+static key_struct_t init_key(void)
 {
-    game->top_lft = sfRectangleShape_create();
-    sfRectangleShape_setSize(game->top_lft, (sfVector2f)
-    {WINDOW_HEIGHT / 2 - 1, WINDOW_WIDTH / 2 - 2});
-    sfRectangleShape_setPosition(game->top_lft, (sfVector2f) {1, 1});
-    game->top_rht = sfRectangleShape_create();
-    sfRectangleShape_setSize(game->top_rht, (sfVector2f)
-    {WINDOW_HEIGHT / 2 - 3, WINDOW_WIDTH / 2 - 2});
-    sfRectangleShape_setPosition(game->top_rht, (sfVector2f)
-    {WINDOW_HEIGHT / 2 + 2, 1});
-    game->bot_lft = sfRectangleShape_create();
-    sfRectangleShape_setSize(game->bot_lft, (sfVector2f)
-    {WINDOW_HEIGHT / 2 - 1, WINDOW_WIDTH / 2 - 2});
-    sfRectangleShape_setPosition(game->bot_lft, (sfVector2f) {1, WINDOW_WIDTH / 2});
-    game->bot_rht = sfRectangleShape_create();
-    sfRectangleShape_setSize(game->bot_rht, (sfVector2f)
-    {WINDOW_HEIGHT / 2 - 3, WINDOW_WIDTH / 2 - 2});
-    sfRectangleShape_setPosition(game->bot_rht, (sfVector2f)
-    {WINDOW_HEIGHT / 2 + 2, WINDOW_WIDTH / 2});
+    key_struct_t key = {0};
+
+    return key;
 }
 
-static int init_fx(game_t *game, entity_t **entity, sfTexture **texture)
+static int init_fx(game_t *game)
 {
     game->clock = sfClock_create();
-    game->text.contain = sfText_create();
-    game->text.font = sfFont_createFromFile(FONT);
-    if (!game->clock || !game->text.contain || !game->text.font) {
-        destroy_main(game, *entity, texture);
+    if (!game->clock)
         return 84;
-    }
-    game->sprite_visible = true;
-    sfText_setFont(game->text.contain, game->text.font);
-    sfText_setPosition(game->text.contain, (sfVector2f) {1800, 5});
-    sfText_setString(game->text.contain, "0");
-    game->box_visible = false;
     game->lastchance = 0.0;
     game->multiplicator = 1;
-    game->land = 0;
-    game->dead = 0;
+    game->camera_y = 100.0;
+    game->key = init_key();
+    game->wall_height = NULL;
     return 0;
 }
 
-int init_main(game_t *game, entity_t **entity, sfTexture **texture,
-    script_t *script)
+int init_main(game_t *game, sfTexture **texture)
 {
-    init_scaling(game);
-    if (init_window(game) == 84) {
-        sfRenderWindow_destroy(game->windows.windows);
+    if (init_fx(game) == 84) {
+        destroy_window(game);
+        sfTexture_destroy(texture[0]);
+        free(texture);
+        destroy_fx(game);
         return 84;
     }
-    // if (init_map(game, script) == 84) {
-    //     sfRenderWindow_destroy(game->windows.windows);
-    //     return 84;
-    // }
-    // game->player = malloc(sizeof(player_t));
-    // if (init_player(game, game->player) == NULL) {
-    //     sfRenderWindow_destroy(game->windows.windows);
-    //     return 84;
-    // }
+    if (init_map(game, texture[0]) == 84) {
+        destroy_main(game, texture);
+        return 84;
+    }
+    game->player = malloc(sizeof(player_t));
+    if (init_player(game, game->player) == NULL) {
+        destroy_main(game, texture);
+        return 84;
+    }
     return 0;
 }

@@ -5,17 +5,6 @@
 ** init_sprite.c
 */
 
-#include <SFML/Graphics/RenderWindow.h>
-#include <SFML/Graphics/Texture.h>
-#include <SFML/Graphics/Sprite.h>
-#include <SFML/Audio/SoundBuffer.h>
-#include <SFML/Audio/Sound.h>
-#include <SFML/System.h>
-#include <SFML/Graphics/Color.h>
-#include <SFML/System/Export.h>
-#include <SFML/System/Time.h>
-#include <SFML/System/Types.h>
-#include <stdlib.h>
 #include "proto.h"
 
 sfSprite *init_sprite(sfTexture *texture)
