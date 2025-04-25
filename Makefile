@@ -29,7 +29,8 @@ SRC	=			main.c										\
 				src/display/ray_casting/deg_to_rad.c		\
 				src/display/ray_casting/render_wall_column.c\
 				src/is_wall.c								\
-				src/display/draw_player.c
+				src/display/draw_player.c					\
+				src/display/check_collision.c
 
 CFLAGS	+= -g
 

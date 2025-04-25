@@ -150,4 +150,8 @@ sfVertexArray *create_sky(float top, float column);
 
 void draw_player(game_t *game);
 
+bool check_back_collision(game_t *game, int b);
+
+bool check_front_collision(game_t *game, int b);
+
 #endif /* PROTO_H_ */

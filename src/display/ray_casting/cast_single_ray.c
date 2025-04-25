@@ -12,17 +12,17 @@ static int check_colision(ray_casting_t *ray_struct, game_t **game)
     if (ray_struct->test_y >= 0 && ray_struct->test_y < (*game)->map.height &&
         ray_struct->test_x >= 0 && ray_struct->test_x <
         (int)strlen((*game)->map.map2D[(ray_struct->test_y)])) {
-        ray_struct->offset_x =
-        ray_struct->x - (ray_struct->test_x * TILE_SIZE + TILE_SIZE / 2);
-        ray_struct->offset_y =
-        ray_struct->y - (ray_struct->test_y * TILE_SIZE + TILE_SIZE / 2);
+        ray_struct->offset_x = ray_struct->x - ((float)ray_struct->test_x
+        * (float)TILE_SIZE + (float)TILE_SIZE / 2.0);
+        ray_struct->offset_y = ray_struct->y - ((float)ray_struct->test_y
+        * (float)TILE_SIZE + (float)TILE_SIZE / 2.0);
         return 1;
     }
     if (is_wall((*game), ray_struct->x, ray_struct->y) == 1) {
-        ray_struct->offset_x =
-        ray_struct->x - (ray_struct->test_x * TILE_SIZE + TILE_SIZE / 2);
-        ray_struct->offset_y =
-        ray_struct->y - (ray_struct->test_y * TILE_SIZE + TILE_SIZE / 2);
+        ray_struct->offset_x = ray_struct->x - ((float)ray_struct->test_x
+        * (float)TILE_SIZE + (float)TILE_SIZE / 2.0);
+        ray_struct->offset_y = ray_struct->y - ((float)ray_struct->test_y
+        * (float)TILE_SIZE + (float)TILE_SIZE / 2.0);
         return 1;
     }
     return 0;

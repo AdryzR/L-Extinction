@@ -45,15 +45,13 @@ static void analyse_key_press(game_t *game)
     if (game->key.shift == true)
         b = 3;
     if (game->key.S == true) {
-        if (is_wall(game, game->player->x - PLAYER_COS_MOVE,
-            game->player->y - PLAYER_SIN_MOVE) == 0) {
+        if (check_back_collision(game, b) == false) {
             game->player->x -= PLAYER_COS_MOVE * b;
             game->player->y -= PLAYER_SIN_MOVE * b;
         }
     }
     if (game->key.Z == true) {
-        if (is_wall(game, game->player->x + PLAYER_COS_MOVE,
-            game->player->y + PLAYER_SIN_MOVE) == 0) {
+        if (check_front_collision(game, b) == false) {
             game->player->x += PLAYER_COS_MOVE * b;
             game->player->y += PLAYER_SIN_MOVE * b;
         }
@@ -79,7 +77,7 @@ int display_loop(game_t *game)
 
     cast_all_rays(game->player, &game);
     while (sfRenderWindow_isOpen(game->windows.windows)) {
-        game->i = get_action_time(game->clock, 0.001, &game->lastchance);
+        game->i = get_action_time(game->clock, 0.01, &game->lastchance);
         while (sfRenderWindow_pollEvent(game->windows.windows, &event))
             analyse_events(game, event);
         if (game->i == true)
@@ -88,7 +86,7 @@ int display_loop(game_t *game)
             game->player->angle -= 360;
         if (game->player->angle < -360)
             game->player->angle += 360;
-        if (is_movement(&game->key) == true)
+        if (is_movement(&game->key) == true && game->i == true)
             cast_all_rays(game->player, &game);
         if (display_main(game) == 84)
             return 84;

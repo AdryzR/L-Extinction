@@ -67,15 +67,15 @@ static void draw_wall(linked_list_t *temp, game_t *game)
     int temp_data = 0;
 
     for (float x = 0.0; x < WINDOW_WIDTH && temp; ++x) {
+        if (x != 0.0 && (int)x % 5 == 0)
+            temp = temp->next;
         if (temp->object->id < 0) {
             draw_floor_and_ceiling(game, x, temp_data);
-            temp = temp->next;
             continue;
         }
         temp_data = temp->object->data;
         render_wall_column(game, x, temp->object->data, set_wall_color(temp->
         object->offset_x, temp->object->offset_y));
-        temp = temp->next;
     }
 }
 
