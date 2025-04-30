@@ -74,6 +74,8 @@ typedef struct {
     bool gunshot;
     sfIntRect rect;
     float last;
+    sfSound *shot_sound;
+    sfSoundBuffer *shot_soundbuffer;
 } gunshot_t;
 
 typedef struct game_s {
