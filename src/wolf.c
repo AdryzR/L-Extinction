@@ -9,26 +9,32 @@
 
 static sfTexture **init_texture(void)
 {
-    sfTexture **texture = malloc(sizeof(sfTexture *) * (3));
+    sfTexture **texture = malloc(sizeof(sfTexture *) * (4));
 
-    texture[0] = sfTexture_createFromFile(WALL, NULL);
+    texture[0] = sfTexture_createFromFile(WALL_N, NULL);
     texture[1] = sfTexture_createFromFile(SHOT, NULL);
-    texture[2] = NULL;
+    texture[2] = sfTexture_createFromFile(WALL_S, NULL);
+    texture[3] = NULL;
     return texture;
 }
 
 int wolf(game_t *game)
 {
     int state = menu(game);
-    sfTexture **texture = init_texture();
+    sfTexture **texture;
 
-    if (state == 1)
+    if (state == 1) {
+        free_tab(game->map.map2D);
         return 0;
-    if (state == 84)
+    }
+    if (state == 84) {
+        free_tab(game->map.map2D);
         return 84;
+    }
+    texture = init_texture();
     if (init_main(game, texture) == 84)
         return 84;
-    display_loop(game);
+    display_loop(game, texture);
     destroy_main(game, texture);
     return 0;
 }

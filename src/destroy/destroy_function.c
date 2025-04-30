@@ -28,15 +28,21 @@ void destroy_text(text_t *text)
 void destroy_fx(game_t *game)
 {
     sfClock_destroy(game->clock);
-    free(game->wall_height);
     sfSprite_destroy(game->shot_struct.shot);
+    sfSoundBuffer_destroy(game->shot_struct.shot_soundbuffer);
+    sfSound_destroy(game->shot_struct.shot_sound);
 }
 
 void destroy_main(game_t *game, sfTexture **texture)
 {
     destroy_window(game);
+    if (game->wall_height)
+        free_linklist(game->wall_height);
+    free_tab(game->map.map2D);
+    free(game->player);
     destroy_map(game, texture[0]);
     sfTexture_destroy(texture[1]);
+    sfTexture_destroy(texture[2]);
     free(texture);
     destroy_fx(game);
 }

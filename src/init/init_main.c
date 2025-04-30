@@ -63,6 +63,7 @@ int init_main(game_t *game, sfTexture **texture)
         destroy_window(game);
         sfTexture_destroy(texture[0]);
         sfTexture_destroy(texture[1]);
+        sfTexture_destroy(texture[2]);
         free(texture);
         destroy_fx(game);
         return 84;

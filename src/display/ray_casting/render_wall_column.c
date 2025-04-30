@@ -8,13 +8,10 @@
 #include "proto.h"
 
 void draw_vertex(game_t *game, sfVertexArray *vertex_sky,
-    sfVertexArray *vertex_floor, sfVertexArray *vertex_array)
+    sfVertexArray *vertex_floor)
 {
-    sfVertexArray_setPrimitiveType(vertex_array, sfLinesStrip);
-    sfRenderWindow_drawVertexArray(game->windows.windows, vertex_array, NULL);
     sfRenderWindow_drawVertexArray(game->windows.windows, vertex_floor, NULL);
     sfRenderWindow_drawVertexArray(game->windows.windows, vertex_sky, NULL);
-    sfVertexArray_destroy(vertex_array);
     sfVertexArray_destroy(vertex_sky);
     sfVertexArray_destroy(vertex_floor);
 }
@@ -43,18 +40,53 @@ sfVertexArray *create_floor(float column, float bottom)
     return vertex_floor;
 }
 
+static sfVertex *init_quad(game_t *game, float column, sfTexture *wall_texture,
+    float wall_height)
+{
+    float top = (WINDOW_HEIGHT / wall_height) + game->camera_y;
+    float bottom = top + wall_height;
+    float texU = ((int)column % TILE_SIZE) /
+    TILE_SIZE * sfTexture_getSize(wall_texture).x;
+    sfVertex *quad = malloc(sizeof(sfVertex) * 4);
+
+    quad[0].position = (sfVector2f){column, top};
+    quad[1].position = (sfVector2f){column + 1, top};
+    quad[2].position = (sfVector2f){column + 1, bottom};
+    quad[3].position = (sfVector2f){column, bottom};
+    quad[0].texCoords = (sfVector2f){texU, 0};
+    quad[1].texCoords = (sfVector2f){texU, 0};
+    quad[2].texCoords = (sfVector2f){texU, sfTexture_getSize(wall_texture).y};
+    quad[3].texCoords = (sfVector2f){texU, sfTexture_getSize(wall_texture).y};
+    quad[0].color = sfColor_fromRGBA(255, 255, 255, 255);
+    quad[1].color = sfColor_fromRGBA(255, 255, 255, 255);
+    quad[2].color = sfColor_fromRGBA(255, 255, 255, 255);
+    quad[3].color = sfColor_fromRGBA(255, 255, 255, 255);
+    return quad;
+}
+
+static void manage_quad(game_t *game, float column,
+    float wall_height, sfTexture *wall_texture)
+{
+    sfVertex *quad =
+    init_quad(game, column, wall_texture, wall_height);
+    sfRenderStates states = {0};
+
+    states.texture = wall_texture;
+    states.blendMode = sfBlendAlpha;
+    states.transform = sfTransform_Identity;
+    sfRenderWindow_drawPrimitives(game->windows.windows, quad, 4,
+    sfQuads, &states);
+    free(quad);
+}
+
 void render_wall_column(game_t *game, float column,
-    float wall_height, sfColor color)
+    float wall_height, sfTexture *wall_texture)
 {
     float top = (WINDOW_HEIGHT / wall_height) + game->camera_y;
     float bottom = top + wall_height;
     sfVertexArray *vertex_sky = create_sky(top, column);
     sfVertexArray *vertex_floor = create_floor(column, bottom);
-    sfVertexArray *vertex_array = sfVertexArray_create();
-    sfVertex vertex1 = {{column, top}, color, {0, 0}};
-    sfVertex vertex2 = {{column, bottom}, color, {0, 0}};
 
-    sfVertexArray_append(vertex_array, vertex1);
-    sfVertexArray_append(vertex_array, vertex2);
-    draw_vertex(game, vertex_sky, vertex_floor, vertex_array);
+    manage_quad(game, column, wall_height, wall_texture);
+    draw_vertex(game, vertex_sky, vertex_floor);
 }

@@ -11,7 +11,8 @@
     #define WINDOW_WIDTH 1920
     #define M_PI 3.14
     #define FOV 60 * (M_PI / 180)
-    #define WALL "assets/wall.bmp"
+    #define WALL_N "assets/wall64.jpg"
+    #define WALL_S "assets/wall.bmp"
     #define SHOT "assets/fx/explosion_no_background.png"
     #define SHOT_SOUND "assets/fx/Gunshot Sound Effect Single Shot.mp3"
     #define MENU "assets/background/menu.png"

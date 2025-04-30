@@ -122,7 +122,7 @@ void free_tab(char **tab);
 
 void print_tab(char **tab);
 
-void free_object(list_object_t *object);
+list_object_t *free_object(list_object_t *object);
 
 int push_to_begin_list(linked_list_t **begin, list_object_t *object);
 

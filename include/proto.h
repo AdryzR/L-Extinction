@@ -54,9 +54,9 @@ int init_text_quit(text_t *text_quit);
 
 int init_window(game_t *game);
 
-int display_loop(game_t *game);
+int display_loop(game_t *game, sfTexture **texture);
 
-int display_main(game_t *game);
+int display_main(game_t *game, sfTexture **texture);
 
 void display_window(game_t *game);
 
@@ -83,27 +83,6 @@ bool calcul_screen_loc(sfVector2f plane_position, sfVector2f screen_part,
 
 plane_t *move_pln(plane_t *current, plane_t **head);
 
-void del_funct_bis(plane_t *prev,
-    plane_t **current, plane_t **begin);
-
-void display_plane_bot_left(plane_t *prev_left, plane_t **cur_left,
-    game_t *game, entity_t *entity);
-
-void display_plane_bot_right(plane_t *prev_right, plane_t **cur_right,
-    game_t *game, entity_t *entity);
-
-void display_plane_top_left(plane_t *prev_left, plane_t **cur_left,
-    game_t *game, entity_t *entity);
-
-void display_plane_top_right(plane_t *prev_right, plane_t **cur_right,
-    game_t *game, entity_t *entity);
-
-float calculate_angle(sfVector2f *direction, plane_t *plane);
-
-void rotation(entity_t *entity, plane_t *plane);
-
-void display_plane_bis(game_t *game, plane_t *current, entity_t *entity);
-
 player_t *init_player(game_t *game, player_t *player);
 
 int init_map(game_t *game, sfTexture *texture);
@@ -128,7 +107,7 @@ int is_wall(game_t *game, int x, int y);
 ray_casting_t *cast_single_ray(ray_casting_t *ray_struct, game_t **game);
 
 void render_wall_column(game_t *game, float column,
-    float wall_height, sfColor color);
+    float wall_height, sfTexture *wall_texture);
 
 void cast_all_rays(player_t *player, game_t **game);
 
@@ -140,7 +119,7 @@ int wolf(game_t *game);
 
 int menu(game_t *game);
 
-sfColor set_wall_color(float offset_x, float offset_y);
+sfTexture *set_wall_color(float offset_x, float offset_y, sfTexture **texture);
 
 bool is_movement(key_struct_t *key);
 
