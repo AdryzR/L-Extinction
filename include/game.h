@@ -67,6 +67,7 @@ typedef struct {
     bool Up;
     bool Down;
     bool shift;
+    bool Echap;
 } key_struct_t;
 
 typedef struct game_s {

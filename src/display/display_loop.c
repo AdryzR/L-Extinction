@@ -35,6 +35,8 @@ static game_t *analyse_other_key_press(game_t *game, int b)
         game->player->angle -= PLAYER_ROTATION_SPEED * b;
     if (game->key.D == true)
         game->player->angle += PLAYER_ROTATION_SPEED * b;
+    if (game->key.Echap == true)
+        open_settings(game);
     return game;
 }
 
