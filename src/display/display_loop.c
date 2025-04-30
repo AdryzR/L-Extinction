@@ -65,6 +65,9 @@ static void analyse_events(game_t *game, sfEvent event)
         sfRenderWindow_close(game->windows.windows);
         return;
     }
+    if (event.type == sfEvtMouseButtonPressed &&
+    sfMouse_isButtonPressed(sfMouseLeft) == sfTrue)
+        game->shot_struct.gunshot = true;
     if (event.type == sfEvtKeyPressed)
         analyse_key(game, event, true);
     if (event.type == sfEvtKeyReleased)

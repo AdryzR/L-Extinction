@@ -12,6 +12,7 @@
     #define M_PI 3.14
     #define FOV 60 * (M_PI / 180)
     #define WALL "assets/wall.bmp"
+    #define SHOT "assets/fx/explosion_no_background.png"
     #define MENU "assets/background/menu.png"
     #define TOWER "assets/entity/tower.png"
     #define PLANE "assets/entity/plane.png"

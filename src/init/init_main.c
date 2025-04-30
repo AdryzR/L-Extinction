@@ -14,7 +14,7 @@ static key_struct_t init_key(void)
     return key;
 }
 
-static int init_fx(game_t *game)
+static int init_fx(game_t *game, sfTexture *shot)
 {
     game->clock = sfClock_create();
     if (!game->clock)
@@ -23,15 +23,26 @@ static int init_fx(game_t *game)
     game->multiplicator = 1;
     game->camera_y = 100.0;
     game->key = init_key();
+    game->shot_struct.gunshot = false;
+    game->shot_struct.shot = sfSprite_create();
+    sfSprite_setTexture(game->shot_struct.shot, shot, sfTrue);
+    sfSprite_setOrigin(game->shot_struct.shot, (sfVector2f){682 / 2, 682 / 2});
+    sfSprite_setPosition(game->shot_struct.shot,
+    (sfVector2f){WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2});
     game->wall_height = NULL;
+    game->shot_struct.rect.top = 0;
+    game->shot_struct.rect.left = 0;
+    game->shot_struct.rect.height = 682;
+    game->shot_struct.rect.width = 682;
     return 0;
 }
 
 int init_main(game_t *game, sfTexture **texture)
 {
-    if (init_fx(game) == 84) {
+    if (init_fx(game, texture[1]) == 84) {
         destroy_window(game);
         sfTexture_destroy(texture[0]);
+        sfTexture_destroy(texture[1]);
         free(texture);
         destroy_fx(game);
         return 84;

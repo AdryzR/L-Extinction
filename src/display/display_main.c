@@ -79,6 +79,21 @@ static void draw_wall(linked_list_t *temp, game_t *game)
     }
 }
 
+static void display_shot(sfRenderWindow *window, gunshot_t *shot_struct,
+    game_t *game)
+{
+    sfSprite_setTextureRect(shot_struct->shot, shot_struct->rect);
+    sfRenderWindow_drawSprite(window, shot_struct->shot,
+    NULL);
+    if (get_action_time(game->clock, 0.05, &game->lastchancebis) == false)
+        return;
+    shot_struct->rect.left += 682;
+    if (shot_struct->rect.left >= 682 * 3) {
+        shot_struct->gunshot = false;
+        shot_struct->rect.left = 0;
+    }
+}
+
 int display_main(game_t *game)
 {
     linked_list_t *temp = game->wall_height;
@@ -87,6 +102,8 @@ int display_main(game_t *game)
     draw_wall(temp, game);
     display_map(game);
     draw_player(game);
+    if (game->shot_struct.gunshot == true)
+        display_shot(game->windows.windows, &game->shot_struct, game);
     sfRenderWindow_display(game->windows.windows);
     return 0;
 }

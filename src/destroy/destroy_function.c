@@ -29,12 +29,14 @@ void destroy_fx(game_t *game)
 {
     sfClock_destroy(game->clock);
     free(game->wall_height);
+    sfSprite_destroy(game->shot_struct.shot);
 }
 
 void destroy_main(game_t *game, sfTexture **texture)
 {
     destroy_window(game);
     destroy_map(game, texture[0]);
+    sfTexture_destroy(texture[1]);
     free(texture);
     destroy_fx(game);
 }

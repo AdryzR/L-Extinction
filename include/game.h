@@ -69,11 +69,18 @@ typedef struct {
     bool shift;
 } key_struct_t;
 
+typedef struct {
+    sfSprite *shot;
+    bool gunshot;
+    sfIntRect rect;
+} gunshot_t;
+
 typedef struct game_s {
     windows_t windows;
     sfSound *sound;
     sfSoundBuffer *sound_buffer;
     int multiplicator;
+    gunshot_t shot_struct;
     text_t text;
     int time;
     linked_list_t *wall_height;
