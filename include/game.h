@@ -73,6 +73,7 @@ typedef struct {
     sfSprite *shot;
     bool gunshot;
     sfIntRect rect;
+    float last;
 } gunshot_t;
 
 typedef struct game_s {
@@ -82,12 +83,10 @@ typedef struct game_s {
     int multiplicator;
     gunshot_t shot_struct;
     text_t text;
-    int time;
     linked_list_t *wall_height;
     sfSprite *wall;
     sfClock *clock;
     float lastchance;
-    float lastchancebis;
     bool i;
     float camera_y;
     player_t *player;

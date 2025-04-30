@@ -85,7 +85,7 @@ static void display_shot(sfRenderWindow *window, gunshot_t *shot_struct,
     sfSprite_setTextureRect(shot_struct->shot, shot_struct->rect);
     sfRenderWindow_drawSprite(window, shot_struct->shot,
     NULL);
-    if (get_action_time(game->clock, 0.05, &game->lastchancebis) == false)
+    if (get_action_time(game->clock, 0.05, &shot_struct->last) == false)
         return;
     shot_struct->rect.left += 682;
     if (shot_struct->rect.left >= 682 * 3) {
