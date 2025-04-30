@@ -91,6 +91,7 @@ typedef struct game_s {
     float lastchance;
     bool i;
     float camera_y;
+    object_t weapon;
     player_t *player;
     map_t map;
     key_struct_t key;

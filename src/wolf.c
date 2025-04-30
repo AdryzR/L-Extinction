@@ -9,12 +9,13 @@
 
 static sfTexture **init_texture(void)
 {
-    sfTexture **texture = malloc(sizeof(sfTexture *) * (4));
+    sfTexture **texture = malloc(sizeof(sfTexture *) * (5));
 
     texture[0] = sfTexture_createFromFile(WALL_N, NULL);
     texture[1] = sfTexture_createFromFile(SHOT, NULL);
     texture[2] = sfTexture_createFromFile(WALL_S, NULL);
-    texture[3] = NULL;
+    texture[3] = sfTexture_createFromFile(WEAPON, NULL);
+    texture[4] = NULL;
     return texture;
 }
 

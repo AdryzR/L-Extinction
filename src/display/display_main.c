@@ -104,6 +104,8 @@ int display_main(game_t *game, sfTexture **texture)
     draw_player(game);
     if (game->shot_struct.gunshot == true)
         display_shot(game->windows.windows, &game->shot_struct, game);
+    sfRenderWindow_drawSprite(game->windows.windows,
+    game->weapon.sprite, NULL);
     sfRenderWindow_display(game->windows.windows);
     return 0;
 }

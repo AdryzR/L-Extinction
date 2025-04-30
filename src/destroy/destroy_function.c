@@ -43,6 +43,8 @@ void destroy_main(game_t *game, sfTexture **texture)
     destroy_map(game, texture[0]);
     sfTexture_destroy(texture[1]);
     sfTexture_destroy(texture[2]);
+    sfTexture_destroy(texture[3]);
+    sfSprite_destroy(game->weapon.sprite);
     free(texture);
     destroy_fx(game);
 }

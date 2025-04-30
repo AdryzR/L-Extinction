@@ -15,6 +15,7 @@
     #define WALL_S "assets/wall.bmp"
     #define SHOT "assets/fx/explosion_no_background.png"
     #define SHOT_SOUND "assets/fx/Gunshot Sound Effect Single Shot.mp3"
+    #define WEAPON "assets/weapon.png"
     #define MENU "assets/background/menu.png"
     #define TOWER "assets/entity/tower.png"
     #define PLANE "assets/entity/plane.png"
