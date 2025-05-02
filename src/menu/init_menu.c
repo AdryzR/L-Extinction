@@ -7,7 +7,7 @@
 
 #include "proto.h"
 
-int init_menu(text_t *text_quit, text_t *text_start, game_t *game,
+int init_menu(button_t *button_quit, button_t *button_start, game_t *game,
     sfTexture *texture_menu)
 {
     if (init_window(game) == 84) {
@@ -18,15 +18,15 @@ int init_menu(text_t *text_quit, text_t *text_start, game_t *game,
         destroy_window_menu(game, texture_menu);
         return 84;
     }
-    if (init_text_start(text_start) == 84) {
+    if (init_button_start(button_start) == 84) {
         destroy_window_menu(game, texture_menu);
-        destroy_text(text_start);
+        destroy_button(button_start);
         return 84;
     }
-    if (init_text_quit(text_quit) == 84) {
+    if (init_button_quit(button_quit) == 84) {
         destroy_window_menu(game, texture_menu);
-        destroy_text(text_start);
-        destroy_text(text_quit);
+        destroy_button(button_start);
+        destroy_button(button_quit);
         return 84;
     }
     return 0;

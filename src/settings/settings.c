@@ -6,11 +6,23 @@
 */
 
 #include "proto.h"
-#include "game.h"
 
-int open_settings(game_t *game)
+bool check_event(game_t *game, sfEvent event)
 {
-    while(true) {
+    if (event.key.code == sfKeyEscape)
+        return false;
+    return true;
+}
+
+void open_settings(game_t *game)
+{
+    sfEvent event;
+    create_button(&game->button, "click here :)", 850, 770);
+
+    for(bool settings = true; (settings = true);) {
+        while (sfRenderWindow_pollEvent(game->windows.windows, &event))
+        settings = check_event(game, event);
         sfRenderWindow_display(game->windows.windows);
     }
+    return;
 }

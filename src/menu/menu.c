@@ -10,19 +10,19 @@
 int menu(game_t *game)
 {
     sfTexture *texture_menu = sfTexture_createFromFile(MENU, NULL);
-    text_t text_start;
-    text_t text_quit;
+    button_t button_start;
+    button_t button_quit;
 
-    if (init_menu(&text_quit, &text_start, game, texture_menu) == 84)
+    if (init_menu(&button_quit, &button_start, game, texture_menu) == 84)
         return 84;
-    if (display_menu_loop(game, &text_start, &text_quit) == 1) {
-        destroy_text(&text_start);
-        destroy_text(&text_quit);
+    if (display_menu_loop(game, &button_start, &button_quit) == 1) {
+        destroy_button(&button_start);
+        destroy_button(&button_quit);
         destroy_window_menu(game, texture_menu);
         return 1;
     }
-    destroy_text(&text_start);
-    destroy_text(&text_quit);
+    destroy_button(&button_start);
+    destroy_button(&button_quit);
     sfTexture_destroy(texture_menu);
     return 0;
 }

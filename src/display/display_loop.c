@@ -23,6 +23,8 @@ static void analyse_key(game_t *game, sfEvent event, bool status)
         game->key.Down = status;
     if (game->key.shift != status && event.key.code == sfKeyLShift)
         game->key.shift = status;
+    if (game->key.Echap != status && event.key.code == sfKeyEscape)
+        game->key.Echap = status;
 }
 
 static game_t *analyse_other_key_press(game_t *game, int b)

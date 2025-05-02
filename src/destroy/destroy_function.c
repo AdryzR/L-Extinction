@@ -19,10 +19,10 @@ void destroy_map(game_t *game, sfTexture *texture_wall)
     sfTexture_destroy(texture_wall);
 }
 
-void destroy_text(text_t *text)
+void destroy_button(button_t *button)
 {
-    sfText_destroy(text->contain);
-    sfFont_destroy(text->font);
+    sfText_destroy(button->contain);
+    sfFont_destroy(button->font);
 }
 
 void destroy_fx(game_t *game)

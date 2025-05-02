@@ -13,8 +13,8 @@ SRC	=			main.c										\
 				src/init/init_sprite.c 						\
 				src/init/init_window.c 						\
 				src/init/init_background.c 					\
-				src/init/init_text_start.c       			\
-				src/init/init_text_quit.c       			\
+				src/init/init_button_start.c       			\
+				src/init/init_button_quit.c       			\
 				src/init/init_object.c		       			\
 				src/display/display_loop.c 					\
 				src/display/display_main.c 					\
@@ -30,7 +30,9 @@ SRC	=			main.c										\
 				src/display/ray_casting/render_wall_column.c\
 				src/is_wall.c								\
 				src/display/draw_player.c					\
-				src/display/check_collision.c
+				src/display/check_collision.c 				\
+				src/settings/settings.c 					\
+				src/init/create_button.c 					\
 
 CFLAGS	+= -g
 
