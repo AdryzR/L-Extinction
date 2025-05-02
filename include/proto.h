@@ -137,4 +137,6 @@ void open_settings(game_t *game);
 
 int create_button(button_t *button, char *text, int x_pos, int y_pos);
 
+key_struct_t init_key(void);
+
 #endif /* PROTO_H_ */
