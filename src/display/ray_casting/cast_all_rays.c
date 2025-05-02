@@ -7,11 +7,11 @@
 
 #include "proto.h"
 
-sfColor set_wall_color(float offset_x, float offset_y)
+sfTexture *set_wall_color(float offset_x, float offset_y, sfTexture **texture)
 {
     if (fabsf(offset_x) > fabsf(offset_y))
-        return sfColor_fromRGB(200, 200, 200);
-    return sfColor_fromRGB(170, 170, 170);
+        return texture[0];
+    return texture[2];
 }
 
 static list_object_t *init_obj(int x, ray_casting_t *ray_struct)

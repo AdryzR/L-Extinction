@@ -7,9 +7,11 @@
 
 #include "my.h"
 
-void free_object(list_object_t *object)
+list_object_t *free_object(list_object_t *object)
 {
-    free(object);
+    if (object)
+        free(object);
+    return NULL;
 }
 
 linked_list_t *free_linklist(linked_list_t *link)
@@ -18,7 +20,7 @@ linked_list_t *free_linklist(linked_list_t *link)
 
     while (link != NULL) {
         to_free = link;
-        free_object(link->object);
+        link->object = free_object(link->object);
         link = link->next;
         free(to_free);
     }

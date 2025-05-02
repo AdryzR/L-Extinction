@@ -11,13 +11,16 @@
     #define WINDOW_WIDTH 1920
     #define M_PI 3.14
     #define FOV 60 * (M_PI / 180)
-    #define WALL "assets/wall.bmp"
+    #define WALL_N "assets/wall64.jpg"
+    #define WALL_S "assets/wall.bmp"
+    #define SHOT "assets/fx/explosion_no_background.png"
+    #define SHOT_SOUND "assets/fx/Gunshot Sound Effect Single Shot.mp3"
+    #define WEAPON "assets/weapon.png"
     #define MENU "assets/background/menu.png"
     #define TOWER "assets/entity/tower.png"
     #define PLANE "assets/entity/plane.png"
     #define FONT "assets/fx/04B_03__.TTF"
     #define CURSOR "assets/fx/cursor.png"
-    #define SOUND "assets/fx/coup.mp3"
     #define RANDOM_MIN 0
     #define RANDOM_MAX 8
     #define PLAYER_ROTATION_SPEED 1 * (M_PI / 180)
