@@ -7,7 +7,7 @@
 
 #include "proto.h"
 
-int create_button(button_t *button,  char *text, int x_pos, int y_pos)
+int create_button(button_t *button, char *text, int x_pos, int y_pos)
 {
     button->contain = sfText_create();
     button->font = sfFont_createFromFile(FONT);

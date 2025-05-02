@@ -17,11 +17,12 @@ bool check_event(game_t *game, sfEvent event)
 void open_settings(game_t *game)
 {
     sfEvent event;
-    create_button(&game->button, "click here :)", 850, 770);
+    bool settings = true;
 
-    for(bool settings = true; (settings = true);) {
+    create_button(&game->button, "click here :)", 850, 770);
+    while (settings) {
         while (sfRenderWindow_pollEvent(game->windows.windows, &event))
-        settings = check_event(game, event);
+            settings = check_event(game, event);
         sfRenderWindow_display(game->windows.windows);
     }
     return;
