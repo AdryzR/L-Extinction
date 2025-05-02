@@ -70,20 +70,29 @@ typedef struct {
     bool Echap;
 } key_struct_t;
 
+typedef struct {
+    sfSprite *shot;
+    bool gunshot;
+    sfIntRect rect;
+    float last;
+    sfSound *shot_sound;
+    sfSoundBuffer *shot_soundbuffer;
+} gunshot_t;
+
 typedef struct game_s {
     windows_t windows;
     sfSound *sound;
     sfSoundBuffer *sound_buffer;
     int multiplicator;
+    gunshot_t shot_struct;
     text_t text;
-    int time;
     linked_list_t *wall_height;
     sfSprite *wall;
     sfClock *clock;
     float lastchance;
-    float lastchancebis;
     bool i;
     float camera_y;
+    object_t weapon;
     player_t *player;
     map_t map;
     key_struct_t key;

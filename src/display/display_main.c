@@ -62,7 +62,7 @@ bool is_movement(key_struct_t *key)
     return false;
 }
 
-static void draw_wall(linked_list_t *temp, game_t *game)
+static void draw_wall(linked_list_t *temp, game_t *game, sfTexture **texture)
 {
     int temp_data = 0;
 
@@ -75,18 +75,37 @@ static void draw_wall(linked_list_t *temp, game_t *game)
         }
         temp_data = temp->object->data;
         render_wall_column(game, x, temp->object->data, set_wall_color(temp->
-        object->offset_x, temp->object->offset_y));
+        object->offset_x, temp->object->offset_y, texture));
     }
 }
 
-int display_main(game_t *game)
+static void display_shot(sfRenderWindow *window, gunshot_t *shot_struct,
+    game_t *game)
+{
+    sfSprite_setTextureRect(shot_struct->shot, shot_struct->rect);
+    sfRenderWindow_drawSprite(window, shot_struct->shot,
+    NULL);
+    if (get_action_time(game->clock, 0.05, &shot_struct->last) == false)
+        return;
+    shot_struct->rect.left += 682;
+    if (shot_struct->rect.left >= 682 * 3) {
+        shot_struct->gunshot = false;
+        shot_struct->rect.left = 0;
+    }
+}
+
+int display_main(game_t *game, sfTexture **texture)
 {
     linked_list_t *temp = game->wall_height;
 
     sfRenderWindow_clear(game->windows.windows, sfBlack);
-    draw_wall(temp, game);
+    draw_wall(temp, game, texture);
     display_map(game);
     draw_player(game);
+    if (game->shot_struct.gunshot == true)
+        display_shot(game->windows.windows, &game->shot_struct, game);
+    sfRenderWindow_drawSprite(game->windows.windows,
+    game->weapon.sprite, NULL);
     sfRenderWindow_display(game->windows.windows);
     return 0;
 }

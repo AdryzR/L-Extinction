@@ -67,30 +67,42 @@ static void analyse_events(game_t *game, sfEvent event)
         sfRenderWindow_close(game->windows.windows);
         return;
     }
+    if (event.type == sfEvtMouseButtonPressed &&
+    sfMouse_isButtonPressed(sfMouseLeft) == sfTrue) {
+        game->shot_struct.gunshot = true;
+        sfSound_play(game->shot_struct.shot_sound);
+    }
     if (event.type == sfEvtKeyPressed)
         analyse_key(game, event, true);
     if (event.type == sfEvtKeyReleased)
         analyse_key(game, event, false);
 }
 
-int display_loop(game_t *game)
+static void manage_loop(game_t *game)
+{
+    if (game->i == true)
+        analyse_key_press(game);
+    if (game->player->angle > 360)
+        game->player->angle -= 360;
+    if (game->player->angle < -360)
+        game->player->angle += 360;
+    if (is_movement(&game->key) == true && game->i == true) {
+        game->wall_height = free_linklist(game->wall_height);
+        cast_all_rays(game->player, &game);
+    }
+}
+
+int display_loop(game_t *game, sfTexture **texture)
 {
     sfEvent event;
 
     cast_all_rays(game->player, &game);
     while (sfRenderWindow_isOpen(game->windows.windows)) {
-        game->i = get_action_time(game->clock, 0.01, &game->lastchance);
+        game->i = get_action_time(game->clock, 0.001, &game->lastchance);
         while (sfRenderWindow_pollEvent(game->windows.windows, &event))
             analyse_events(game, event);
-        if (game->i == true)
-            analyse_key_press(game);
-        if (game->player->angle > 360)
-            game->player->angle -= 360;
-        if (game->player->angle < -360)
-            game->player->angle += 360;
-        if (is_movement(&game->key) == true && game->i == true)
-            cast_all_rays(game->player, &game);
-        if (display_main(game) == 84)
+        manage_loop(game);
+        if (display_main(game, texture) == 84)
             return 84;
     }
     return 0;
