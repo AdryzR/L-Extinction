@@ -5,6 +5,12 @@
 ## Makefile function
 ##
 
+GREEN          = \033[1;32m
+RED            = \033[1;31m
+ILC      	   = \033[3m
+ORANGE         = \033[38;5;214m
+RST            = \033[0m
+
 SRC	=			main.c										\
 				src/wolf.c									\
 				src/init/init_main.c 						\
@@ -41,13 +47,14 @@ NAME    =	wolf3d
 all: make_lib $(NAME)
 
 make_lib:
-	@$(MAKE) -C lib > /dev/null
+	@$(MAKE) -C lib
 
 $(NAME): $(SRC)
 	@gcc -g -o $(NAME)												\
 	$(SRC)																\
 	lib/libmy.a -lcsfml-window -lcsfml-graphics -lcsfml-system -lcsfml-audio \
 	-Wall -Wextra -lm -I include/
+	@printf "$(GREEN)[✅] COMPILED: $(RST) $(ILC)$(NAME)$(RST)\n"
 
 clean:
 	@rm -f lib/my/*.o
@@ -55,19 +62,22 @@ clean:
 	@rm -f lib/my/#*#
 	@rm -f lib/my/flags/*.o
 	@rm -f lib/my/flags/*~
-	@rm -f lib/my/flags/#*#
+	@rm -f lib/my/flags/#*#p
 	@rm -f lib/my/sous_flag/*.o
 	@rm -f lib/my/sous_flag/*~
 	@rm -f lib/my/sous_flag/#*#
 	@rm -f *.o
 	@rm -f *~
 	@rm -f #*#
+	@printf "$(RED)[❌] CLEAN:    $(RST) Removed $(ILC)objects$(RST)\n"
 
 fclean:	clean
 	@rm -f $(NAME)
 	@rm -f lib/libmy.a
+	@printf "$(RED)[❌] FCLEAN:   $(RST) Removed $(ILC)executables$(RST)\n"
 
 re:	fclean all
 
 
 .PHONY: all clean fclean re
+.SILENT:

@@ -5,6 +5,12 @@
 ## Makefile
 ##
 
+GREEN          = \033[1;32m
+RED            = \033[1;31m
+ILC      	   = \033[3m
+ORANGE         = \033[38;5;214m
+RST            = \033[0m
+
 SRC 	=	my/concat_params.c					\
 			my/my_isneg.c						\
 			my/my_rev_list.c 					\
@@ -90,6 +96,8 @@ NAME    =	libmy.a
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rc $(NAME) $(OBJ)
+	@ar rc $(NAME) $(OBJ)
+	@printf "$(GREEN)[✅] COMPILED: $(RST) $(ILC)$(NAME)$(RST)\n"
 
 .PHONY: all
+.SILENT:
