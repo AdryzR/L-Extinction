@@ -7,7 +7,7 @@
 
 #include "proto.h"
 
-static key_struct_t init_key(void)
+key_struct_t init_key(void)
 {
     key_struct_t key = {0};
 

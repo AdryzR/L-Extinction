@@ -48,9 +48,9 @@ int init_main(game_t *game, sfTexture **texture);
 
 int init_background(game_t *game, sfTexture *texture);
 
-int init_text_start(text_t *text_start);
+int init_text_start(button_t *button_start);
 
-int init_text_quit(text_t *text_quit);
+int init_text_quit(button_t *button_start);
 
 int init_window(game_t *game);
 
@@ -87,18 +87,18 @@ player_t *init_player(game_t *game, player_t *player);
 
 int init_map(game_t *game, sfTexture *texture);
 
-void destroy_text(text_t *text);
+void destroy_button(button_t *button);
 
-void update_menu(game_t *game, text_t *text_start, text_t *text_quit);
+void update_menu(game_t *game, button_t *button_start, button_t *button_quit);
 
-int init_text_quit(text_t *text_quit);
+int init_button_quit(button_t *button_quit);
 
-int init_text_start(text_t *text_start);
+int init_button_start(button_t *button_start);
 
-int init_menu(text_t *text_quit, text_t *text_start, game_t *game,
+int init_menu(button_t *button_quit, button_t *button_start, game_t *game,
     sfTexture *texture_menu);
 
-int display_menu_loop(game_t *game, text_t *text_start, text_t *text_quit);
+int display_menu_loop(game_t *game, button_t *, button_t *);
 
 int int_pointer_len(int *pointer);
 
@@ -132,5 +132,11 @@ void draw_player(game_t *game);
 bool check_back_collision(game_t *game, int b);
 
 bool check_front_collision(game_t *game, int b);
+
+void open_settings(game_t *game);
+
+int create_button(button_t *button, char *text, int x_pos, int y_pos);
+
+key_struct_t init_key(void);
 
 #endif /* PROTO_H_ */

@@ -48,11 +48,11 @@ typedef struct windows_s {
     object_t background;
 } windows_t;
 
-typedef struct text_s {
+typedef struct button_s {
     sfFont *font;
     sfText *contain;
     sfFloatRect hitbox;
-} text_t;
+} button_t;
 
 typedef struct {
     char **map2D;
@@ -67,6 +67,7 @@ typedef struct {
     bool Up;
     bool Down;
     bool shift;
+    bool Echap;
 } key_struct_t;
 
 typedef struct {
@@ -84,7 +85,7 @@ typedef struct game_s {
     sfSoundBuffer *sound_buffer;
     int multiplicator;
     gunshot_t shot_struct;
-    text_t text;
+    button_t button;
     linked_list_t *wall_height;
     sfSprite *wall;
     sfClock *clock;
