@@ -98,7 +98,7 @@ int init_button_start(button_t *button_start);
 int init_menu(button_t *button_quit, button_t *button_start, game_t *game,
     sfTexture *texture_menu);
 
-int display_menu_loop(game_t *game, button_t *button_start, button_t *button_quit);
+int display_menu_loop(game_t *game, button_t *, button_t *);
 
 int int_pointer_len(int *pointer);
 
@@ -135,5 +135,6 @@ bool check_front_collision(game_t *game, int b);
 
 void open_settings(game_t *game);
 
-int create_button(button_t *button,  char *text, int x_pos, int y_pos);
+int create_button(button_t *button, char *text, int x_pos, int y_pos);
+
 #endif /* PROTO_H_ */
