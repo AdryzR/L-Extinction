@@ -74,7 +74,7 @@ static void draw_wall(linked_list_t *temp, game_t *game, sfTexture **texture)
             continue;
         }
         temp_data = temp->object->data;
-        render_wall_column(game, x, temp->object->data, set_wall_color(temp->
+        render_wall_column(game, x, temp->object, set_wall_color(temp->
         object->offset_x, temp->object->offset_y, texture));
     }
 }

@@ -22,6 +22,8 @@ static list_object_t *init_obj(int x, ray_casting_t *ray_struct)
     object->data = ray_struct->wall_height;
     object->offset_x = ray_struct->offset_x;
     object->offset_y = ray_struct->offset_y;
+    object->hit_x = fmod(ray_struct->x, TILE_SIZE);
+    object->hit_y = fmod(ray_struct->y, TILE_SIZE);
     return object;
 }
 

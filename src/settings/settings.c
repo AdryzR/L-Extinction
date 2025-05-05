@@ -30,7 +30,8 @@ void open_settings(game_t *game)
         sfRenderWindow_clear(game->windows.windows, sfBlack);
         while (sfRenderWindow_pollEvent(game->windows.windows, &event))
             settings = check_event(game, event);
-        sfRenderWindow_drawText(game->windows.windows, game->button.contain, NULL);
+        sfRenderWindow_drawText(game->windows.windows,
+            game->button.contain, NULL);
         sfRenderWindow_display(game->windows.windows);
     }
     return;

@@ -16,7 +16,7 @@ void draw_vertex(game_t *game, sfVertexArray *vertex_sky,
     sfVertexArray_destroy(vertex_floor);
 }
 
-sfVertexArray *create_sky(float top, float column)
+sfVertexArray *create_sky(float top, int column)
 {
     sfVertexArray *vertex_sky = sfVertexArray_create();
     sfVertex vertex1 = {{column, top}, SKY_BLUE, {0, 0}};
@@ -28,7 +28,7 @@ sfVertexArray *create_sky(float top, float column)
     return vertex_sky;
 }
 
-sfVertexArray *create_floor(float column, float bottom)
+sfVertexArray *create_floor(int column, float bottom)
 {
     sfVertexArray *vertex_floor = sfVertexArray_create();
     sfVertex vertex1 = {{column, bottom}, GREEN_GRASS, {0, 0}};
@@ -40,13 +40,19 @@ sfVertexArray *create_floor(float column, float bottom)
     return vertex_floor;
 }
 
-static sfVertex *init_quad(game_t *game, float column, sfTexture *wall_texture,
-    float wall_height)
+static float init_texu(list_object_t *object, sfTexture *wall_texture)
 {
-    float top = (WINDOW_HEIGHT / wall_height) + game->camera_y;
-    float bottom = top + wall_height;
-    float texU = ((int)column % TILE_SIZE) /
-    TILE_SIZE * sfTexture_getSize(wall_texture).x;
+    if (fabsf(object->offset_x) > fabsf(object->offset_y))
+        return object->hit_y / TILE_SIZE * sfTexture_getSize(wall_texture).x;
+    return object->hit_x / TILE_SIZE * sfTexture_getSize(wall_texture).y;
+}
+
+static sfVertex *init_quad(game_t *game, int column, sfTexture *wall_texture,
+    list_object_t *object)
+{
+    float top = (WINDOW_HEIGHT / object->data) + game->camera_y;
+    float bottom = top + object->data;
+    float texU = init_texu(object, wall_texture);
     sfVertex *quad = malloc(sizeof(sfVertex) * 4);
 
     quad[0].position = (sfVector2f){column, top};
@@ -54,8 +60,9 @@ static sfVertex *init_quad(game_t *game, float column, sfTexture *wall_texture,
     quad[2].position = (sfVector2f){column + 1, bottom};
     quad[3].position = (sfVector2f){column, bottom};
     quad[0].texCoords = (sfVector2f){texU, 0};
-    quad[1].texCoords = (sfVector2f){texU, 0};
-    quad[2].texCoords = (sfVector2f){texU, sfTexture_getSize(wall_texture).y};
+    quad[1].texCoords = (sfVector2f){texU + 1, 0};
+    quad[2].texCoords = (sfVector2f){texU + 1,
+    sfTexture_getSize(wall_texture).y};
     quad[3].texCoords = (sfVector2f){texU, sfTexture_getSize(wall_texture).y};
     quad[0].color = sfColor_fromRGBA(255, 255, 255, 255);
     quad[1].color = sfColor_fromRGBA(255, 255, 255, 255);
@@ -64,11 +71,11 @@ static sfVertex *init_quad(game_t *game, float column, sfTexture *wall_texture,
     return quad;
 }
 
-static void manage_quad(game_t *game, float column,
-    float wall_height, sfTexture *wall_texture)
+static void manage_quad(game_t *game, int column,
+    list_object_t *object, sfTexture *wall_texture)
 {
     sfVertex *quad =
-    init_quad(game, column, wall_texture, wall_height);
+    init_quad(game, column, wall_texture, object);
     sfRenderStates states = {0};
 
     states.texture = wall_texture;
@@ -79,14 +86,14 @@ static void manage_quad(game_t *game, float column,
     free(quad);
 }
 
-void render_wall_column(game_t *game, float column,
-    float wall_height, sfTexture *wall_texture)
+void render_wall_column(game_t *game, int column,
+    list_object_t *object, sfTexture *wall_texture)
 {
-    float top = (WINDOW_HEIGHT / wall_height) + game->camera_y;
-    float bottom = top + wall_height;
+    float top = (WINDOW_HEIGHT / object->data) + game->camera_y;
+    float bottom = top + object->data;
     sfVertexArray *vertex_sky = create_sky(top, column);
     sfVertexArray *vertex_floor = create_floor(column, bottom);
 
-    manage_quad(game, column, wall_height, wall_texture);
+    manage_quad(game, column, object, wall_texture);
     draw_vertex(game, vertex_sky, vertex_floor);
 }

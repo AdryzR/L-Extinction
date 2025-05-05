@@ -106,8 +106,8 @@ int is_wall(game_t *game, int x, int y);
 
 ray_casting_t *cast_single_ray(ray_casting_t *ray_struct, game_t **game);
 
-void render_wall_column(game_t *game, float column,
-    float wall_height, sfTexture *wall_texture);
+void render_wall_column(game_t *game, int column,
+    list_object_t *object, sfTexture *wall_texture);
 
 void cast_all_rays(player_t *player, game_t **game);
 
@@ -123,9 +123,9 @@ sfTexture *set_wall_color(float offset_x, float offset_y, sfTexture **texture);
 
 bool is_movement(key_struct_t *key);
 
-sfVertexArray *create_floor(float column, float bottom);
+sfVertexArray *create_floor(int column, float bottom);
 
-sfVertexArray *create_sky(float top, float column);
+sfVertexArray *create_sky(float top, int column);
 
 void draw_player(game_t *game);
 

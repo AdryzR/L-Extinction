@@ -13,6 +13,8 @@ typedef struct list_object_s {
     float data;
     float offset_x;
     float offset_y;
+    float hit_y;
+    float hit_x;
 } list_object_t;
 
 typedef struct linked_list_s {
