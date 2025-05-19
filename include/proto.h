@@ -58,6 +58,8 @@ int display_loop(game_t *game, sfTexture **texture);
 
 int display_main(game_t *game, sfTexture **texture);
 
+void update_hp(game_t *game);
+
 void display_window(game_t *game);
 
 void update_plane(plane_t *plane, game_t *game, plane_t **origin,
