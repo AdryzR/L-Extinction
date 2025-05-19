@@ -20,6 +20,18 @@ static player_t *find_player_coord(game_t *game, player_t *player, int i)
     return player;
 }
 
+static void init_player_ui(player_t *player)
+{
+    player->ammo_txt = sfText_create();
+    player->hp_txt = sfText_create();
+    player->font = sfFont_createFromFile(UI_FONT);
+    player->hp_texture = sfTexture_createFromFile(HP_DEFAULT, NULL);
+    sfText_setFont(player->ammo_txt, player->font);
+    sfText_setFont(player->hp_txt, player->font);
+    sfText_setPosition(player->ammo_txt, (sfVector2f){1860.0, 950.0});
+    sfText_setPosition(player->hp_txt, (sfVector2f){1860.0, 1000.0});
+}
+
 player_t *init_player(game_t *game, player_t *player)
 {
     if (!player)
@@ -31,14 +43,8 @@ player_t *init_player(game_t *game, player_t *player)
         player = find_player_coord(game, player, i);
     if (player->x == -1 && player->y == -1)
         return NULL;
-    player->ammo = 50;
-    player->hp = 100;
-    player->ammo_txt = sfText_create();
-    player->hp_txt = sfText_create();
-    player->font = sfFont_createFromFile("./assets/arial.ttf");
-    sfText_setFont(player->ammo_txt, player->font);
-    sfText_setFont(player->hp_txt, player->font);
-    sfText_setPosition(player->ammo_txt, (sfVector2f){1800.0, 30.0});
-    sfText_setPosition(player->hp_txt, (sfVector2f){1800.0, 50.0});
+    player->ammo = DEFAULT_AMMO;
+    player->hp = DEFAULT_HP;
+    init_player_ui(player);
     return player;
 }

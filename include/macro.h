@@ -32,5 +32,9 @@
     #define PLAYER_SIN_MOVE PLAYER_MOVE_SPEED * PLAYER_SIN
     #define SKY_BLUE sfColor_fromRGB(135, 206, 235)
     #define GREEN_GRASS sfColor_fromRGB(34, 139, 34)
+    #define HP_DEFAULT "assets/ui/heart_100.png"
+    #define UI_FONT "assets/arial.ttf"
+    #define DEFAULT_AMMO 50
+    #define DEFAULT_HP 100
 
 #endif /* MACRO_H_ */

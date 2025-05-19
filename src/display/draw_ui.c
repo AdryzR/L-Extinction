@@ -14,11 +14,8 @@ void draw_ui(game_t *game)
     char *ammo = uint_to_str(pl->ammo);
     char *hp = uint_to_str(pl->hp);
 
-    fprintf(stderr, "ammo = %s\n", ammo);
-    fprintf(stderr, "hp = %s\n", hp);
     if (!ammo || !hp)
         return;
-    fprintf(stderr, "GROSCACA\n");
     sfText_setString(pl->ammo_txt, ammo);
     sfText_setString(pl->hp_txt, hp);
     sfRenderWindow_drawText(game->windows.windows, pl->ammo_txt, NULL);
