@@ -32,6 +32,8 @@ typedef struct {
     sfText *hp_txt;
     sfTexture *hp_texture;
     sfTexture *ammo_texture;
+    sfSprite *hp_sprite;
+    sfSprite *ammo_sprite;
 } player_t;
 
 typedef struct {

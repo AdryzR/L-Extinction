@@ -25,11 +25,18 @@ static void init_player_ui(player_t *player)
     player->ammo_txt = sfText_create();
     player->hp_txt = sfText_create();
     player->font = sfFont_createFromFile(UI_FONT);
-    player->hp_texture = sfTexture_createFromFile(HP_DEFAULT, NULL);
+    player->hp_texture = sfTexture_createFromFile(HP_ASSET, NULL);
+    player->ammo = sfTexture_createFromFile(AMMO_ASSET, NULL);
+    player->ammo_sprite = sfSprite_create();
+    player->hp_sprite = sfSprite_create();
+    sfSprite_setTexture(player->hp_sprite, player->hp_texture, false);
+    sfSprite_setTexture(player->ammo_sprite, player->ammo_texture, false);
     sfText_setFont(player->ammo_txt, player->font);
     sfText_setFont(player->hp_txt, player->font);
     sfText_setPosition(player->ammo_txt, (sfVector2f){1860.0, 950.0});
     sfText_setPosition(player->hp_txt, (sfVector2f){1860.0, 1000.0});
+    sfSprite_setPosition(player->ammo_sprite, (sfVector2f){1800.0, 950.0});
+    sfSprite_setPosition(player->hp_sprite, (sfVector2f){1800.0, 1000.0});
 }
 
 player_t *init_player(game_t *game, player_t *player)
