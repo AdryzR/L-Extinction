@@ -13,7 +13,7 @@ static player_t *find_player_coord(game_t *game, player_t *player, int i)
         if (game->map.map2D[i][k] == 'P') {
             player->x = k * TILE_SIZE;
             player->y = i * TILE_SIZE;
-            player->angle = 0.0f;
+            player->camera_x = 0.0f;
             return player;
         }
     }
@@ -41,19 +41,20 @@ static void init_player_ui(player_t *player)
     sfSprite_setScale(player->ammo_sprite, (sfVector2f){2.0, 1.5});
 }
 
-player_t *init_player(game_t *game, player_t *player)
+int init_player(game_t *game, player_t *player)
 {
     if (!player)
-        return NULL;
+        return 84;
     player->x = -1;
     player->y = -1;
+    player->camera_y = 100.0;
     print_tab(game->map.map2D);
     for (int i = 0; game->map.map2D[i]; ++i)
         player = find_player_coord(game, player, i);
     if (player->x == -1 && player->y == -1)
-        return NULL;
+        return 84;
     player->ammo = DEFAULT_AMMO;
     player->hp = DEFAULT_HP;
     init_player_ui(player);
-    return player;
+    return 0;
 }

@@ -29,14 +29,14 @@ static void analyse_key(game_t *game, sfEvent event, bool status)
 
 static game_t *analyse_other_key_press(game_t *game, int b)
 {
-    if (game->key.Down == true && game->camera_y > -200)
-        game->camera_y -= PLAYER_MOVE_SPEED * 2 * b;
-    if (game->key.Up && game->camera_y < 1000)
-        game->camera_y += PLAYER_MOVE_SPEED * 2 * b;
+    if (game->key.Down == true && game->player->camera_y > -200)
+        game->player->camera_y -= PLAYER_MOVE_SPEED * 2 * b;
+    if (game->key.Up && game->player->camera_y < 1000)
+        game->player->camera_y += PLAYER_MOVE_SPEED * 2 * b;
     if (game->key.Q == true)
-        game->player->angle -= PLAYER_ROTATION_SPEED * b;
+        game->player->camera_x -= PLAYER_ROTATION_SPEED * b;
     if (game->key.D == true)
-        game->player->angle += PLAYER_ROTATION_SPEED * b;
+        game->player->camera_x += PLAYER_ROTATION_SPEED * b;
     if (game->key.Echap == true)
         open_settings(game);
     return game;
@@ -86,10 +86,10 @@ static void manage_loop(game_t *game)
 {
     if (game->i == true)
         analyse_key_press(game);
-    if (game->player->angle > 360)
-        game->player->angle -= 360;
-    if (game->player->angle < -360)
-        game->player->angle += 360;
+    if (game->player->camera_x > deg_to_rad(360))
+        game->player->camera_x -= deg_to_rad(360);
+    if (game->player->camera_x < deg_to_rad(-360))
+        game->player->camera_x += deg_to_rad(360);
     if (is_movement(&game->key) == true && game->i == true) {
         game->wall_height = free_linklist(game->wall_height);
         cast_all_rays(game->player, &game);

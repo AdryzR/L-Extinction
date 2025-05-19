@@ -9,7 +9,7 @@
 #include "script.h"
 #include "macro.h"
 #include "enum.h"
-#include "display.h"
+#include "game.h"
 #include "../lib/my/my.h"
 #include <math.h>
 #include <SFML/System.h>
@@ -36,8 +36,6 @@ int open_script(script_t *script, char *filepath, game_t *game);
 
 sfSprite *init_sprite(sfTexture *texture);
 
-entity_t *init_entity(game_t *game, sfTexture **texture, script_t *script);
-
 void destroy_main(game_t *game, sfTexture **texture);
 
 void destroy_window(game_t *game);
@@ -62,15 +60,7 @@ void update_hp(game_t *game);
 
 void display_window(game_t *game);
 
-void update_plane(plane_t *plane, game_t *game, plane_t **origin,
-    entity_t *entity);
-
-void display_entity(game_t *game, entity_t *entity);
-
 bool get_action_time(sfClock *clock, const float every, float *last_action);
-
-void del_funct(plane_t *prev,
-    plane_t **current, plane_t **begin);
 
 int update_timer(game_t *game);
 
@@ -78,14 +68,10 @@ int display_text(game_t *game);
 
 object_t init_object(sfTexture *texture, sfVector2f position);
 
-int update_tower(plane_t **plane, entity_t *entity);
-
 bool calcul_screen_loc(sfVector2f plane_position, sfVector2f screen_part,
     sfVector2f size);
 
-plane_t *move_pln(plane_t *current, plane_t **head);
-
-player_t *init_player(game_t *game, player_t *player);
+int init_player(game_t *game, player_t *player);
 
 int init_map(game_t *game, sfTexture *texture);
 
@@ -104,7 +90,7 @@ int display_menu_loop(game_t *game, button_t *, button_t *);
 
 int int_pointer_len(int *pointer);
 
-int is_wall(game_t *game, int x, int y);
+int is_entity(game_t *game, int x, int y, char c);
 
 ray_casting_t *cast_single_ray(ray_casting_t *ray_struct, game_t **game);
 
@@ -144,5 +130,25 @@ void open_settings(game_t *game);
 int create_button(button_t *button, char *text, int x_pos, int y_pos);
 
 key_struct_t init_key(void);
+
+void manage_quad_floor(game_t *game, int column,
+    list_object_t *object);
+
+float deg_to_rad(float degrees);
+
+float rad_to_deg(float radian);
+
+void draw_fog(game_t *game, int column,
+    list_object_t *object, sfTexture *fog_texture);
+
+void manage_quad(game_t *game, int column,
+    list_object_t *object, sfTexture *wall_texture);
+
+object_t init_object_sprite(sfSprite *sprite, sfVector2f position);
+
+npc_t *init_npc(game_t *game, npc_t *npc);
+
+void draw_vertex(game_t *game, sfVertexArray *vertex_sky,
+    sfVertexArray *vertex_floor);
 
 #endif /* PROTO_H_ */

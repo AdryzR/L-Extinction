@@ -43,7 +43,6 @@ static int init_fx(game_t *game, sfTexture *shot, sfTexture *weapon)
         return 84;
     game->lastchance = 0.0;
     game->multiplicator = 1;
-    game->camera_y = 100.0;
     game->key = init_key();
     game->weapon = init_object(weapon, (sfVector2f)
     {WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2});
@@ -57,6 +56,17 @@ static int init_fx(game_t *game, sfTexture *shot, sfTexture *weapon)
     }
     if (init_shot_struct(&game->shot_struct, shot, game) == 84)
         return 84;
+    return 0;
+}
+
+static int init_other(game_t *game, sfTexture **texture)
+{
+    game->player = malloc(sizeof(player_t));
+    if (init_player(game, game->player) == 84) {
+        destroy_main(game, texture);
+        return 84;
+    }
+    game->npc = init_npc(game, game->npc);
     return 0;
 }
 
@@ -76,10 +86,5 @@ int init_main(game_t *game, sfTexture **texture)
         destroy_main(game, texture);
         return 84;
     }
-    game->player = malloc(sizeof(player_t));
-    if (init_player(game, game->player) == NULL) {
-        destroy_main(game, texture);
-        return 84;
-    }
-    return 0;
+    return init_other(game, texture);
 }

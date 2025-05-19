@@ -34,6 +34,8 @@ typedef struct {
     sfTexture *ammo_texture;
     sfSprite *hp_sprite;
     sfSprite *ammo_sprite;
+    float camera_x;
+    float camera_y;
 } player_t;
 
 typedef struct {
@@ -57,6 +59,13 @@ typedef struct windows_s {
     object_t background;
 } windows_t;
 
+typedef struct npc_s {
+    object_t *zombie;
+    double health;
+    sfIntRect hit_box;
+    struct npc_s *next;
+} npc_t;
+
 typedef struct button_s {
     sfFont *font;
     sfText *contain;
@@ -65,7 +74,7 @@ typedef struct button_s {
 
 typedef struct {
     char **map2D;
-    int height;
+    float height;
 } map_t;
 
 typedef struct {
@@ -96,14 +105,16 @@ typedef struct game_s {
     gunshot_t shot_struct;
     button_t button;
     linked_list_t *wall_height;
+    sfTexture *fog;
     sfSprite *wall;
     sfClock *clock;
     float lastchance;
     bool i;
-    float camera_y;
     object_t weapon;
     player_t *player;
     map_t map;
+    npc_t *npc;
+    sfSprite *zombie;
     key_struct_t key;
 } game_t;
 

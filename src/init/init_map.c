@@ -10,7 +10,8 @@
 static bool line_valid(char *line)
 {
     for (int k = 0; line[k]; ++k) {
-        if (line[k] != '#' && line[k] != ' ' && line[k] != 'P')
+        if (line[k] != '#' && line[k] != ' ' && line[k] != 'P' &&
+            line[k] != 'z')
             return false;
     }
     return true;
@@ -27,9 +28,14 @@ static bool check_map_valid(char **map)
 
 int init_map(game_t *game, sfTexture *texture)
 {
+    int i = 0;
+
     game->wall = init_sprite(texture);
     if (!game->wall)
         return 84;
+    for (; game->map.map2D[i]; ++i)
+        for (int k = 0; game->map.map2D[i][k]; ++k)
+    game->map.height = i;
     sfSprite_setTexture(game->wall, texture, sfTrue);
     if (check_map_valid(game->map.map2D) == false)
         return 84;

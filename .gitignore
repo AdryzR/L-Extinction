@@ -1,5 +1,5 @@
 wolf3d
-map
+map*
 *.o
 libmy.a
 coding-style-reports.log
