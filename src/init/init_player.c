@@ -26,7 +26,7 @@ static void init_player_ui(player_t *player)
     player->hp_txt = sfText_create();
     player->font = sfFont_createFromFile(UI_FONT);
     player->hp_texture = sfTexture_createFromFile(HP_ASSET, NULL);
-    player->ammo = sfTexture_createFromFile(AMMO_ASSET, NULL);
+    player->ammo_texture = sfTexture_createFromFile(AMMO_ASSET, NULL);
     player->ammo_sprite = sfSprite_create();
     player->hp_sprite = sfSprite_create();
     sfSprite_setTexture(player->hp_sprite, player->hp_texture, false);

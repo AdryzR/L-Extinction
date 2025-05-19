@@ -20,6 +20,8 @@ void draw_ui(game_t *game)
     sfText_setString(pl->hp_txt, hp);
     sfRenderWindow_drawText(game->windows.windows, pl->ammo_txt, NULL);
     sfRenderWindow_drawText(game->windows.windows, pl->hp_txt, NULL);
+    sfRenderWindow_drawSprite(game->windows.windows, pl->ammo_sprite, NULL);
+    sfRenderWindow_drawSprite(game->windows.windows, pl->hp_sprite, NULL);
     free(ammo);
     free(hp);
 }
