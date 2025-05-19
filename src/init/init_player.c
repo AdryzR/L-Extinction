@@ -35,8 +35,10 @@ static void init_player_ui(player_t *player)
     sfText_setFont(player->hp_txt, player->font);
     sfText_setPosition(player->ammo_txt, (sfVector2f){1860.0, 950.0});
     sfText_setPosition(player->hp_txt, (sfVector2f){1860.0, 1000.0});
-    sfSprite_setPosition(player->ammo_sprite, (sfVector2f){1800.0, 950.0});
-    sfSprite_setPosition(player->hp_sprite, (sfVector2f){1800.0, 1000.0});
+    sfSprite_setPosition(player->ammo_sprite, (sfVector2f){1750.0, 920.0});
+    sfSprite_setPosition(player->hp_sprite, (sfVector2f){1750.0, 965.0});
+    sfSprite_setScale(player->hp_sprite, (sfVector2f){2.0, 1.8});
+    sfSprite_setScale(player->ammo_sprite, (sfVector2f){2.0, 1.5});
 }
 
 player_t *init_player(game_t *game, player_t *player)
