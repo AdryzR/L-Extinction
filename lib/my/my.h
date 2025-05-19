@@ -104,6 +104,8 @@ char *my_strndup(char const *src, int n);
 
 int my_str_isalphanum(char const *str);
 
+char *uint_to_str(unsigned int value);
+
 void *my_realloc(void *ptr, size_t size);
 
 void *my_memcpy(void *dest, const void *src, size_t n);

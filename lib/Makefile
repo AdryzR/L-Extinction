@@ -43,6 +43,7 @@ SRC 	=	my/concat_params.c					\
 			my/my_showmem.c						\
 			my/my_strdup.c						\
 			my/my_strncat.c						\
+			my/uint_to_str.c					\
 			my/my_showstr.c						\
 			my/my_str_isalpha.c					\
 			my/my_strncmp.c						\

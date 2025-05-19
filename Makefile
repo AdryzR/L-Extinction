@@ -36,6 +36,8 @@ SRC	=			main.c										\
 				src/display/ray_casting/render_wall_column.c\
 				src/is_wall.c								\
 				src/display/draw_player.c					\
+				src/display/draw_ui.c						\
+				src/display/update_ui.c						\
 				src/display/check_collision.c 				\
 				src/settings/settings.c 					\
 				src/init/create_button.c 					\

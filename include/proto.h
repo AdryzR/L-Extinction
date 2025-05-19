@@ -129,6 +129,10 @@ sfVertexArray *create_sky(float top, int column);
 
 void draw_player(game_t *game);
 
+void draw_ui(game_t *game);
+
+void update_ammo(game_t *game);
+
 bool check_back_collision(game_t *game, int b);
 
 bool check_front_collision(game_t *game, int b);

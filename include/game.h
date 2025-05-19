@@ -25,6 +25,11 @@ typedef struct {
     float x;
     float y;
     float angle;
+    unsigned int hp;
+    unsigned int ammo;
+    sfFont *font;
+    sfText *ammo_txt;
+    sfText *hp_txt;
 } player_t;
 
 typedef struct {

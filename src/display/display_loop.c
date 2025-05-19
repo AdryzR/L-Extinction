@@ -72,6 +72,7 @@ static void analyse_events(game_t *game, sfEvent event)
     if (event.type == sfEvtMouseButtonPressed &&
     sfMouse_isButtonPressed(sfMouseLeft) == sfTrue) {
         game->shot_struct.gunshot = true;
+        update_ammo(game);
         sfSound_play(game->shot_struct.shot_sound);
     }
     if (event.type == sfEvtKeyPressed)
