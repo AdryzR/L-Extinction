@@ -9,9 +9,6 @@
 
 void update_ammo(game_t *game)
 {
-    if (game->player->ammo > 0) {
+    if (game->player->ammo > 0)
         game->player->ammo -= 1;
-        return;
-    }
-    game->shot_struct.gunshot = false;
 }
