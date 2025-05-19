@@ -22,9 +22,10 @@ static void draw_map(game_t *game, int x, int y)
 {
     sfRectangleShape* tile = sfRectangleShape_create();
 
-    sfRectangleShape_setSize(tile, (sfVector2f){TILE_SIZE / 2, TILE_SIZE / 2});
+    sfRectangleShape_setSize(tile, (sfVector2f){TILE_SIZE / 6 + 1,
+    TILE_SIZE / 6 + 1});
     sfRectangleShape_setPosition(tile,
-    (sfVector2f){x * TILE_SIZE / 2, y * TILE_SIZE / 2});
+    (sfVector2f){x * TILE_SIZE / 6, y * TILE_SIZE / 6});
     if (game->map.map2D[y][x] == '#')
         sfRectangleShape_setFillColor(tile, sfColor_fromRGB(100, 100, 100));
     else
@@ -43,7 +44,7 @@ static void display_map(game_t *game)
 
 static void draw_floor_and_ceiling(game_t *game, int column, float wall_height)
 {
-    float top = (WINDOW_HEIGHT / wall_height) + game->camera_y;
+    float top = (WINDOW_HEIGHT / wall_height) + game->player->camera_y;
     float bottom = top + wall_height;
     sfVertexArray *vertex_sky = create_sky(top, column);
     sfVertexArray *vertex_floor = create_floor(column, bottom);
@@ -67,10 +68,16 @@ static void draw_wall(linked_list_t *temp, game_t *game, sfTexture **texture)
     int temp_data = 0;
 
     for (float x = 0.0; x < WINDOW_WIDTH && temp; ++x) {
-        if (x != 0.0 && (int)x % 5 == 0)
+        if (x != 0.0 && (int)x % 4 == 0)
             temp = temp->next;
-        if (temp->object->id < 0) {
+        if (temp->object->id == -1) {
             draw_floor_and_ceiling(game, x, temp_data);
+            continue;
+        }
+        if (temp->object->id == -2) {
+            temp->object->data = WALL_DISTANCE / 3.5 * (cosf(fmodf(
+            game->player->camera_x, 2 * M_PI) - temp->object->angle));
+            draw_fog(game, x, temp->object, game->fog);
             continue;
         }
         temp_data = temp->object->data;

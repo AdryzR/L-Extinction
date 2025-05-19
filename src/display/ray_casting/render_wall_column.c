@@ -19,8 +19,8 @@ void draw_vertex(game_t *game, sfVertexArray *vertex_sky,
 sfVertexArray *create_sky(float top, int column)
 {
     sfVertexArray *vertex_sky = sfVertexArray_create();
-    sfVertex vertex1 = {{column, top}, SKY_BLUE, {0, 0}};
-    sfVertex vertex2 = {{column, 0}, SKY_BLUE, {0, 0}};
+    sfVertex vertex1 = {{column, top}, GREY, {0, 0}, };
+    sfVertex vertex2 = {{column, 0}, GREY, {0, 0}};
 
     sfVertexArray_append(vertex_sky, vertex1);
     sfVertexArray_append(vertex_sky, vertex2);
@@ -31,8 +31,8 @@ sfVertexArray *create_sky(float top, int column)
 sfVertexArray *create_floor(int column, float bottom)
 {
     sfVertexArray *vertex_floor = sfVertexArray_create();
-    sfVertex vertex1 = {{column, bottom}, GREEN_GRASS, {0, 0}};
-    sfVertex vertex2 = {{column, WINDOW_HEIGHT}, GREEN_GRASS, {0, 0}};
+    sfVertex vertex1 = {{column, bottom}, LIGHT_GREY, {0, 0}};
+    sfVertex vertex2 = {{column, WINDOW_HEIGHT}, LIGHT_GREY, {0, 0}};
 
     sfVertexArray_append(vertex_floor, vertex1);
     sfVertexArray_append(vertex_floor, vertex2);
@@ -50,9 +50,9 @@ static float init_texu(list_object_t *object, sfTexture *wall_texture)
 static sfVertex *init_quad(game_t *game, int column, sfTexture *wall_texture,
     list_object_t *object)
 {
-    float top = (WINDOW_HEIGHT / object->data) + game->camera_y;
-    float bottom = top + object->data;
-    float texU = init_texu(object, wall_texture);
+    const float top = (WINDOW_HEIGHT / object->data) + game->player->camera_y;
+    const float bottom = top + object->data;
+    const float texU = init_texu(object, wall_texture);
     sfVertex *quad = malloc(sizeof(sfVertex) * 4);
 
     quad[0].position = (sfVector2f){column, top};
@@ -71,7 +71,7 @@ static sfVertex *init_quad(game_t *game, int column, sfTexture *wall_texture,
     return quad;
 }
 
-static void manage_quad(game_t *game, int column,
+void manage_quad(game_t *game, int column,
     list_object_t *object, sfTexture *wall_texture)
 {
     sfVertex *quad =
@@ -89,7 +89,7 @@ static void manage_quad(game_t *game, int column,
 void render_wall_column(game_t *game, int column,
     list_object_t *object, sfTexture *wall_texture)
 {
-    float top = (WINDOW_HEIGHT / object->data) + game->camera_y;
+    float top = (WINDOW_HEIGHT / object->data) + game->player->camera_y;
     float bottom = top + object->data;
     sfVertexArray *vertex_sky = create_sky(top, column);
     sfVertexArray *vertex_floor = create_floor(column, bottom);

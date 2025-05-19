@@ -34,11 +34,14 @@ SRC	=			main.c										\
 				src/display/ray_casting/cast_single_ray.c 	\
 				src/display/ray_casting/deg_to_rad.c		\
 				src/display/ray_casting/render_wall_column.c\
-				src/is_wall.c								\
+				src/is_entity.c								\
 				src/display/draw_player.c					\
 				src/display/check_collision.c 				\
 				src/settings/settings.c 					\
 				src/init/create_button.c 					\
+				src/display/ray_casting/rad_to_deg.c 		\
+				src/init/init_npc.c							\
+				src/display/draw_fog.c
 
 CFLAGS	+= -g
 

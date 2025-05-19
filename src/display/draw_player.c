@@ -11,15 +11,17 @@ void draw_player(game_t *game)
 {
     sfRectangleShape *player_square = sfRectangleShape_create();
     sfVertex line[] = {
-    {(sfVector2f){game->player->x / 2 + 5, game->player->y / 2 + 5},
-    sfRed, {0, 0}}, {{game->player->x / 2 + cos(game->player->angle) * 20 + 5,
-    game->player->y / 2 + sin(game->player->angle) * 20 + 5}, sfRed, {0, 0}}};
+    {(sfVector2f){game->player->x / 6 + 5, game->player->y / 6 + 5},
+    sfRed, {0, 0}}, {{game->player->x / 6 + cos(game->player->camera_x)
+    * 20 + 5, game->player->y / 6 + sin(game->player->camera_x) * 20 + 5},
+    sfRed, {0, 0}}};
 
     sfRenderWindow_drawPrimitives(game->windows.windows,
     line, 2, sfLines, NULL);
     sfRectangleShape_setPosition(player_square,
-    (sfVector2f){game->player->x / 2, game->player->y / 2});
-    sfRectangleShape_setSize(player_square, (sfVector2f){10.0, 10.0});
+    (sfVector2f){game->player->x / 6, game->player->y / 6});
+    sfRectangleShape_setSize(player_square, (sfVector2f)
+    {PLAYER_HEIGHT, PLAYER_HEIGHT});
     sfRectangleShape_setFillColor(player_square, sfGreen);
     sfRenderWindow_drawRectangleShape(game->windows.windows,
     player_square, NULL);
