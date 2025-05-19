@@ -15,6 +15,7 @@ typedef struct list_object_s {
     float offset_y;
     float hit_y;
     float hit_x;
+    float angle;
 } list_object_t;
 
 typedef struct linked_list_s {

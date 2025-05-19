@@ -7,43 +7,55 @@
 
 #include "proto.h"
 
+static int set_offset(ray_casting_t *ray_struct, int return_value)
+{
+        ray_struct->offset_x = ray_struct->x - ((float)ray_struct->test_x
+        * (float)TILE_SIZE + (float)TILE_SIZE / 2.0);
+        ray_struct->offset_y = ray_struct->y - ((float)ray_struct->test_y
+        * (float)TILE_SIZE + (float)TILE_SIZE / 2.0);
+        return return_value;
+}
+
 static int check_colision(ray_casting_t *ray_struct, game_t **game)
 {
-    if (ray_struct->test_y >= 0 && ray_struct->test_y < (*game)->map.height &&
+    if (ray_struct->test_y >= 0 && ray_struct->test_y < 0 &&
         ray_struct->test_x >= 0 && ray_struct->test_x <
-        (int)strlen((*game)->map.map2D[(ray_struct->test_y)])) {
-        ray_struct->offset_x = ray_struct->x - ((float)ray_struct->test_x
-        * (float)TILE_SIZE + (float)TILE_SIZE / 2.0);
-        ray_struct->offset_y = ray_struct->y - ((float)ray_struct->test_y
-        * (float)TILE_SIZE + (float)TILE_SIZE / 2.0);
-        return 1;
-    }
-    if (is_wall((*game), ray_struct->x, ray_struct->y) == 1) {
-        ray_struct->offset_x = ray_struct->x - ((float)ray_struct->test_x
-        * (float)TILE_SIZE + (float)TILE_SIZE / 2.0);
-        ray_struct->offset_y = ray_struct->y - ((float)ray_struct->test_y
-        * (float)TILE_SIZE + (float)TILE_SIZE / 2.0);
-        return 1;
-    }
-    return 0;
+        (int)strlen((*game)->map.map2D[(ray_struct->test_y)]))
+        return set_offset(ray_struct, 1);
+    if (is_entity((*game), ray_struct->x, ray_struct->y, '#') == 1)
+        return set_offset(ray_struct, 1);
+    if (is_entity((*game), ray_struct->x, ray_struct->y, 'Z') == 1)
+        return set_offset(ray_struct, 2);
+    return set_offset(ray_struct, 0);
+}
+
+static void update_distance(int state, ray_casting_t *ray_struct, bool b)
+{
+    if (state == 2)
+        ray_struct->distance_to_wall = -3;
+    if (ray_struct->distance_to_wall > WALL_DISTANCE)
+        ray_struct->distance_to_wall = -2;
+    else if (b == 1)
+        ray_struct->distance_to_wall = -1;
 }
 
 ray_casting_t *cast_single_ray(ray_casting_t *ray_struct, game_t **game)
 {
     bool b = 0;
+    int state = 0;
 
-    while (1) {
+    while (ray_struct->distance_to_wall <= WALL_DISTANCE) {
         b = 0;
         ray_struct->distance_to_wall += 0.1;
         ray_struct->x += cos(ray_struct->angle) * 0.1;
         ray_struct->y += sin(ray_struct->angle) * 0.1;
         ray_struct->test_x = (int)(ray_struct->x / TILE_SIZE);
         ray_struct->test_y = (int)(ray_struct->y / TILE_SIZE);
-        if (check_colision(ray_struct, game) == 1)
+        state = check_colision(ray_struct, game);
+        if (state != 0)
             break;
         b = 1;
     }
-    if (b == 1)
-        ray_struct->distance_to_wall = -1;
+    update_distance(state, ray_struct, b);
     return ray_struct;
 }
