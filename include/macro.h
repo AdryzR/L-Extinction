@@ -31,10 +31,25 @@
     #define PLAYER_SIN sinf(fmodf(game->player->camera_x, 2 * M_PI))
     #define PLAYER_COS_MOVE PLAYER_MOVE_SPEED * PLAYER_COS
     #define PLAYER_SIN_MOVE PLAYER_MOVE_SPEED * PLAYER_SIN
+    #define SKY_BLUE sfColor_fromRGB(135, 206, 235)
+    #define GREEN_GRASS sfColor_fromRGB(34, 139, 34)
+    #define HP_ASSET "assets/ui/heart_100.png"
+    #define AMMO_ASSET "assets/ui/ammo_100.png"
+    #define AMMO_75 "assets/ui/ammo_75.png"
+    #define AMMO_50 "assets/ui/ammo_50.png"
+    #define AMMO_25 "assets/ui/ammo_25.png"
+    #define AMMO_0 "assets/ui/ammo_0.png"
+    #define HP_75 "assets/ui/heart_75.png"
+    #define HP_50 "assets/ui/heart_50.png"
+    #define HP_25 "assets/ui/heart_25.png"
+    #define HP_0 "assets/ui/heart_0.png"
+    #define UI_FONT "assets/arial.ttf"
+    #define DEFAULT_AMMO 100
+    #define DEFAULT_HP 100
     #define PLAYER_HEIGHT TILE_SIZE / 6 - 4
     #define GREY sfColor_fromRGB(100, 100, 100)
     #define LIGHT_GREY sfColor_fromRGB(170, 170, 170)
     #define LIGHT_BLUE sfColor_fromRGB(173, 216, 230)
     #define WALL_DISTANCE 500
 
-#endif /* MACRO_H_ */
+#endif

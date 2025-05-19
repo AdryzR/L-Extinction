@@ -109,6 +109,7 @@ int display_main(game_t *game, sfTexture **texture)
     draw_wall(temp, game, texture);
     display_map(game);
     draw_player(game);
+    draw_ui(game);
     if (game->shot_struct.gunshot == true)
         display_shot(game->windows.windows, &game->shot_struct, game);
     sfRenderWindow_drawSprite(game->windows.windows,

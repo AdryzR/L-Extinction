@@ -56,6 +56,8 @@ int display_loop(game_t *game, sfTexture **texture);
 
 int display_main(game_t *game, sfTexture **texture);
 
+void update_hp(game_t *game);
+
 void display_window(game_t *game);
 
 bool get_action_time(sfClock *clock, const float every, float *last_action);
@@ -114,6 +116,10 @@ sfVertexArray *create_floor(int column, float bottom);
 sfVertexArray *create_sky(float top, int column);
 
 void draw_player(game_t *game);
+
+void draw_ui(game_t *game);
+
+void update_ammo(game_t *game);
 
 bool check_back_collision(game_t *game, int b);
 
