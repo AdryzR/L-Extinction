@@ -9,11 +9,25 @@
 
 void update_weapons(game_t *game)
 {
+    if (game->player->wp_status == W_GUN && game->gun_shot.gunshot)
+        sfSound_play(game->gun_shot.shot_sound);
+    else if (game->player->wp_status == W_AK && game->ak_shot.gunshot)
+        sfSound_play(game->ak_shot.shot_sound);
     switch (game->player->wp_status) {
     case W_GUN:
-        return update_gun(game);
-case W_AK:
-    return update_ak(game);
+        update_gun(game);
+        if (game->gun_shot.gunshot) {
+            sfSound_play(game->gun_shot.shot_sound);
+            refresh_ammo_sprite(game);
+        }
+        break;
+    case W_AK:
+        update_ak(game);
+        if (game->ak_shot.gunshot) {
+            sfSound_play(game->ak_shot.shot_sound);
+            refresh_ammo_sprite(game);
+        }
+        break;
 // case W_KNIFE:
 //     return update_knife(game->player);
     }

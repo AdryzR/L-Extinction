@@ -42,6 +42,8 @@ void destroy_window(game_t *game);
 
 void destroy_fx(game_t *game);
 
+void refresh_ammo_sprite(game_t *game);
+
 int init_main(game_t *game, sfTexture **texture);
 
 int init_background(game_t *game, sfTexture *texture);

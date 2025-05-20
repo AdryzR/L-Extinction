@@ -11,6 +11,7 @@
     #define WINDOW_WIDTH 1920
     #define M_PI 3.14
     #define FOV 60 * (M_PI / 180)
+    #define GAME_WINDOW game->windows.windows
     #define WALL_N "assets/wall_dark.png"
     #define WALL_S "assets/wall_light.png"
     #define SHOT "assets/fx/explosion_no_background.png"

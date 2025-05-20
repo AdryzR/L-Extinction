@@ -11,7 +11,8 @@
 void draw_ui(game_t *game)
 {
     player_t *pl = game->player;
-    char *ammo = uint_to_str(pl->gun_ammo);
+    unsigned int count = (pl->wp_status == W_AK) ? pl->ak_ammo : pl->gun_ammo;
+    char *ammo = uint_to_str(count);
     char *hp = uint_to_str(pl->hp);
 
     if (!ammo || !hp)

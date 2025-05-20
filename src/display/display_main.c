@@ -110,9 +110,13 @@ int display_main(game_t *game, sfTexture **texture)
     display_map(game);
     draw_player(game);
     draw_ui(game);
-    if (game->gun_shot.gunshot == true) {
+    if (game->player->wp_status == W_GUN && game->gun_shot.gunshot) {
+        sfRenderWindow_drawSprite(GAME_WINDOW, game->gun_shot.shot, NULL);
         display_shot(game->windows.windows, &game->gun_shot, game);
-        sfSound_play(game->gun_shot.shot_sound);
+    }
+    else if (game->player->wp_status == W_AK && game->ak_shot.gunshot) {
+        sfRenderWindow_drawSprite(GAME_WINDOW, game->ak_shot.shot, NULL);
+        display_shot(game->windows.windows, &game->ak_shot, game);
     }
     sfRenderWindow_drawSprite(game->windows.windows,
         game->weapon.sprite, NULL);
