@@ -39,9 +39,9 @@ void refresh_ammo_sprite(game_t *game)
     sfColor color;
 
     if (pl->wp_status == W_AK) {
-        pct = (pl->ak_ammo * 100) / DEFAULT_AK_AMMO;
+        pct = (pl->ak_reserve * 100) / DEFAULT_AK_AMMO;
     } else if (pl->wp_status == W_GUN) {
-        pct = (pl->gun_ammo * 100) / DEFAULT_GUN_AMMO;
+        pct = (pl->gun_reserve * 100) / DEFAULT_GUN_AMMO;
     } else {
         return;
     }

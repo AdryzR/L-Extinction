@@ -72,6 +72,10 @@ void update_ak(game_t *game);
 
 void update_weapons(game_t *game);
 
+void reload_gun(game_t *game);
+
+void reload_ak(game_t *game);
+
 int display_text(game_t *game);
 
 object_t init_object(sfTexture *texture, sfVector2f position);

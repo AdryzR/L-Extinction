@@ -32,10 +32,13 @@ typedef struct {
     float y;
     float angle;
     unsigned int hp;
-    unsigned int gun_ammo;
-    unsigned int ak_ammo;
+    unsigned int gun_mag;
+    unsigned int gun_reserve;
+    unsigned int ak_mag;
+    unsigned int ak_reserve;
     sfFont *font;
     sfText *ammo_txt;
+    sfText  *reserve_txt;
     sfText *hp_txt;
     sfTexture *hp_texture;
     sfTexture *ammo_texture;

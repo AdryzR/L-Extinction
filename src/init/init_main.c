@@ -85,7 +85,7 @@ static int init_other(game_t *game, sfTexture **texture)
         destroy_main(game, texture);
         return 84;
     }
-    game->player->ak_ammo = DEFAULT_AK_AMMO;
+    game->player->ak_reserve = DEFAULT_AK_AMMO;
     game->npc = init_npc(game, game->npc);
     return 0;
 }

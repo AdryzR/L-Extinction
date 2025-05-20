@@ -20,6 +20,12 @@ void analyse_weapon_key(game_t *game, sfEvent event)
         game->player->wp_status = W_KNIFE;
         set_knife_texture(game);
     }
+    if (event.key.code == sfKeyR) {
+        if (game->player->wp_status == W_GUN)
+            reload_gun(game);
+        else if (game->player->wp_status == W_AK)
+            reload_ak(game);
+    }
 }
 
 static void analyse_key(game_t *game, sfEvent event, bool status)

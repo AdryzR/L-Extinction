@@ -20,26 +20,52 @@ static player_t *find_player_coord(game_t *game, player_t *player, int i)
     return player;
 }
 
+/**
+ * Crée un sfText, lui assigne police, position et échelle.
+ */
+static sfText *create_ui_text(sfFont *font, sfVector2f position,
+    sfVector2f scale)
+{
+    sfText *txt = sfText_create();
+    if (!txt)
+        return NULL;
+    sfText_setFont(txt, font);
+    sfText_setPosition(txt, position);
+    sfText_setScale(txt, scale);
+    return txt;
+}
+
+/**
+* Crée un sfSprite, lui assigne texture, position et échelle.
+*/
+static sfSprite *create_ui_sprite(sfTexture *tex, sfVector2f position,
+    sfVector2f scale)
+{
+    sfSprite *spr = sfSprite_create();
+    if (!spr)
+        return NULL;
+    sfSprite_setTexture(spr, tex, sfTrue);
+    sfSprite_setPosition(spr, position);
+    sfSprite_setScale(spr, scale);
+    return spr;
+}
+
 static void init_player_ui(player_t *player)
 {
     player->wp_status = W_GUN;
-    player->ammo_txt = sfText_create();
-    player->hp_txt = sfText_create();
     player->font = sfFont_createFromFile(UI_FONT);
-    player->hp_texture = sfTexture_createFromFile(HP_ASSET, NULL);
+    player->reserve_txt = create_ui_text(player->font,
+        (sfVector2f){1860.f, 920.f}, (sfVector2f){2.f, 1.5f});
+    player->ammo_txt = create_ui_text(player->font,
+        (sfVector2f){1860.f, 950.f}, (sfVector2f){2.f, 1.5f});
+    player->hp_txt = create_ui_text(player->font,
+        (sfVector2f){1860.f,1000.f}, (sfVector2f){2.f, 1.5f});
+    player->hp_texture = sfTexture_createFromFile(HP_ASSET,   NULL);
     player->ammo_texture = sfTexture_createFromFile(AMMO_ASSET, NULL);
-    player->ammo_sprite = sfSprite_create();
-    player->hp_sprite = sfSprite_create();
-    sfSprite_setTexture(player->hp_sprite, player->hp_texture, false);
-    sfSprite_setTexture(player->ammo_sprite, player->ammo_texture, false);
-    sfText_setFont(player->ammo_txt, player->font);
-    sfText_setFont(player->hp_txt, player->font);
-    sfText_setPosition(player->ammo_txt, (sfVector2f){1860.0, 950.0});
-    sfText_setPosition(player->hp_txt, (sfVector2f){1860.0, 1000.0});
-    sfSprite_setPosition(player->ammo_sprite, (sfVector2f){1750.0, 920.0});
-    sfSprite_setPosition(player->hp_sprite, (sfVector2f){1750.0, 965.0});
-    sfSprite_setScale(player->hp_sprite, (sfVector2f){2.0, 1.8});
-    sfSprite_setScale(player->ammo_sprite, (sfVector2f){2.0, 1.5});
+    player->ammo_sprite = create_ui_sprite(player->ammo_texture,
+        (sfVector2f){1750.f, 920.f}, (sfVector2f){2.f, 1.5f});
+    player->hp_sprite = create_ui_sprite(player->hp_texture,
+        (sfVector2f){1750.f, 965.f}, (sfVector2f){2.f, 1.8f});
 }
 
 int init_player(game_t *game, player_t *player)
@@ -54,7 +80,10 @@ int init_player(game_t *game, player_t *player)
         player = find_player_coord(game, player, i);
     if (player->x == -1 && player->y == -1)
         return 84;
-    player->gun_ammo = DEFAULT_GUN_AMMO;
+    player->gun_mag = GUN_MAG_SIZE;
+    player->gun_reserve = DEFAULT_GUN_AMMO - GUN_MAG_SIZE;
+    player->ak_mag = AK_MAG_SIZE;
+    player->ak_reserve = DEFAULT_AK_AMMO - AK_MAG_SIZE;
     player->hp = DEFAULT_HP;
     init_player_ui(player);
     return 0;

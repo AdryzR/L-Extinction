@@ -49,6 +49,8 @@
     #define UI_FONT "assets/arial.ttf"
     #define DEFAULT_GUN_AMMO 100
     #define DEFAULT_AK_AMMO 100
+    #define AK_MAG_SIZE 10
+    #define GUN_MAG_SIZE 10
     #define DEFAULT_HP 100
     #define PLAYER_HEIGHT TILE_SIZE / 6 - 4
     #define GREY sfColor_fromRGB(100, 100, 100)
