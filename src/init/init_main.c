@@ -36,16 +36,6 @@ static int init_shot_struct(gunshot_t *gun_shot, sfTexture *shot,
     return 0;
 }
 
-
-/*
-** EPITECH PROJECT, 2024
-** bs_wolf3D
-** File description:
-** init_main.c
-*/
-
-#include "proto.h"
-
 static int abort_fx(game_t *game)
 {
     destroy_fx(game);
@@ -71,13 +61,13 @@ static int init_fx(game_t *game, sfTexture *gun_shot_tex,
     game->multiplicator = 1;
     game->key = init_key();
     game->ak_obj = init_object(ak_tex,
-        (sfVector2f){WINDOW_WIDTH/2.f, WINDOW_HEIGHT/2.f});
+        (sfVector2f){WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.f});
     sfSprite_setOrigin(game->ak_obj.sprite,
-        (sfVector2f){1020/2.f, 0.f});
+        (sfVector2f){1020 / 2.f, 0.f});
     game->weapon = init_object(weapon_tex,
-        (sfVector2f){WINDOW_WIDTH/2.f, WINDOW_HEIGHT/2.f});
+        (sfVector2f){WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.f});
     sfSprite_setOrigin(game->weapon.sprite,
-        (sfVector2f){1020/2.f, 0.f});
+        (sfVector2f){1020 / 2.f, 0.f});
     game->wall_height = NULL;
     if (create_shot(game, &game->gun_shot, gun_shot_tex) == 84)
         return abort_fx(game);
@@ -102,8 +92,7 @@ static int init_other(game_t *game, sfTexture **texture)
 
 int init_main(game_t *game, sfTexture **texture)
 {
-    if (init_fx(game, texture[1], texture[4], texture[3]) == 84)
-    {
+    if (init_fx(game, texture[1], texture[4], texture[3]) == 84) {
         destroy_window(game);
         for (int i = 0; texture[i]; i++)
             sfTexture_destroy(texture[i]);

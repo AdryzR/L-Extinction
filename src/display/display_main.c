@@ -113,8 +113,7 @@ int display_main(game_t *game, sfTexture **texture)
     if (game->player->wp_status == W_GUN && game->gun_shot.gunshot) {
         sfRenderWindow_drawSprite(GAME_WINDOW, game->gun_shot.shot, NULL);
         display_shot(game->windows.windows, &game->gun_shot, game);
-    }
-    else if (game->player->wp_status == W_AK && game->ak_shot.gunshot) {
+    } else if (game->player->wp_status == W_AK && game->ak_shot.gunshot) {
         sfRenderWindow_drawSprite(GAME_WINDOW, game->ak_shot.shot, NULL);
         display_shot(game->windows.windows, &game->ak_shot, game);
     }

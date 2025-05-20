@@ -12,12 +12,11 @@ void analyse_weapon_key(game_t *game, sfEvent event)
     if (event.key.code == sfKeyNum1) {
         game->player->wp_status = W_AK;
         set_ak_texture(game);
-    }
-    else if (event.key.code == sfKeyNum2) {
+    } else if (event.key.code == sfKeyNum2) {
         game->player->wp_status = W_GUN;
         set_gun_texture(game);
     }
-    else if (event.key.code == sfKeyNum3) {
+    if (event.key.code == sfKeyNum3) {
         game->player->wp_status = W_KNIFE;
         set_knife_texture(game);
     }

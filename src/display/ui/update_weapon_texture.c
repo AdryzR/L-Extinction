@@ -14,7 +14,7 @@ static void refresh_ammo_update_under_50(player_t *pl, unsigned int pct)
     else if (pct > 0)
         pl->ammo_texture = sfTexture_createFromFile(AMMO_25, NULL);
     else
-        pl->ammo_texture = sfTexture_createFromFile(AMMO_0,  NULL);
+        pl->ammo_texture = sfTexture_createFromFile(AMMO_0, NULL);
 }
 
 static void refresh_ammo_update(player_t *pl, unsigned int pct)
@@ -28,6 +28,7 @@ static void refresh_ammo_update(player_t *pl, unsigned int pct)
         refresh_ammo_update_under_50(pl, pct);
     sfSprite_setTexture(pl->ammo_sprite, pl->ammo_texture, sfFalse);
 }
+
 /*
 * Refresh de la sprite de munitions basée sur l’arme active.
 */
@@ -53,7 +54,6 @@ static void set_weapon_texture(game_t *game, const char *path)
 {
     if (game->textures[3])
         sfTexture_destroy(game->textures[3]);
-
     game->textures[3] = sfTexture_createFromFile(path, NULL);
     if (!game->textures[3]) {
         fprintf(stderr, "Error: cannot load texture '%s'\n", path);
