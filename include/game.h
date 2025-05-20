@@ -33,6 +33,7 @@ typedef struct {
     float angle;
     unsigned int hp;
     unsigned int gun_ammo;
+    unsigned int ak_ammo;
     sfFont *font;
     sfText *ammo_txt;
     sfText *hp_txt;
@@ -109,7 +110,8 @@ typedef struct game_s {
     sfSound *sound;
     sfSoundBuffer *sound_buffer;
     int multiplicator;
-    gunshot_t shot_struct;
+    gunshot_t gun_shot;
+    gunshot_t ak_shot;
     button_t button;
     linked_list_t *wall_height;
     sfTexture *fog;
@@ -117,6 +119,7 @@ typedef struct game_s {
     sfClock *clock;
     float lastchance;
     bool i;
+    object_t ak_obj;
     object_t weapon;
     player_t *player;
     map_t map;

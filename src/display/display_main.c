@@ -86,18 +86,18 @@ static void draw_wall(linked_list_t *temp, game_t *game, sfTexture **texture)
     }
 }
 
-static void display_shot(sfRenderWindow *window, gunshot_t *shot_struct,
+static void display_shot(sfRenderWindow *window, gunshot_t *gun_shot,
     game_t *game)
 {
-    sfSprite_setTextureRect(shot_struct->shot, shot_struct->rect);
-    sfRenderWindow_drawSprite(window, shot_struct->shot,
+    sfSprite_setTextureRect(gun_shot->shot, gun_shot->rect);
+    sfRenderWindow_drawSprite(window, gun_shot->shot,
     NULL);
-    if (get_action_time(game->clock, 0.05, &shot_struct->last) == false)
+    if (get_action_time(game->clock, 0.05, &gun_shot->last) == false)
         return;
-    shot_struct->rect.left += 682;
-    if (shot_struct->rect.left >= 682 * 3) {
-        shot_struct->gunshot = false;
-        shot_struct->rect.left = 0;
+    gun_shot->rect.left += 682;
+    if (gun_shot->rect.left >= 682 * 3) {
+        gun_shot->gunshot = false;
+        gun_shot->rect.left = 0;
     }
 }
 
@@ -110,9 +110,9 @@ int display_main(game_t *game, sfTexture **texture)
     display_map(game);
     draw_player(game);
     draw_ui(game);
-    if (game->shot_struct.gunshot == true) {
-        display_shot(game->windows.windows, &game->shot_struct, game);
-        sfSound_play(game->shot_struct.shot_sound);
+    if (game->gun_shot.gunshot == true) {
+        display_shot(game->windows.windows, &game->gun_shot, game);
+        sfSound_play(game->gun_shot.shot_sound);
     }
     sfRenderWindow_drawSprite(game->windows.windows,
         game->weapon.sprite, NULL);

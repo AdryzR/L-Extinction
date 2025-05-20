@@ -28,9 +28,9 @@ void destroy_button(button_t *button)
 void destroy_fx(game_t *game)
 {
     sfClock_destroy(game->clock);
-    sfSprite_destroy(game->shot_struct.shot);
-    sfSoundBuffer_destroy(game->shot_struct.shot_soundbuffer);
-    sfSound_destroy(game->shot_struct.shot_sound);
+    sfSprite_destroy(game->gun_shot.shot);
+    sfSoundBuffer_destroy(game->gun_shot.shot_soundbuffer);
+    sfSound_destroy(game->gun_shot.shot_sound);
 }
 
 static void destroy_ui(player_t *player)
@@ -53,9 +53,8 @@ void destroy_main(game_t *game, sfTexture **texture)
     destroy_ui(game->player);
     free(game->player);
     destroy_map(game, texture[0]);
-    sfTexture_destroy(texture[1]);
-    sfTexture_destroy(texture[2]);
-    sfTexture_destroy(texture[3]);
+    for (int i = 0; texture[i]; i++)
+        sfTexture_destroy(texture[i]);
     sfSprite_destroy(game->weapon.sprite);
     free(texture);
     destroy_fx(game);

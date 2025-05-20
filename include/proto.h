@@ -66,6 +66,8 @@ int update_timer(game_t *game);
 
 void update_gun(game_t *game);
 
+void update_ak(game_t *game);
+
 void update_weapons(game_t *game);
 
 int display_text(game_t *game);
