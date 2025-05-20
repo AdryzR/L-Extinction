@@ -110,8 +110,10 @@ int display_main(game_t *game, sfTexture **texture)
     display_map(game);
     draw_player(game);
     draw_ui(game);
-    if (game->shot_struct.gunshot == true)
+    if (game->shot_struct.gunshot == true) {
         display_shot(game->windows.windows, &game->shot_struct, game);
+        sfSound_play(game->shot_struct.shot_sound);
+    }
     sfRenderWindow_drawSprite(game->windows.windows,
     game->weapon.sprite, NULL);
     sfRenderWindow_display(game->windows.windows);

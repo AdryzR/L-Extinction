@@ -22,6 +22,7 @@ static player_t *find_player_coord(game_t *game, player_t *player, int i)
 
 static void init_player_ui(player_t *player)
 {
+    player->wp_status = W_GUN;
     player->ammo_txt = sfText_create();
     player->hp_txt = sfText_create();
     player->font = sfFont_createFromFile(UI_FONT);
@@ -53,7 +54,7 @@ int init_player(game_t *game, player_t *player)
         player = find_player_coord(game, player, i);
     if (player->x == -1 && player->y == -1)
         return 84;
-    player->ammo = DEFAULT_AMMO;
+    player->gun_ammo = DEFAULT_GUN_AMMO;
     player->hp = DEFAULT_HP;
     init_player_ui(player);
     return 0;

@@ -70,11 +70,8 @@ static void analyse_events(game_t *game, sfEvent event)
         return;
     }
     if (event.type == sfEvtMouseButtonPressed &&
-    sfMouse_isButtonPressed(sfMouseLeft) == sfTrue) {
-        game->shot_struct.gunshot = (game->player->ammo != 0) ? true : false;
-        update_ammo(game);
-        sfSound_play(game->shot_struct.shot_sound);
-    }
+        sfMouse_isButtonPressed(sfMouseLeft) == sfTrue)
+            update_weapons(game);
     update_hp(game);
     if (event.type == sfEvtKeyPressed)
         analyse_key(game, event, true);

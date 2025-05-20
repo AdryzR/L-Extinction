@@ -64,6 +64,10 @@ bool get_action_time(sfClock *clock, const float every, float *last_action);
 
 int update_timer(game_t *game);
 
+void update_gun(game_t *game);
+
+void update_weapons(game_t *game);
+
 int display_text(game_t *game);
 
 object_t init_object(sfTexture *texture, sfVector2f position);

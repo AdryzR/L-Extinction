@@ -21,12 +21,18 @@ typedef struct object_s {
     sfVector2f position;
 } object_t;
 
+typedef enum weapon_s {
+    W_GUN,
+    W_KNIFE,
+    W_AK
+} weapon_t;
+
 typedef struct {
     float x;
     float y;
     float angle;
     unsigned int hp;
-    unsigned int ammo;
+    unsigned int gun_ammo;
     sfFont *font;
     sfText *ammo_txt;
     sfText *hp_txt;
@@ -36,6 +42,7 @@ typedef struct {
     sfSprite *ammo_sprite;
     float camera_x;
     float camera_y;
+    weapon_t wp_status;
 } player_t;
 
 typedef struct {

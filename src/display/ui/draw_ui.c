@@ -11,7 +11,7 @@
 void draw_ui(game_t *game)
 {
     player_t *pl = game->player;
-    char *ammo = uint_to_str(pl->ammo);
+    char *ammo = uint_to_str(pl->gun_ammo);
     char *hp = uint_to_str(pl->hp);
 
     if (!ammo || !hp)

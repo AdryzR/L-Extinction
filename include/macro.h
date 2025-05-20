@@ -44,7 +44,8 @@
     #define HP_25 "assets/ui/heart_25.png"
     #define HP_0 "assets/ui/heart_0.png"
     #define UI_FONT "assets/arial.ttf"
-    #define DEFAULT_AMMO 100
+    #define DEFAULT_GUN_AMMO 100
+    #define DEFAULT_AK_AMMO 100
     #define DEFAULT_HP 100
     #define PLAYER_HEIGHT TILE_SIZE / 6 - 4
     #define GREY sfColor_fromRGB(100, 100, 100)
