@@ -23,7 +23,7 @@ void analyse_weapon_key(game_t *game, sfEvent event)
     if (event.key.code == sfKeyR) {
         if (game->player->wp_status == W_GUN)
             reload_gun(game);
-        else if (game->player->wp_status == W_AK)
+        if (game->player->wp_status == W_AK)
             reload_ak(game);
     }
 }

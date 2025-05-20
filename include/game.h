@@ -38,7 +38,7 @@ typedef struct {
     unsigned int ak_reserve;
     sfFont *font;
     sfText *ammo_txt;
-    sfText  *reserve_txt;
+    sfText *reserve_txt;
     sfText *hp_txt;
     sfTexture *hp_texture;
     sfTexture *ammo_texture;

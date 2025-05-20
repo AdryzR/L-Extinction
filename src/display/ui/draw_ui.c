@@ -65,7 +65,7 @@ static void render_ammo_ui(game_t *game)
         rem = pl->gun_reserve;
         pct = mag * 100.0f / GUN_MAG_SIZE;
     }
-    render_reserve_ui (game, rem);
+    render_reserve_ui(game, rem);
     render_magazine_ui(game, mag, pct);
     sfRenderWindow_drawSprite(game->windows.windows, pl->ammo_sprite, NULL);
 }

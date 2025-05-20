@@ -27,6 +27,7 @@ static sfText *create_ui_text(sfFont *font, sfVector2f position,
     sfVector2f scale)
 {
     sfText *txt = sfText_create();
+
     if (!txt)
         return NULL;
     sfText_setFont(txt, font);
@@ -42,6 +43,7 @@ static sfSprite *create_ui_sprite(sfTexture *tex, sfVector2f position,
     sfVector2f scale)
 {
     sfSprite *spr = sfSprite_create();
+
     if (!spr)
         return NULL;
     sfSprite_setTexture(spr, tex, sfTrue);
@@ -59,8 +61,8 @@ static void init_player_ui(player_t *player)
     player->ammo_txt = create_ui_text(player->font,
         (sfVector2f){1860.f, 950.f}, (sfVector2f){2.f, 1.5f});
     player->hp_txt = create_ui_text(player->font,
-        (sfVector2f){1860.f,1000.f}, (sfVector2f){2.f, 1.5f});
-    player->hp_texture = sfTexture_createFromFile(HP_ASSET,   NULL);
+        (sfVector2f){1860.f, 1000.f}, (sfVector2f){2.f, 1.5f});
+    player->hp_texture = sfTexture_createFromFile(HP_ASSET, NULL);
     player->ammo_texture = sfTexture_createFromFile(AMMO_ASSET, NULL);
     player->ammo_sprite = create_ui_sprite(player->ammo_texture,
         (sfVector2f){1750.f, 920.f}, (sfVector2f){2.f, 1.5f});
