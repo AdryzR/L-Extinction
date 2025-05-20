@@ -13,10 +13,9 @@ void destroy_window(game_t *game)
     sfRenderWindow_destroy(game->windows.windows);
 }
 
-void destroy_map(game_t *game, sfTexture *texture_wall)
+void destroy_map(game_t *game)
 {
-    sfSprite_destroy(game->wall);
-    sfTexture_destroy(texture_wall);
+    free_tab(game->map.map2D);
 }
 
 void destroy_button(button_t *button)
@@ -49,14 +48,10 @@ void destroy_main(game_t *game, sfTexture **texture)
     destroy_window(game);
     if (game->wall_height)
         free_linklist(game->wall_height);
-    free_tab(game->map.map2D);
     destroy_ui(game->player);
     free(game->player);
-    destroy_map(game, texture[0]);
-    sfTexture_destroy(texture[1]);
-    sfTexture_destroy(texture[2]);
-    sfTexture_destroy(texture[3]);
+    destroy_map(game);
+    destroy_texture(texture);
     sfSprite_destroy(game->weapon.sprite);
-    free(texture);
     destroy_fx(game);
 }

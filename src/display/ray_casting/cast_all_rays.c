@@ -22,15 +22,21 @@ static list_object_t *init_obj(int x, ray_casting_t *ray_struct)
     object->data = ray_struct->wall_height;
     object->offset_x = ray_struct->offset_x;
     object->offset_y = ray_struct->offset_y;
+    object->offset_x_entity = ray_struct->offset_x_entity;
+    object->offset_y_entity = ray_struct->offset_y_entity;
     object->hit_x = fmod(ray_struct->x, TILE_SIZE);
     object->hit_y = fmod(ray_struct->y, TILE_SIZE);
     object->angle = ray_struct->angle;
+    object->entity = ray_struct->entity;
+    object->data_entity = ray_struct->wall_height_entity;
     return object;
 }
 
 static void init_ray(ray_casting_t *ray_struct, player_t *player,
     game_t **game, float x)
 {
+    ray_struct->entity = false;
+    ray_struct->distance_to_wall_entity = 0;
     ray_struct->x = player->x + 5;
     ray_struct->y = player->y + 5;
     ray_struct->distance_to_wall = 0.0;
@@ -55,6 +61,10 @@ void cast_all_rays(player_t *player, game_t **game)
         (cosf(fmodf(player->camera_x, 2 * M_PI) - ray_struct.angle));
         ray_struct.wall_height = (double)(TILE_SIZE * WINDOW_HEIGHT) /
         ray_struct.distance_to_wall;
+        ray_struct.distance_to_wall_entity *=
+        (cosf(fmodf(player->camera_x, 2 * M_PI) - ray_struct.angle));
+        ray_struct.wall_height_entity = (double)(TILE_SIZE * WINDOW_HEIGHT) /
+        ray_struct.distance_to_wall_entity;
         push_to_end_list(&(*game)->wall_height, init_obj(x, &ray_struct));
     }
 }

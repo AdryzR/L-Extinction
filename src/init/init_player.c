@@ -51,10 +51,10 @@ int init_player(game_t *game, player_t *player)
     print_tab(game->map.map2D);
     for (int i = 0; game->map.map2D[i]; ++i)
         player = find_player_coord(game, player, i);
-    if (player->x == -1 && player->y == -1)
-        return 84;
     player->ammo = DEFAULT_AMMO;
     player->hp = DEFAULT_HP;
     init_player_ui(player);
+    if (player->x == -1 && player->y == -1)
+        return 84;
     return 0;
 }

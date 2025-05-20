@@ -43,11 +43,16 @@ typedef struct {
     float x;
     float y;
     float distance_to_wall;
+    float distance_to_wall_entity;
     float offset_x;
     float offset_y;
+    float offset_x_entity;
+    float offset_y_entity;
     int test_x;
     int test_y;
     float wall_height;
+    float wall_height_entity;
+    bool entity;
 } ray_casting_t;
 
     #define TILE_SIZE 64
@@ -60,7 +65,8 @@ typedef struct windows_s {
 } windows_t;
 
 typedef struct npc_s {
-    object_t *zombie;
+    sfVector2f position;
+    sfTexture *texture;
     double health;
     sfIntRect hit_box;
     struct npc_s *next;
@@ -106,7 +112,6 @@ typedef struct game_s {
     button_t button;
     linked_list_t *wall_height;
     sfTexture *fog;
-    sfSprite *wall;
     sfClock *clock;
     float lastchance;
     bool i;
@@ -114,7 +119,8 @@ typedef struct game_s {
     player_t *player;
     map_t map;
     npc_t *npc;
-    sfSprite *zombie;
+    sfSprite *entity;
+    sfTexture *zombie_texture;
     key_struct_t key;
 } game_t;
 

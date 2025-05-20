@@ -15,6 +15,8 @@ static int parsing(char *filepath, game_t *game)
     if (!fd)
         return 84;
     buff = safe_string_parsing(fd);
+    if (!buff)
+        return 84;
     game->map.map2D = my_str_to_word_array(buff, "\n");
     free(buff);
     return 0;

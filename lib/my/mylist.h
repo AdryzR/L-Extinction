@@ -6,6 +6,7 @@
 */
 
 #ifndef MYLIST_H_
+    #include <stdbool.h>
     #define MYLIST_H_
 
 typedef struct list_object_s {
@@ -13,9 +14,13 @@ typedef struct list_object_s {
     float data;
     float offset_x;
     float offset_y;
+    float offset_x_entity;
+    float offset_y_entity;
     float hit_y;
     float hit_x;
     float angle;
+    float data_entity;
+    bool entity;
 } list_object_t;
 
 typedef struct linked_list_s {

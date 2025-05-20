@@ -11,7 +11,7 @@ static bool line_valid(char *line)
 {
     for (int k = 0; line[k]; ++k) {
         if (line[k] != '#' && line[k] != ' ' && line[k] != 'P' &&
-            line[k] != 'z')
+            line[k] != 'Z')
             return false;
     }
     return true;
@@ -26,17 +26,15 @@ static bool check_map_valid(char **map)
     return true;
 }
 
-int init_map(game_t *game, sfTexture *texture)
+int init_map(game_t *game)
 {
     int i = 0;
 
-    game->wall = init_sprite(texture);
-    if (!game->wall)
+    if (!game->map.map2D[0])
         return 84;
     for (; game->map.map2D[i]; ++i)
         for (int k = 0; game->map.map2D[i][k]; ++k)
     game->map.height = i;
-    sfSprite_setTexture(game->wall, texture, sfTrue);
     if (check_map_valid(game->map.map2D) == false)
         return 84;
     return 0;
