@@ -74,16 +74,15 @@ int init_main(game_t *game, sfTexture **texture)
 {
     if (init_fx(game, texture[1], texture[3]) == 84) {
         destroy_window(game);
-        sfTexture_destroy(texture[0]);
-        sfTexture_destroy(texture[1]);
-        sfTexture_destroy(texture[2]);
-        sfTexture_destroy(texture[3]);
-        free(texture);
+        destroy_texture(texture);
         destroy_fx(game);
         return 84;
     }
-    if (init_map(game, texture[0]) == 84) {
-        destroy_main(game, texture);
+    if (init_map(game) == 84) {
+        destroy_window(game);
+        destroy_fx(game);
+        destroy_map(game);
+        destroy_texture(texture);
         return 84;
     }
     return init_other(game, texture);

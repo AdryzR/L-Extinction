@@ -42,24 +42,50 @@ static game_t *analyse_other_key_press(game_t *game, int b)
     return game;
 }
 
+void manage_s(game_t *game, int b)
+{
+    bool enter = false;
+
+    if (check_back_collision(game, b) == false) {
+        game->player->x -= PLAYER_COS_MOVE * b;
+        game->player->y -= PLAYER_SIN_MOVE * b;
+        enter = true;
+    }
+    if (enter == false && check_side_y_collision(game) == false) {
+        game->player->y += PLAYER_SIN_MOVE / 2;
+        enter = true;
+    }
+    if (enter == false && check_side_x_collision(game) == false)
+        game->player->x += PLAYER_COS_MOVE / 2;
+}
+
+void manage_z(game_t *game, int b)
+{
+    bool enter = false;
+
+    if (check_front_collision(game, b) == false) {
+        game->player->x += PLAYER_COS_MOVE * b;
+        game->player->y += PLAYER_SIN_MOVE * b;
+        enter = true;
+    }
+    if (enter == false && check_side_y_collision(game) == false) {
+        game->player->y += PLAYER_SIN_MOVE / 2;
+        enter = true;
+    }
+    if (enter == false && check_side_x_collision(game) == false)
+        game->player->x += PLAYER_COS_MOVE / 2;
+}
+
 static void analyse_key_press(game_t *game)
 {
     int b = 1;
 
     if (game->key.shift == true)
         b = 3;
-    if (game->key.S == true) {
-        if (check_back_collision(game, b) == false) {
-            game->player->x -= PLAYER_COS_MOVE * b;
-            game->player->y -= PLAYER_SIN_MOVE * b;
-        }
-    }
-    if (game->key.Z == true) {
-        if (check_front_collision(game, b) == false) {
-            game->player->x += PLAYER_COS_MOVE * b;
-            game->player->y += PLAYER_SIN_MOVE * b;
-        }
-    }
+    if (game->key.S == true)
+        manage_s(game, b);
+    if (game->key.Z == true)
+        manage_z(game, b);
     game = analyse_other_key_press(game, b);
 }
 

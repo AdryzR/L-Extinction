@@ -22,6 +22,7 @@
     #define FLOOR "assets/Ground_try_pattern.png"
     #define CELLING "assets/Ground_try_pattern.png"
     #define FOG "assets/fog3.png"
+    #define ZOMBIE "assets/entity/Zombie_first.png"
     #define RANDOM_MIN 0
     #define RANDOM_MAX 8
     #define PLAYER_ROTATION_SPEED 1 * (M_PI / 180)

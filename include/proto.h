@@ -73,7 +73,7 @@ bool calcul_screen_loc(sfVector2f plane_position, sfVector2f screen_part,
 
 int init_player(game_t *game, player_t *player);
 
-int init_map(game_t *game, sfTexture *texture);
+int init_map(game_t *game);
 
 void destroy_button(button_t *button);
 
@@ -150,5 +150,16 @@ npc_t *init_npc(game_t *game, npc_t *npc);
 
 void draw_vertex(game_t *game, sfVertexArray *vertex_sky,
     sfVertexArray *vertex_floor);
+
+void draw_sprite(game_t *game, int column,
+    list_object_t *object, sfTexture *zombie);
+
+void destroy_map(game_t *game);
+
+bool check_side_x_collision(game_t *game);
+
+bool check_side_y_collision(game_t *game);
+
+void destroy_texture(sfTexture **texture);
 
 #endif /* PROTO_H_ */
