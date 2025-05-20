@@ -7,16 +7,17 @@
 
 #include "proto.h"
 
-static sfTexture **init_texture(void)
+static sfTexture **init_texture(game_t *game)
 {
     sfTexture **texture = malloc(sizeof(sfTexture *) * (6));
 
     texture[0] = sfTexture_createFromFile(WALL_N, NULL);
     texture[1] = sfTexture_createFromFile(SHOT, NULL);
     texture[2] = sfTexture_createFromFile(WALL_S, NULL);
-    texture[3] = sfTexture_createFromFile(WEAPON, NULL);
+    texture[3] = sfTexture_createFromFile(WP_GUN_TEXTURE, NULL);
     texture[4] = sfTexture_createFromFile(FOG, NULL);
     texture[5] = NULL;
+    game->textures = texture;
     return texture;
 }
 
@@ -29,7 +30,7 @@ int wolf(game_t *game)
         free_tab(game->map.map2D);
         return state;
     }
-    texture = init_texture();
+    texture = init_texture(game);
     game->fog = texture[4];
     game->zombie = sfSprite_create();
     if (!game->zombie) {

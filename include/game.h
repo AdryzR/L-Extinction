@@ -123,6 +123,7 @@ typedef struct game_s {
     npc_t *npc;
     sfSprite *zombie;
     key_struct_t key;
+    sfTexture **textures;
 } game_t;
 
 #endif /* GAME_H_ */
