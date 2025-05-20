@@ -114,8 +114,9 @@ int display_main(game_t *game, sfTexture **texture)
         display_shot(game->windows.windows, &game->shot_struct, game);
         sfSound_play(game->shot_struct.shot_sound);
     }
-    sfRenderWindow_drawSprite(game->windows.windows,
-    game->weapon.sprite, NULL);
+    if (game->player->wp_status == W_GUN)
+        sfRenderWindow_drawSprite(game->windows.windows,
+        game->weapon.sprite, NULL);
     sfRenderWindow_display(game->windows.windows);
     return 0;
 }
