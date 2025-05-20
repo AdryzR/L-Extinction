@@ -7,6 +7,22 @@
 
 #include "proto.h"
 
+void analyse_weapon_key(game_t *game, sfEvent event)
+{
+    if (event.key.code == sfKeyNum1) {
+        game->player->wp_status = W_AK;
+        // set_ak_texture(game);
+    }
+    else if (event.key.code == sfKeyNum2) {
+        game->player->wp_status = W_GUN;
+        // set_gun_texture(game);
+    }
+    else if (event.key.code == sfKeyNum3) {
+        game->player->wp_status = W_KNIFE;
+        // set_knife_texture(game);
+    }
+}
+
 static void analyse_key(game_t *game, sfEvent event, bool status)
 {
     if (game->key.S != status && event.key.code == sfKeyS)
@@ -25,6 +41,8 @@ static void analyse_key(game_t *game, sfEvent event, bool status)
         game->key.shift = status;
     if (game->key.Echap != status && event.key.code == sfKeyEscape)
         game->key.Echap = status;
+    if (status)
+        analyse_weapon_key(game, event);
 }
 
 static game_t *analyse_other_key_press(game_t *game, int b)

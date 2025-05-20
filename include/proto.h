@@ -77,6 +77,12 @@ bool calcul_screen_loc(sfVector2f plane_position, sfVector2f screen_part,
 
 int init_player(game_t *game, player_t *player);
 
+void set_gun_texture(game_t *game);
+
+void set_ak_texture(game_t *game);
+
+void set_knife_texture(game_t *game);
+
 int init_map(game_t *game, sfTexture *texture);
 
 void destroy_button(button_t *button);
