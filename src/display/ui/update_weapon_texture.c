@@ -36,6 +36,7 @@ void refresh_ammo_sprite(game_t *game)
 {
     player_t *pl = game->player;
     unsigned int pct;
+    sfColor color;
 
     if (pl->wp_status == W_AK) {
         pct = (pl->ak_ammo * 100) / DEFAULT_AK_AMMO;
@@ -45,6 +46,13 @@ void refresh_ammo_sprite(game_t *game)
         return;
     }
     refresh_ammo_update(pl, pct);
+    if (pct == 0)
+        color = sfRed;
+    else if (pct <= 10)
+        color = sfColor_fromRGB(255, 165, 0);
+    else
+        color = sfWhite;
+    sfText_setColor(pl->ammo_txt, color);
 }
 
 /**
