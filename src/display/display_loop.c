@@ -42,7 +42,7 @@ static game_t *analyse_other_key_press(game_t *game, int b)
     return game;
 }
 
-void manage_s (game_t *game, int b)
+void manage_s(game_t *game, int b)
 {
     bool enter = false;
 
@@ -59,7 +59,7 @@ void manage_s (game_t *game, int b)
         game->player->x += PLAYER_COS_MOVE / 2;
 }
 
-void manage_z (game_t *game, int b)
+void manage_z(game_t *game, int b)
 {
     bool enter = false;
 

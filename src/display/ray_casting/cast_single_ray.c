@@ -9,11 +9,11 @@
 
 static int set_offset_zombie(ray_casting_t *ray_struct, int return_value)
 {
-        ray_struct->offset_x_entity = ray_struct->x - ((float)ray_struct->test_x
-        * (float)TILE_SIZE + (float)TILE_SIZE / 2.0);
-        ray_struct->offset_y_entity = ray_struct->y - ((float)ray_struct->test_y
-        * (float)TILE_SIZE + (float)TILE_SIZE / 2.0);
-        return return_value;
+    ray_struct->offset_x_entity = ray_struct->x - ((float)ray_struct->test_x
+    * (float)TILE_SIZE + (float)TILE_SIZE / 2.0);
+    ray_struct->offset_y_entity = ray_struct->y - ((float)ray_struct->test_y
+    * (float)TILE_SIZE + (float)TILE_SIZE / 2.0);
+    return return_value;
 }
 
 static int set_offset(ray_casting_t *ray_struct, int return_value)
