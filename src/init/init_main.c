@@ -36,6 +36,13 @@ static int init_shot_struct(gunshot_t *shot_struct, sfTexture *shot,
     return 0;
 }
 
+static int *init_buffer(void)
+{
+    int *buffer = malloc(sizeof(int) * 2560);
+
+    return buffer;
+}
+
 static int init_fx(game_t *game, sfTexture *shot, sfTexture *weapon)
 {
     game->clock = sfClock_create();
@@ -43,6 +50,7 @@ static int init_fx(game_t *game, sfTexture *shot, sfTexture *weapon)
         return 84;
     game->lastchance = 0.0;
     game->multiplicator = 1;
+    game->buffer = init_buffer();
     game->key = init_key();
     game->weapon = init_object(weapon, (sfVector2f)
     {game->windows.width / 2, game->windows.height / 2});

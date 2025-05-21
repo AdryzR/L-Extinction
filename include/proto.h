@@ -121,9 +121,9 @@ void draw_ui(game_t *game);
 
 void update_ammo(game_t *game);
 
-bool check_back_collision(game_t *game, int b);
+bool check_back_collision(game_t *game, sfVector2f position, int b);
 
-bool check_front_collision(game_t *game, int b);
+bool check_front_collision(game_t *game, sfVector2f position, int b);
 
 void open_settings(game_t *game);
 
@@ -155,9 +155,9 @@ void draw_sprite(game_t *game, npc_t *npc);
 
 void destroy_map(game_t *game);
 
-bool check_side_x_collision(game_t *game);
+bool check_side_x_collision(game_t *game, sfVector2f position);
 
-bool check_side_y_collision(game_t *game);
+bool check_side_y_collision(game_t *game, sfVector2f position);
 
 void destroy_texture(sfTexture **texture);
 
@@ -166,5 +166,9 @@ void draw_npc(game_t *game, npc_t *npc);
 void check_npc_hit(game_t *game);
 
 int check_death_npc(npc_t **begin);
+
+sfVector2f move_npc(game_t *game, sfVector2f position);
+
+void manage_npc(game_t *game);
 
 #endif /* PROTO_H_ */

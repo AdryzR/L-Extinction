@@ -70,6 +70,7 @@ int draw_all(linked_list_t *temp, game_t *game, int temp_data, float x)
             return 1;
     }
     if (temp->object->id == -2) {
+        game->buffer[(int)x] = WALL_DISTANCE;
         temp->object->data = WALL_DISTANCE / 3.5 * (cosf(fmodf(
         game->player->camera_x, 2 * M_PI) - temp->object->angle));
         draw_fog(game, x, temp->object, game->fog);
@@ -85,6 +86,7 @@ static void draw_wall(linked_list_t *temp, game_t *game, sfTexture **texture)
     for (float x = 0.0; x < game->windows.width && temp; ++x) {
         if (x != 0.0 && (int)x % 4 == 0)
             temp = temp->next;
+        game->buffer[(int)x] = temp->object->distance;
         if (!temp)
             break;
         if (draw_all(temp, game, temp_data, x) == 1)
@@ -93,11 +95,6 @@ static void draw_wall(linked_list_t *temp, game_t *game, sfTexture **texture)
         render_wall_column(game, x, temp->object, set_wall_color(temp->
         object->offset_x, temp->object->offset_y, texture));
     }
-    for (npc_t *temp = game->npc; temp; temp = temp->next) {
-        draw_sprite(game, temp);
-        temp->hit = false;
-    }
-    check_death_npc(&game->npc);
 }
 
 static void display_shot(sfRenderWindow *window, gunshot_t *shot_struct,
@@ -121,6 +118,7 @@ int display_main(game_t *game, sfTexture **texture)
 
     sfRenderWindow_clear(game->windows.windows, sfBlack);
     draw_wall(temp, game, texture);
+    manage_npc(game);
     display_map(game);
     draw_player(game);
     for (npc_t *temp = game->npc; temp; temp = temp->next)

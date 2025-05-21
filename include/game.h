@@ -110,6 +110,7 @@ typedef struct {
     int draw_end_y;
     int draw_end_x;
     float tex_x;
+    float ty;
     sfVertex quad[4];
     sfRenderStates states;
 } sprite_t;
@@ -125,6 +126,7 @@ typedef struct game_s {
     sfTexture *fog;
     sfClock *clock;
     float lastchance;
+    float hit_couldown;
     bool i;
     object_t weapon;
     player_t *player;
@@ -132,6 +134,7 @@ typedef struct game_s {
     npc_t *npc;
     sfTexture *zombie_texture;
     key_struct_t key;
+    int *buffer;
 } game_t;
 
 #endif /* GAME_H_ */
