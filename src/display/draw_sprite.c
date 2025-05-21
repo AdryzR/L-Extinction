@@ -13,6 +13,7 @@ static sprite_t init_sprite_npc(game_t *game, float tx, float ty)
     float angle_offset = (game->player->camera_y - 90.0f);
     int vertical_offset = (int)(-tanf(angle_offset * (M_PI / 180.0f)) * 10);
 
+    sprite.ty = ty;
     sprite.sprite_screen_x = (int)((game->windows.width / 2) * (1 + tx / ty));
     sprite.sprite_height = abs((int)(TILE_SIZE *
     game->windows.height / ty) / 2);
@@ -49,6 +50,12 @@ static sprite_t calcul_sprite(game_t *game, npc_t *npc)
 
 void render_sprite(game_t *game, npc_t *npc, sprite_t *spr)
 {
+    float tex_height = sfTexture_getSize(npc->texture).y;
+
+    spr->quad[0].texCoords = (sfVector2f){spr->tex_x, 0};
+    spr->quad[1].texCoords = (sfVector2f){spr->tex_x + 1, 0};
+    spr->quad[2].texCoords = (sfVector2f){spr->tex_x + 1, tex_height};
+    spr->quad[3].texCoords = (sfVector2f){spr->tex_x, tex_height};
     if (npc->hit == false) {
         for (int i = 0; i < 4; i++)
             spr->quad[i].color = sfWhite;
@@ -65,23 +72,20 @@ void render_sprite(game_t *game, npc_t *npc, sprite_t *spr)
 void draw_sprite(game_t *game, npc_t *npc)
 {
     sprite_t spr = calcul_sprite(game, npc);
-    float tex_height = sfTexture_getSize(npc->texture).y;
 
     if (spr.sprite_height < 0)
         return;
     for (int stripe = spr.draw_start_x; stripe < spr.draw_end_x; stripe++) {
-        if (stripe < 0 || stripe >= game->windows.width)
+        if (stripe < 0 || stripe >= game->windows.width ||
+            spr.ty > game->buffer[stripe])
             continue;
+        game->buffer[stripe] = spr.ty;
         spr.tex_x = ((stripe - (-spr.sprite_height / 2 + spr.sprite_screen_x))
         * sfTexture_getSize(npc->texture).x) / spr.sprite_height;
         spr.quad[0].position = (sfVector2f){stripe, spr.draw_start_y};
         spr.quad[1].position = (sfVector2f){stripe + 1, spr.draw_start_y};
         spr.quad[2].position = (sfVector2f){stripe + 1, spr.draw_end_y};
         spr.quad[3].position = (sfVector2f){stripe, spr.draw_end_y};
-        spr.quad[0].texCoords = (sfVector2f){spr.tex_x, 0};
-        spr.quad[1].texCoords = (sfVector2f){spr.tex_x + 1, 0};
-        spr.quad[2].texCoords = (sfVector2f){spr.tex_x + 1, tex_height};
-        spr.quad[3].texCoords = (sfVector2f){spr.tex_x, tex_height};
         render_sprite(game, npc, &spr);
     }
 }

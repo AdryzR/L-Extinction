@@ -25,6 +25,7 @@ static list_object_t *init_obj(int x, ray_casting_t *ray_struct)
     object->hit_x = fmod(ray_struct->x, TILE_SIZE);
     object->hit_y = fmod(ray_struct->y, TILE_SIZE);
     object->angle = ray_struct->angle;
+    object->distance = ray_struct->distance_to_wall;
     return object;
 }
 

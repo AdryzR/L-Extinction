@@ -48,7 +48,9 @@ SRC	=			main.c										\
 				src/destroy/destroy_texture.c				\
 				src/display/draw_npc.c						\
 				src/check_npc_hit.c							\
-				src/check_death_npc.c
+				src/check_death_npc.c						\
+				src/move_npc.c								\
+				src/display/manage_npc.c					\
 
 CFLAGS	+= -g
 

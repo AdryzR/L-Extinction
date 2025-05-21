@@ -46,16 +46,19 @@ void manage_s(game_t *game, int b)
 {
     bool enter = false;
 
-    if (check_back_collision(game, b) == false) {
+    if (check_back_collision(game, (sfVector2f)
+    {game->player->x, game->player->y}, b) == false) {
         game->player->x -= PLAYER_COS_MOVE * b;
         game->player->y -= PLAYER_SIN_MOVE * b;
         enter = true;
     }
-    if (enter == false && check_side_y_collision(game) == false) {
+    if (enter == false && check_side_y_collision(game, (sfVector2f)
+    {game->player->x, game->player->y}) == false) {
         game->player->y += PLAYER_SIN_MOVE / 2;
         enter = true;
     }
-    if (enter == false && check_side_x_collision(game) == false)
+    if (enter == false && check_side_x_collision(game, (sfVector2f)
+    {game->player->x, game->player->y}) == false)
         game->player->x += PLAYER_COS_MOVE / 2;
 }
 
@@ -63,16 +66,19 @@ void manage_z(game_t *game, int b)
 {
     bool enter = false;
 
-    if (check_front_collision(game, b) == false) {
+    if (check_front_collision(game, (sfVector2f)
+    {game->player->x, game->player->y}, b) == false) {
         game->player->x += PLAYER_COS_MOVE * b;
         game->player->y += PLAYER_SIN_MOVE * b;
         enter = true;
     }
-    if (enter == false && check_side_y_collision(game) == false) {
+    if (enter == false && check_side_y_collision(game, (sfVector2f)
+    {game->player->x, game->player->y}) == false) {
         game->player->y += PLAYER_SIN_MOVE / 2;
         enter = true;
     }
-    if (enter == false && check_side_x_collision(game) == false)
+    if (enter == false && check_side_x_collision(game, (sfVector2f)
+    {game->player->x, game->player->y}) == false)
         game->player->x += PLAYER_COS_MOVE / 2;
 }
 
@@ -120,6 +126,10 @@ static void manage_loop(game_t *game)
     if (is_movement(&game->key) == true && game->i == true) {
         game->wall_height = free_linklist(game->wall_height);
         cast_all_rays(game->player, &game);
+    }
+    if (game->player->hp <= 0) {
+        my_printf("You are dead looooser.\n");
+        sfRenderWindow_close(game->windows.windows);
     }
 }
 
