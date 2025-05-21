@@ -25,11 +25,9 @@ int check_death_npc(npc_t **begin)
 {
     npc_t *current = *begin;
     npc_t *prev = NULL;
-    int i = 0;
 
     while (current != NULL) {
         if (current->health <= 0) {
-            i = 1;
             delete_npc(prev, &current, begin);
         } else {
             prev = current;
