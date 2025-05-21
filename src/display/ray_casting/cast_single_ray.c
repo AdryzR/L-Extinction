@@ -7,15 +7,6 @@
 
 #include "proto.h"
 
-static int set_offset_zombie(ray_casting_t *ray_struct, int return_value)
-{
-    ray_struct->offset_x_entity = ray_struct->x - ((float)ray_struct->test_x
-    * (float)TILE_SIZE + (float)TILE_SIZE / 2.0);
-    ray_struct->offset_y_entity = ray_struct->y - ((float)ray_struct->test_y
-    * (float)TILE_SIZE + (float)TILE_SIZE / 2.0);
-    return return_value;
-}
-
 static int set_offset(ray_casting_t *ray_struct, int return_value)
 {
         ray_struct->offset_x = ray_struct->x - ((float)ray_struct->test_x
@@ -38,8 +29,6 @@ static int check_colision(ray_casting_t *ray_struct, game_t **game)
         return set_offset(ray_struct, 1);
     if (is_entity((*game), ray_struct->x, ray_struct->y, '#') == 1)
         return set_offset(ray_struct, 1);
-    if (is_entity((*game), ray_struct->x, ray_struct->y, 'Z') == 1)
-        return set_offset_zombie(ray_struct, 2);
     return set_offset(ray_struct, 0);
 }
 
@@ -61,12 +50,6 @@ ray_casting_t *cast_single_ray(ray_casting_t *ray_struct, game_t **game)
         state = check_colision(ray_struct, game);
         if (state == 1)
             break;
-        if (state == 2) {
-            ray_struct->distance_to_wall_entity =
-            ray_struct->distance_to_wall_entity;
-            ray_struct->entity = true;
-            continue;
-        }
         b = 1;
     }
     update_distance(ray_struct, b);
