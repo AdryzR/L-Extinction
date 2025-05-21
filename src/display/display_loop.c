@@ -131,6 +131,10 @@ static void manage_loop(game_t *game)
         my_printf("You are dead looooser.\n");
         sfRenderWindow_close(game->windows.windows);
     }
+    if (!game->npc) {
+        my_printf("You WIN gg\n");
+        sfRenderWindow_close(game->windows.windows);
+    }
 }
 
 int display_loop(game_t *game, sfTexture **texture)
