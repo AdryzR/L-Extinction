@@ -20,7 +20,7 @@ static int init_shot_struct(gunshot_t *shot_struct, sfTexture *shot,
     sfSprite_setTexture(shot_struct->shot, shot, sfTrue);
     sfSprite_setOrigin(shot_struct->shot, (sfVector2f){682 / 2, 682 / 2});
     sfSprite_setPosition(shot_struct->shot,
-    (sfVector2f){WINDOW_WIDTH / 2 + 10, WINDOW_HEIGHT / 2 + 50});
+    (sfVector2f){game->windows.width / 2 + 10, game->windows.height / 2 + 50});
     shot_struct->rect.top = 0;
     shot_struct->rect.left = 0;
     shot_struct->rect.height = 682;
@@ -45,7 +45,7 @@ static int init_fx(game_t *game, sfTexture *shot, sfTexture *weapon)
     game->multiplicator = 1;
     game->key = init_key();
     game->weapon = init_object(weapon, (sfVector2f)
-    {WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2});
+    {game->windows.width / 2, game->windows.height / 2});
     sfSprite_setOrigin(game->weapon.sprite, (sfVector2f) {1020 / 2, 0});
     game->wall_height = NULL;
     game->shot_struct.gunshot = false;

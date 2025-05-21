@@ -43,15 +43,11 @@ typedef struct {
     float x;
     float y;
     float distance_to_wall;
-    float distance_to_wall_entity;
     float offset_x;
     float offset_y;
-    float offset_x_entity;
-    float offset_y_entity;
     int test_x;
     int test_y;
     float wall_height;
-    float wall_height_entity;
     bool entity;
 } ray_casting_t;
 
@@ -61,6 +57,8 @@ typedef struct {
 
 typedef struct windows_s {
     sfRenderWindow *windows;
+    int width;
+    int height;
     object_t background;
 } windows_t;
 
@@ -68,6 +66,7 @@ typedef struct npc_s {
     sfVector2f position;
     sfTexture *texture;
     double health;
+    bool hit;
     sfIntRect hit_box;
     struct npc_s *next;
 } npc_t;
@@ -103,6 +102,18 @@ typedef struct {
     sfSoundBuffer *shot_soundbuffer;
 } gunshot_t;
 
+typedef struct {
+    int sprite_height;
+    int sprite_screen_x;
+    int draw_start_y;
+    int draw_start_x;
+    int draw_end_y;
+    int draw_end_x;
+    float tex_x;
+    sfVertex quad[4];
+    sfRenderStates states;
+} sprite_t;
+
 typedef struct game_s {
     windows_t windows;
     sfSound *sound;
@@ -119,7 +130,6 @@ typedef struct game_s {
     player_t *player;
     map_t map;
     npc_t *npc;
-    sfSprite *entity;
     sfTexture *zombie_texture;
     key_struct_t key;
 } game_t;

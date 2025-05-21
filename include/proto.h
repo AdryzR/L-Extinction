@@ -111,7 +111,7 @@ sfTexture *set_wall_color(float offset_x, float offset_y, sfTexture **texture);
 
 bool is_movement(key_struct_t *key);
 
-sfVertexArray *create_floor(int column, float bottom);
+sfVertexArray *create_floor(game_t *game, int column, float bottom);
 
 sfVertexArray *create_sky(float top, int column);
 
@@ -151,8 +151,7 @@ npc_t *init_npc(game_t *game, npc_t *npc);
 void draw_vertex(game_t *game, sfVertexArray *vertex_sky,
     sfVertexArray *vertex_floor);
 
-void draw_sprite(game_t *game, int column,
-    list_object_t *object, sfTexture *zombie);
+void draw_sprite(game_t *game, npc_t *npc);
 
 void destroy_map(game_t *game);
 
@@ -161,5 +160,11 @@ bool check_side_x_collision(game_t *game);
 bool check_side_y_collision(game_t *game);
 
 void destroy_texture(sfTexture **texture);
+
+void draw_npc(game_t *game, npc_t *npc);
+
+void check_npc_hit(game_t *game);
+
+int check_death_npc(npc_t **begin);
 
 #endif /* PROTO_H_ */

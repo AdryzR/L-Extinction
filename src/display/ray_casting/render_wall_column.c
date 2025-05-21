@@ -28,11 +28,11 @@ sfVertexArray *create_sky(float top, int column)
     return vertex_sky;
 }
 
-sfVertexArray *create_floor(int column, float bottom)
+sfVertexArray *create_floor(game_t *game, int column, float bottom)
 {
     sfVertexArray *vertex_floor = sfVertexArray_create();
     sfVertex vertex1 = {{column, bottom}, LIGHT_GREY, {0, 0}};
-    sfVertex vertex2 = {{column, WINDOW_HEIGHT}, LIGHT_GREY, {0, 0}};
+    sfVertex vertex2 = {{column, game->windows.height}, LIGHT_GREY, {0, 0}};
 
     sfVertexArray_append(vertex_floor, vertex1);
     sfVertexArray_append(vertex_floor, vertex2);
@@ -50,7 +50,8 @@ static float init_texu(list_object_t *object, sfTexture *wall_texture)
 static sfVertex *init_quad(game_t *game, int column, sfTexture *wall_texture,
     list_object_t *object)
 {
-    const float top = (WINDOW_HEIGHT / object->data) + game->player->camera_y;
+    const float top = (game->windows.height /
+    object->data) + game->player->camera_y;
     const float bottom = top + object->data;
     const float texU = init_texu(object, wall_texture);
     sfVertex *quad = malloc(sizeof(sfVertex) * 4);
@@ -89,10 +90,10 @@ void manage_quad(game_t *game, int column,
 void render_wall_column(game_t *game, int column,
     list_object_t *object, sfTexture *wall_texture)
 {
-    float top = (WINDOW_HEIGHT / object->data) + game->player->camera_y;
+    float top = (game->windows.height / object->data) + game->player->camera_y;
     float bottom = top + object->data;
     sfVertexArray *vertex_sky = create_sky(top, column);
-    sfVertexArray *vertex_floor = create_floor(column, bottom);
+    sfVertexArray *vertex_floor = create_floor(game, column, bottom);
 
     manage_quad(game, column, object, wall_texture);
     draw_vertex(game, vertex_sky, vertex_floor);

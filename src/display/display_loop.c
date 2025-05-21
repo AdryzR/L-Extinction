@@ -31,7 +31,7 @@ static game_t *analyse_other_key_press(game_t *game, int b)
 {
     if (game->key.Down == true && game->player->camera_y > -200)
         game->player->camera_y -= PLAYER_MOVE_SPEED * 2 * b;
-    if (game->key.Up && game->player->camera_y < 1000)
+    if (game->key.Up && game->player->camera_y < 400)
         game->player->camera_y += PLAYER_MOVE_SPEED * 2 * b;
     if (game->key.Q == true)
         game->player->camera_x -= PLAYER_ROTATION_SPEED * b;
@@ -98,6 +98,7 @@ static void analyse_events(game_t *game, sfEvent event)
     if (event.type == sfEvtMouseButtonPressed &&
     sfMouse_isButtonPressed(sfMouseLeft) == sfTrue) {
         game->shot_struct.gunshot = (game->player->ammo != 0) ? true : false;
+        check_npc_hit(game);
         update_ammo(game);
         sfSound_play(game->shot_struct.shot_sound);
     }
@@ -129,6 +130,12 @@ int display_loop(game_t *game, sfTexture **texture)
     cast_all_rays(game->player, &game);
     while (sfRenderWindow_isOpen(game->windows.windows)) {
         game->i = get_action_time(game->clock, 0.001, &game->lastchance);
+        for (game->windows.width = sfRenderWindow_getSize(game->windows.
+        windows).x; game->windows.width % 4 != 0; --game->windows.width);
+        for (game->windows.height = sfRenderWindow_getSize(game->windows.
+        windows).y; game->windows.height % 4 != 0; --game->windows.height);
+        sfRenderWindow_setSize(game->windows.windows, (sfVector2u)
+        {game->windows.width, game->windows.height});
         while (sfRenderWindow_pollEvent(game->windows.windows, &event))
             analyse_events(game, event);
         manage_loop(game);

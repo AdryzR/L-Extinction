@@ -45,7 +45,10 @@ SRC	=			main.c										\
 				src/init/init_npc.c							\
 				src/display/draw_fog.c						\
 				src/display/draw_sprite.c					\
-				src/destroy/destroy_texture.c
+				src/destroy/destroy_texture.c				\
+				src/display/draw_npc.c						\
+				src/check_npc_hit.c							\
+				src/check_death_npc.c
 
 CFLAGS	+= -g
 

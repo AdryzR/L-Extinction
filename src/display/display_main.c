@@ -44,10 +44,10 @@ static void display_map(game_t *game)
 
 static void draw_floor_and_ceiling(game_t *game, int column, float wall_height)
 {
-    float top = (WINDOW_HEIGHT / wall_height) + game->player->camera_y;
+    float top = (game->windows.height / wall_height) + game->player->camera_y;
     float bottom = top + wall_height;
     sfVertexArray *vertex_sky = create_sky(top, column);
-    sfVertexArray *vertex_floor = create_floor(column, bottom);
+    sfVertexArray *vertex_floor = create_floor(game, column, bottom);
 
     sfRenderWindow_drawVertexArray(game->windows.windows, vertex_floor, NULL);
     sfRenderWindow_drawVertexArray(game->windows.windows, vertex_sky, NULL);
@@ -63,27 +63,41 @@ bool is_movement(key_struct_t *key)
     return false;
 }
 
+int draw_all(linked_list_t *temp, game_t *game, int temp_data, float x)
+{
+    if (temp->object->id == -1) {
+            draw_floor_and_ceiling(game, x, temp_data);
+            return 1;
+    }
+    if (temp->object->id == -2) {
+        temp->object->data = WALL_DISTANCE / 3.5 * (cosf(fmodf(
+        game->player->camera_x, 2 * M_PI) - temp->object->angle));
+        draw_fog(game, x, temp->object, game->fog);
+        return 1;
+    }
+    return 0;
+}
+
 static void draw_wall(linked_list_t *temp, game_t *game, sfTexture **texture)
 {
     int temp_data = 0;
 
-    for (float x = 0.0; x < WINDOW_WIDTH && temp; ++x) {
+    for (float x = 0.0; x < game->windows.width && temp; ++x) {
         if (x != 0.0 && (int)x % 4 == 0)
             temp = temp->next;
-        if (temp->object->id == -1) {
-            draw_floor_and_ceiling(game, x, temp_data);
+        if (!temp)
+            break;
+        if (draw_all(temp, game, temp_data, x) == 1)
             continue;
-        }
-        if (temp->object->id == -2) {
-            temp->object->data = WALL_DISTANCE / 3.5 * (cosf(fmodf(
-            game->player->camera_x, 2 * M_PI) - temp->object->angle));
-            draw_fog(game, x, temp->object, game->fog);
-            continue;
-        }
         temp_data = temp->object->data;
         render_wall_column(game, x, temp->object, set_wall_color(temp->
         object->offset_x, temp->object->offset_y, texture));
     }
+    for (npc_t *temp = game->npc; temp; temp = temp->next) {
+        draw_sprite(game, temp);
+        temp->hit = false;
+    }
+    check_death_npc(&game->npc);
 }
 
 static void display_shot(sfRenderWindow *window, gunshot_t *shot_struct,
@@ -109,6 +123,8 @@ int display_main(game_t *game, sfTexture **texture)
     draw_wall(temp, game, texture);
     display_map(game);
     draw_player(game);
+    for (npc_t *temp = game->npc; temp; temp = temp->next)
+        draw_npc(game, temp);
     draw_ui(game);
     if (game->shot_struct.gunshot == true)
         display_shot(game->windows.windows, &game->shot_struct, game);
