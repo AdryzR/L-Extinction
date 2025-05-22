@@ -144,10 +144,10 @@ int display_loop(game_t *game, sfTexture **texture)
     cast_all_rays(game->player, &game);
     while (sfRenderWindow_isOpen(game->windows.windows)) {
         game->i = get_action_time(game->clock, 0.001, &game->lastchance);
-        for (game->windows.width = sfRenderWindow_getSize(game->windows.
-        windows).x; game->windows.width % 4 != 0; --game->windows.width);
-        for (game->windows.height = sfRenderWindow_getSize(game->windows.
-        windows).y; game->windows.height % 4 != 0; --game->windows.height);
+        game->windows.width = sfRenderWindow_getSize(game->windows.
+        windows).x;
+        game->windows.height = sfRenderWindow_getSize(game->windows.
+        windows).y;
         sfRenderWindow_setSize(game->windows.windows, (sfVector2u)
         {game->windows.width, game->windows.height});
         while (sfRenderWindow_pollEvent(game->windows.windows, &event))

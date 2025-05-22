@@ -12,8 +12,8 @@ static sfVector2f make_move(game_t *game, sfVector2f position,
 {
     sfVector2f temp_position;
 
-    temp_position.x = position.x + dx * 0.5;
-    temp_position.y = position.y + dy * 0.5;
+    temp_position.x = position.x + dx * 1.5;
+    temp_position.y = position.y + dy * 1.5;
     if (temp_position.x <= position.x && temp_position.y <= position.y
         && check_back_collision(game, position, 1) == false)
         return temp_position;
@@ -21,11 +21,11 @@ static sfVector2f make_move(game_t *game, sfVector2f position,
         && check_front_collision(game, position, 1) == false)
         return temp_position;
     if (check_side_y_collision(game, position) == false) {
-        position.y += dy * 0.5;
+        position.y += dy * 1.5;
         return position;
     }
     if (check_side_x_collision(game, position) == false)
-        position.x += dx * 0.5;
+        position.x += dx * 1.5;
     return position;
 }
 
