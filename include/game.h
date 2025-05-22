@@ -134,7 +134,7 @@ typedef struct game_s {
     npc_t *npc;
     sfTexture *zombie_texture;
     key_struct_t key;
-    int *buffer;
+    float *buffer;
 } game_t;
 
 #endif /* GAME_H_ */

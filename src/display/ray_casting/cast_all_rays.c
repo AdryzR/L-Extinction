@@ -45,7 +45,8 @@ void cast_all_rays(player_t *player, game_t **game)
 {
     ray_casting_t ray_struct = {0};
 
-    for (float x = 0; x < (*game)->windows.width; x += 4) {
+    for (float x = 0; x < (*game)->windows.width; x +=
+    (*game)->windows.width / 800) {
         init_ray(&ray_struct, player, game, x);
         if (ray_struct.distance_to_wall < 0) {
             push_to_end_list(&(*game)->wall_height, init_obj(

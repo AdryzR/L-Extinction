@@ -84,11 +84,11 @@ static void draw_wall(linked_list_t *temp, game_t *game, sfTexture **texture)
     int temp_data = 0;
 
     for (float x = 0.0; x < game->windows.width && temp; ++x) {
-        if (x != 0.0 && (int)x % 4 == 0)
+        if (x != 0.0 && (int)x % (game->windows.width / 800) == 0)
             temp = temp->next;
-        game->buffer[(int)x] = temp->object->distance;
         if (!temp)
             break;
+        game->buffer[(int)x] = temp->object->distance;
         if (draw_all(temp, game, temp_data, x) == 1)
             continue;
         temp_data = temp->object->data;

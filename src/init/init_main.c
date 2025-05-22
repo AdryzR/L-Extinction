@@ -36,10 +36,12 @@ static int init_shot_struct(gunshot_t *shot_struct, sfTexture *shot,
     return 0;
 }
 
-static int *init_buffer(void)
+static float *init_buffer(void)
 {
-    int *buffer = malloc(sizeof(int) * 2560);
+    float *buffer = malloc(sizeof(float) * 3000);
 
+    for (int i = 0; i < 3000; ++i)
+        buffer[i] = 0.f;
     return buffer;
 }
 
