@@ -21,4 +21,16 @@ typedef enum screenpart_e {
     RIGHT,
 }screenpart_t;
 
+typedef enum texture_idx {
+    TX_WALL_N,
+    TX_WALL_S,
+    TX_SHOT,
+    TX_GUN,
+    TX_FOG,
+    TX_ZOMBIE,
+    TX_AK,
+    TX_KNIFE,
+    TX_SIZE
+}texture_idx_t;
+
 #endif /* ENUM_H_ */

@@ -7,6 +7,27 @@
 
 #include "proto.h"
 
+void analyse_weapon_key(game_t *game, sfEvent event)
+{
+    if (event.key.code == sfKeyNum1) {
+        game->player->wp_status = W_AK;
+        set_ak_texture(game);
+    } else if (event.key.code == sfKeyNum2) {
+        game->player->wp_status = W_GUN;
+        set_gun_texture(game);
+    }
+    if (event.key.code == sfKeyNum3) {
+        game->player->wp_status = W_KNIFE;
+        set_knife_texture(game);
+    }
+    if (event.key.code == sfKeyR) {
+        if (game->player->wp_status == W_GUN)
+            reload_gun(game);
+        if (game->player->wp_status == W_AK)
+            reload_ak(game);
+    }
+}
+
 static void analyse_key(game_t *game, sfEvent event, bool status)
 {
     if (game->key.S != status && event.key.code == sfKeyS)
@@ -25,6 +46,8 @@ static void analyse_key(game_t *game, sfEvent event, bool status)
         game->key.shift = status;
     if (game->key.Echap != status && event.key.code == sfKeyEscape)
         game->key.Echap = status;
+    if (status)
+        analyse_weapon_key(game, event);
 }
 
 static game_t *analyse_other_key_press(game_t *game, int b)
@@ -102,11 +125,9 @@ static void analyse_events(game_t *game, sfEvent event)
         return;
     }
     if (event.type == sfEvtMouseButtonPressed &&
-    sfMouse_isButtonPressed(sfMouseLeft) == sfTrue) {
-        game->shot_struct.gunshot = (game->player->ammo != 0) ? true : false;
+        event.mouseButton.button == sfMouseLeft) {
+        update_weapons(game);
         check_npc_hit(game);
-        update_ammo(game);
-        sfSound_play(game->shot_struct.shot_sound);
     }
     update_hp(game);
     if (event.type == sfEvtKeyPressed)
@@ -153,8 +174,7 @@ int display_loop(game_t *game, sfTexture **texture)
         while (sfRenderWindow_pollEvent(game->windows.windows, &event))
             analyse_events(game, event);
         manage_loop(game);
-        if (display_main(game, texture) == 84)
-            return 84;
+        display_main(game, texture);
     }
     return 0;
 }

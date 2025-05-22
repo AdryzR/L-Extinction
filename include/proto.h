@@ -42,6 +42,8 @@ void destroy_window(game_t *game);
 
 void destroy_fx(game_t *game);
 
+void refresh_ammo_sprite(game_t *game);
+
 int init_main(game_t *game, sfTexture **texture);
 
 int init_background(game_t *game, sfTexture *texture);
@@ -54,7 +56,7 @@ int init_window(game_t *game);
 
 int display_loop(game_t *game, sfTexture **texture);
 
-int display_main(game_t *game, sfTexture **texture);
+void display_main(game_t *game, sfTexture **texture);
 
 void update_hp(game_t *game);
 
@@ -64,6 +66,16 @@ bool get_action_time(sfClock *clock, const float every, float *last_action);
 
 int update_timer(game_t *game);
 
+void update_gun(game_t *game);
+
+void update_ak(game_t *game);
+
+void update_weapons(game_t *game);
+
+void reload_gun(game_t *game);
+
+void reload_ak(game_t *game);
+
 int display_text(game_t *game);
 
 object_t init_object(sfTexture *texture, sfVector2f position);
@@ -72,6 +84,12 @@ bool calcul_screen_loc(sfVector2f plane_position, sfVector2f screen_part,
     sfVector2f size);
 
 int init_player(game_t *game, player_t *player);
+
+void set_gun_texture(game_t *game);
+
+void set_ak_texture(game_t *game);
+
+void set_knife_texture(game_t *game);
 
 int init_map(game_t *game);
 

@@ -10,8 +10,8 @@
 sfTexture *set_wall_color(float offset_x, float offset_y, sfTexture **texture)
 {
     if (fabsf(offset_x) > fabsf(offset_y))
-        return texture[0];
-    return texture[2];
+        return texture[TX_WALL_N];
+    return texture[TX_WALL_S];
 }
 
 static list_object_t *init_obj(int x, ray_casting_t *ray_struct)

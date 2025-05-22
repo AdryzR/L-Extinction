@@ -11,11 +11,21 @@
     #define WINDOW_WIDTH 1920
     #define M_PI 3.14
     #define FOV 60 * (M_PI / 180)
+    #define GAME_WINDOW game->windows.windows
     #define WALL_N "assets/wall_dark.png"
     #define WALL_S "assets/wall_light.png"
     #define SHOT "assets/fx/explosion_no_background.png"
     #define SHOT_SOUND "assets/fx/Gunshot Sound Effect Single Shot.mp3"
-    #define WEAPON "assets/weapon.png"
+    #define WP_AK_TEXTURE "assets/rifle.png"
+    #define WP_GUN_TEXTURE "assets/weapon.png"
+
+    #define RELOAD_COOLDOWN 1.5f
+    #define RELOAD_SOUND_1 "assets/fx/reload_goofy.mp3"
+    #define RELOAD_SOUND_2 "assets/fx/reloading_english_man.mp3"
+    #define RELOAD_SOUND_3 "assets/fx/reload.mp3"
+    #define RELOAD_SOUNDS_COUNT 3
+
+    #define WP_KNIFE_TEXTURE "assets/knife.png"
     #define MENU "assets/background/menu.png"
     #define FONT "assets/fx/04B_03__.TTF"
     #define CURSOR "assets/fx/cursor.png"
@@ -45,7 +55,10 @@
     #define HP_25 "assets/ui/heart_25.png"
     #define HP_0 "assets/ui/heart_0.png"
     #define UI_FONT "assets/arial.ttf"
-    #define DEFAULT_AMMO 100
+    #define DEFAULT_GUN_AMMO 100
+    #define DEFAULT_AK_AMMO 100
+    #define AK_MAG_SIZE 10
+    #define GUN_MAG_SIZE 10
     #define DEFAULT_HP 100
     #define PLAYER_HEIGHT TILE_SIZE / 6 - 4
     #define GREY sfColor_fromRGB(100, 100, 100)

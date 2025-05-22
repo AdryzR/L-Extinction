@@ -21,14 +21,24 @@ typedef struct object_s {
     sfVector2f position;
 } object_t;
 
+typedef enum weapon_s {
+    W_GUN,
+    W_KNIFE,
+    W_AK
+} weapon_t;
+
 typedef struct {
     float x;
     float y;
     float angle;
     unsigned int hp;
-    unsigned int ammo;
+    unsigned int gun_mag;
+    unsigned int gun_reserve;
+    unsigned int ak_mag;
+    unsigned int ak_reserve;
     sfFont *font;
     sfText *ammo_txt;
+    sfText *reserve_txt;
     sfText *hp_txt;
     sfTexture *hp_texture;
     sfTexture *ammo_texture;
@@ -36,6 +46,9 @@ typedef struct {
     sfSprite *ammo_sprite;
     float camera_x;
     float camera_y;
+    weapon_t wp_status;
+    bool reloading;
+    float reload_end;
 } player_t;
 
 typedef struct {
@@ -120,7 +133,8 @@ typedef struct game_s {
     sfSound *sound;
     sfSoundBuffer *sound_buffer;
     int multiplicator;
-    gunshot_t shot_struct;
+    gunshot_t gun_shot;
+    gunshot_t ak_shot;
     button_t button;
     linked_list_t *wall_height;
     sfTexture *fog;
@@ -128,12 +142,16 @@ typedef struct game_s {
     float lastchance;
     float hit_couldown;
     bool i;
+    object_t ak_obj;
     object_t weapon;
     player_t *player;
     map_t map;
     npc_t *npc;
     sfTexture *zombie_texture;
     key_struct_t key;
+    sfTexture **textures;
+    sfSound *reload_sound;
+    sfSoundBuffer *reload_buffers[RELOAD_SOUNDS_COUNT];
     float *buffer;
 } game_t;
 

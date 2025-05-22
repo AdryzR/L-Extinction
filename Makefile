@@ -36,8 +36,13 @@ SRC	=			main.c										\
 				src/display/ray_casting/render_wall_column.c\
 				src/is_entity.c								\
 				src/display/draw_player.c					\
-				src/display/draw_ui.c						\
-				src/display/update_ui.c						\
+				src/display/ui/draw_ui.c					\
+				src/display/ui/reload.c						\
+				src/display/ui/update_ak.c					\
+				src/display/ui/update_ui.c					\
+				src/display/ui/update_hp.c					\
+				src/display/ui/update_gun.c					\
+				src/display/ui/update_weapon_texture.c		\
 				src/display/check_collision.c 				\
 				src/settings/settings.c 					\
 				src/init/create_button.c 					\
