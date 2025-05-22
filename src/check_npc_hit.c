@@ -24,6 +24,14 @@ static void npc_loop(ray_casting_t *ray_struct, game_t *game)
         if (temp->hit == false && ray_struct->x <= temp->position.x + 20
             && ray_struct->y <= temp->position.y + 20 && ray_struct->x >
             temp->position.x && ray_struct->y > temp->position.y) {
+            add_particle(&game->particle, sfRed, (sfVector2f)
+            {game->windows.width / 2, game->windows.height / 2 +
+            ray_struct->distance_to_wall},
+            fabsf(ray_struct->distance_to_wall - 200 / 2));
+            add_particle(&game->particle, sfRed, (sfVector2f)
+            {game->windows.width / 2, game->windows.height / 2 +
+            ray_struct->distance_to_wall},
+            fabsf(ray_struct->distance_to_wall - 200 / 2));
             temp->hit = true;
             temp->health -= 10;
         }

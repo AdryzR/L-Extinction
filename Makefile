@@ -56,6 +56,8 @@ SRC	=			main.c										\
 				src/check_death_npc.c						\
 				src/move_npc.c								\
 				src/display/manage_npc.c					\
+				src/add_particle.c 							\
+				src/update_particle.c
 
 CFLAGS	+= -g
 

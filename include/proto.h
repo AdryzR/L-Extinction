@@ -189,4 +189,10 @@ sfVector2f move_npc(game_t *game, sfVector2f position);
 
 void manage_npc(game_t *game);
 
+int add_particle(particle_t **begin, sfColor color,
+    sfVector2f position, int size);
+
+void update_particles(float dt, particle_t **begin, game_t *game);
+
+
 #endif /* PROTO_H_ */
