@@ -61,6 +61,7 @@ typedef struct {
     int test_x;
     int test_y;
     float wall_height;
+    bool entity;
 } ray_casting_t;
 
     #define TILE_SIZE 64
@@ -69,12 +70,16 @@ typedef struct {
 
 typedef struct windows_s {
     sfRenderWindow *windows;
+    int width;
+    int height;
     object_t background;
 } windows_t;
 
 typedef struct npc_s {
-    object_t *zombie;
+    sfVector2f position;
+    sfTexture *texture;
     double health;
+    bool hit;
     sfIntRect hit_box;
     struct npc_s *next;
 } npc_t;
@@ -110,6 +115,19 @@ typedef struct {
     sfSoundBuffer *shot_soundbuffer;
 } gunshot_t;
 
+typedef struct {
+    int sprite_height;
+    int sprite_screen_x;
+    int draw_start_y;
+    int draw_start_x;
+    int draw_end_y;
+    int draw_end_x;
+    float tex_x;
+    float ty;
+    sfVertex quad[4];
+    sfRenderStates states;
+} sprite_t;
+
 typedef struct game_s {
     windows_t windows;
     sfSound *sound;
@@ -120,20 +138,21 @@ typedef struct game_s {
     button_t button;
     linked_list_t *wall_height;
     sfTexture *fog;
-    sfSprite *wall;
     sfClock *clock;
     float lastchance;
+    float hit_couldown;
     bool i;
     object_t ak_obj;
     object_t weapon;
     player_t *player;
     map_t map;
     npc_t *npc;
-    sfSprite *zombie;
+    sfTexture *zombie_texture;
     key_struct_t key;
     sfTexture **textures;
     sfSound *reload_sound;
     sfSoundBuffer *reload_buffers[RELOAD_SOUNDS_COUNT];
+    float *buffer;
 } game_t;
 
 #endif /* GAME_H_ */

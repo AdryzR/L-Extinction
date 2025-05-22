@@ -54,7 +54,7 @@ static game_t *analyse_other_key_press(game_t *game, int b)
 {
     if (game->key.Down == true && game->player->camera_y > -200)
         game->player->camera_y -= PLAYER_MOVE_SPEED * 2 * b;
-    if (game->key.Up && game->player->camera_y < 1000)
+    if (game->key.Up && game->player->camera_y < 400)
         game->player->camera_y += PLAYER_MOVE_SPEED * 2 * b;
     if (game->key.Q == true)
         game->player->camera_x -= PLAYER_ROTATION_SPEED * b;
@@ -65,24 +65,56 @@ static game_t *analyse_other_key_press(game_t *game, int b)
     return game;
 }
 
+void manage_s(game_t *game, int b)
+{
+    bool enter = false;
+
+    if (check_back_collision(game, (sfVector2f)
+    {game->player->x, game->player->y}, b) == false) {
+        game->player->x -= PLAYER_COS_MOVE * b;
+        game->player->y -= PLAYER_SIN_MOVE * b;
+        enter = true;
+    }
+    if (enter == false && check_side_y_collision(game, (sfVector2f)
+    {game->player->x, game->player->y}) == false) {
+        game->player->y += PLAYER_SIN_MOVE / 2;
+        enter = true;
+    }
+    if (enter == false && check_side_x_collision(game, (sfVector2f)
+    {game->player->x, game->player->y}) == false)
+        game->player->x += PLAYER_COS_MOVE / 2;
+}
+
+void manage_z(game_t *game, int b)
+{
+    bool enter = false;
+
+    if (check_front_collision(game, (sfVector2f)
+    {game->player->x, game->player->y}, b) == false) {
+        game->player->x += PLAYER_COS_MOVE * b;
+        game->player->y += PLAYER_SIN_MOVE * b;
+        enter = true;
+    }
+    if (enter == false && check_side_y_collision(game, (sfVector2f)
+    {game->player->x, game->player->y}) == false) {
+        game->player->y += PLAYER_SIN_MOVE / 2;
+        enter = true;
+    }
+    if (enter == false && check_side_x_collision(game, (sfVector2f)
+    {game->player->x, game->player->y}) == false)
+        game->player->x += PLAYER_COS_MOVE / 2;
+}
+
 static void analyse_key_press(game_t *game)
 {
     int b = 1;
 
     if (game->key.shift == true)
         b = 3;
-    if (game->key.S == true) {
-        if (check_back_collision(game, b) == false) {
-            game->player->x -= PLAYER_COS_MOVE * b;
-            game->player->y -= PLAYER_SIN_MOVE * b;
-        }
-    }
-    if (game->key.Z == true) {
-        if (check_front_collision(game, b) == false) {
-            game->player->x += PLAYER_COS_MOVE * b;
-            game->player->y += PLAYER_SIN_MOVE * b;
-        }
-    }
+    if (game->key.S == true)
+        manage_s(game, b);
+    if (game->key.Z == true)
+        manage_z(game, b);
     game = analyse_other_key_press(game, b);
 }
 
@@ -93,8 +125,10 @@ static void analyse_events(game_t *game, sfEvent event)
         return;
     }
     if (event.type == sfEvtMouseButtonPressed &&
-        sfMouse_isButtonPressed(sfMouseLeft) == sfTrue)
-            update_weapons(game);
+        event.mouseButton.button == sfMouseLeft) {
+        update_weapons(game);
+        check_npc_hit(game);
+    }
     update_hp(game);
     if (event.type == sfEvtKeyPressed)
         analyse_key(game, event, true);
@@ -114,6 +148,14 @@ static void manage_loop(game_t *game)
         game->wall_height = free_linklist(game->wall_height);
         cast_all_rays(game->player, &game);
     }
+    if (game->player->hp <= 0) {
+        my_printf("You are dead looooser.\n");
+        sfRenderWindow_close(game->windows.windows);
+    }
+    if (!game->npc) {
+        my_printf("You WIN gg\n");
+        sfRenderWindow_close(game->windows.windows);
+    }
 }
 
 int display_loop(game_t *game, sfTexture **texture)
@@ -123,6 +165,12 @@ int display_loop(game_t *game, sfTexture **texture)
     cast_all_rays(game->player, &game);
     while (sfRenderWindow_isOpen(game->windows.windows)) {
         game->i = get_action_time(game->clock, 0.001, &game->lastchance);
+        game->windows.width = sfRenderWindow_getSize(game->windows.
+        windows).x;
+        game->windows.height = sfRenderWindow_getSize(game->windows.
+        windows).y;
+        sfRenderWindow_setSize(game->windows.windows, (sfVector2u)
+        {game->windows.width, game->windows.height});
         while (sfRenderWindow_pollEvent(game->windows.windows, &event))
             analyse_events(game, event);
         manage_loop(game);

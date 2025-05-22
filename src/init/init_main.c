@@ -72,15 +72,18 @@ int init_sound(game_t *game)
     return 0;
 }
 
-static int init_fx(game_t *game, sfTexture *gun_shot_tex,
+static float *init_buffer(void)
+{
+    float *buffer = malloc(sizeof(float) * 3000);
+
+    for (int i = 0; i < 3000; ++i)
+        buffer[i] = 0.f;
+    return buffer;
+}
+
+void init_weapons(game_t *game, sfTexture *gun_shot_tex,
     sfTexture *ak_tex, sfTexture *weapon_tex)
 {
-    game->clock = sfClock_create();
-    if (!game->clock)
-        return abort_fx(game);
-    game->lastchance = 0.0f;
-    game->multiplicator = 1;
-    game->key = init_key();
     game->ak_obj = init_object(ak_tex,
         (sfVector2f){WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.f});
     sfSprite_setOrigin(game->ak_obj.sprite,
@@ -89,6 +92,19 @@ static int init_fx(game_t *game, sfTexture *gun_shot_tex,
         (sfVector2f){WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.f});
     sfSprite_setOrigin(game->weapon.sprite,
         (sfVector2f){1020 / 2.f, 0.f});
+}
+
+static int init_fx(game_t *game, sfTexture *gun_shot_tex,
+    sfTexture *ak_tex, sfTexture *weapon_tex)
+{
+    game->clock = sfClock_create();
+    if (!game->clock)
+        return abort_fx(game);
+    game->lastchance = 0.0f;
+    game->multiplicator = 1;
+    game->buffer = init_buffer();
+    game->key = init_key();
+    init_weapons(game, gun_shot_tex, ak_tex, weapon_tex);
     game->wall_height = NULL;
     if (create_shot(game, &game->gun_shot, gun_shot_tex) == 84)
         return abort_fx(game);
@@ -113,16 +129,18 @@ static int init_other(game_t *game, sfTexture **texture)
 
 int init_main(game_t *game, sfTexture **texture)
 {
-    if (init_fx(game, texture[1], texture[4], texture[3]) == 84) {
-        destroy_window(game);
-        for (int i = 0; texture[i]; i++)
-            sfTexture_destroy(texture[i]);
-        free(texture);
-        destroy_fx(game);
-        return 84;
+    if (init_fx(game, texture[TX_SHOT], texture[TX_FOG],
+        texture[TX_GUN]) == 84) {
+            destroy_window(game);
+            destroy_texture(texture);
+            destroy_fx(game);
+            return 84;
     }
-    if (init_map(game, texture[0]) == 84) {
-        destroy_main(game, texture);
+    if (init_map(game) == 84) {
+        destroy_window(game);
+        destroy_fx(game);
+        destroy_map(game);
+        destroy_texture(texture);
         return 84;
     }
     return init_other(game, texture);

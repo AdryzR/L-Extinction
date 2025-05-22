@@ -7,7 +7,7 @@
 
 #include "proto.h"
 
-static int add_npc(npc_t **begin, object_t *object)
+static int add_npc(npc_t **begin, sfTexture *texture, int y, int x)
 {
     npc_t *element = malloc(sizeof(npc_t));
     npc_t *lastNode = (*begin);
@@ -15,8 +15,10 @@ static int add_npc(npc_t **begin, object_t *object)
     if (!element)
         return 84;
     element->health = 100;
+    element->hit = false;
     element->hit_box = (sfIntRect){0};
-    element->zombie = object;
+    element->texture = texture;
+    element->position = (sfVector2f) {x * TILE_SIZE, y * TILE_SIZE};
     element->next = NULL;
     if (*begin == NULL) {
         (*begin) = element;
@@ -28,21 +30,18 @@ static int add_npc(npc_t **begin, object_t *object)
     return 0;
 }
 
-static void find_spawn_point(game_t *game, npc_t *npc, int i)
+static npc_t *find_spawn_point(game_t *game, npc_t *npc, int i)
 {
-    object_t object;
-
     for (int k = 0; k < my_strlen(game->map.map2D[i]); ++k)
-        if (game->map.map2D[i][k] == 'z') {
-            object = init_object_sprite(game->zombie, (sfVector2f)
-            {k * TILE_SIZE, i * TILE_SIZE});
-            add_npc(&npc, &object);
-        }
+        if (game->map.map2D[i][k] == 'Z')
+            add_npc(&npc, game->zombie_texture, i, k);
+    return npc;
 }
 
 npc_t *init_npc(game_t *game, npc_t *npc)
 {
+    npc = NULL;
     for (int i = 0; i < game->map.height; ++i)
-        find_spawn_point(game, npc, i);
+        npc = find_spawn_point(game, npc, i);
     return npc;
 }

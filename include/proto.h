@@ -56,7 +56,7 @@ int init_window(game_t *game);
 
 int display_loop(game_t *game, sfTexture **texture);
 
-int display_main(game_t *game, sfTexture **texture);
+void display_main(game_t *game, sfTexture **texture);
 
 void update_hp(game_t *game);
 
@@ -91,7 +91,7 @@ void set_ak_texture(game_t *game);
 
 void set_knife_texture(game_t *game);
 
-int init_map(game_t *game, sfTexture *texture);
+int init_map(game_t *game);
 
 void destroy_button(button_t *button);
 
@@ -129,7 +129,7 @@ sfTexture *set_wall_color(float offset_x, float offset_y, sfTexture **texture);
 
 bool is_movement(key_struct_t *key);
 
-sfVertexArray *create_floor(int column, float bottom);
+sfVertexArray *create_floor(game_t *game, int column, float bottom);
 
 sfVertexArray *create_sky(float top, int column);
 
@@ -139,9 +139,9 @@ void draw_ui(game_t *game);
 
 void update_ammo(game_t *game);
 
-bool check_back_collision(game_t *game, int b);
+bool check_back_collision(game_t *game, sfVector2f position, int b);
 
-bool check_front_collision(game_t *game, int b);
+bool check_front_collision(game_t *game, sfVector2f position, int b);
 
 void open_settings(game_t *game);
 
@@ -168,5 +168,25 @@ npc_t *init_npc(game_t *game, npc_t *npc);
 
 void draw_vertex(game_t *game, sfVertexArray *vertex_sky,
     sfVertexArray *vertex_floor);
+
+void draw_sprite(game_t *game, npc_t *npc);
+
+void destroy_map(game_t *game);
+
+bool check_side_x_collision(game_t *game, sfVector2f position);
+
+bool check_side_y_collision(game_t *game, sfVector2f position);
+
+void destroy_texture(sfTexture **texture);
+
+void draw_npc(game_t *game, npc_t *npc);
+
+void check_npc_hit(game_t *game);
+
+int check_death_npc(npc_t **begin);
+
+sfVector2f move_npc(game_t *game, sfVector2f position);
+
+void manage_npc(game_t *game);
 
 #endif /* PROTO_H_ */

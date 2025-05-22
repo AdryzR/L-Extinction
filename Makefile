@@ -48,7 +48,14 @@ SRC	=			main.c										\
 				src/init/create_button.c 					\
 				src/display/ray_casting/rad_to_deg.c 		\
 				src/init/init_npc.c							\
-				src/display/draw_fog.c
+				src/display/draw_fog.c						\
+				src/display/draw_sprite.c					\
+				src/destroy/destroy_texture.c				\
+				src/display/draw_npc.c						\
+				src/check_npc_hit.c							\
+				src/check_death_npc.c						\
+				src/move_npc.c								\
+				src/display/manage_npc.c					\
 
 CFLAGS	+= -g
 

@@ -90,5 +90,5 @@ int init_player(game_t *game, player_t *player)
     game->player->reload_end = 0.f;
     player->hp = DEFAULT_HP;
     init_player_ui(player);
-    return 0;
+    return (player->x == -1 && player->y == -1) ? 84 : 0;
 }

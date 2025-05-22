@@ -23,7 +23,10 @@ static sfRenderWindow *createmywindow(unsigned int width, unsigned int height)
 
 int init_window(game_t *game)
 {
-    game->windows.windows = createmywindow(WINDOW_WIDTH, WINDOW_HEIGHT);
+    game->windows.height = WINDOW_HEIGHT;
+    game->windows.width = WINDOW_WIDTH;
+    game->windows.windows = createmywindow(
+    game->windows.width, game->windows.height);
     if (!game->windows.windows)
         return 84;
     sfRenderWindow_setFramerateLimit(game->windows.windows, 60);

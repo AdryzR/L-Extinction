@@ -7,16 +7,6 @@
 
 #include "proto.h"
 
-object_t init_object_sprite(sfSprite *sprite, sfVector2f position)
-{
-    object_t object;
-
-    object.sprite = sprite;
-    object.position = position;
-    sfSprite_setPosition(object.sprite, object.position);
-    return object;
-}
-
 object_t init_object(sfTexture *texture, sfVector2f position)
 {
     object_t object;
