@@ -128,6 +128,16 @@ typedef struct {
     sfRenderStates states;
 } sprite_t;
 
+typedef struct particle_s {
+    sfVector2f position;
+    sfVector2f velocity;
+    float lifetime;
+    sfColor color;
+    sfRectangleShape* shape;
+    struct particle_s *next;
+} particle_t;
+
+
 typedef struct game_s {
     windows_t windows;
     sfSound *sound;
@@ -143,6 +153,7 @@ typedef struct game_s {
     float hit_couldown;
     bool i;
     object_t ak_obj;
+    particle_t *particle;
     object_t weapon;
     player_t *player;
     map_t map;

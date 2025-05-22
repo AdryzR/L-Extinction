@@ -13,6 +13,8 @@ int menu(game_t *game)
     button_t button_start;
     button_t button_quit;
 
+    if (!texture_menu)
+        return 84;
     if (init_menu(&button_quit, &button_start, game, texture_menu) == 84)
         return 84;
     if (display_menu_loop(game, &button_start, &button_quit) == 1) {

@@ -11,6 +11,7 @@ static sfTexture **init_texture(game_t *game)
 {
     sfTexture **texture = malloc(sizeof(sfTexture *) * (TX_SIZE + 1));
 
+<<<<<<< Updated upstream
     texture[TX_WALL_N] = sfTexture_createFromFile(WALL_N, NULL);
     texture[TX_SHOT] = sfTexture_createFromFile(SHOT, NULL);
     texture[TX_WALL_S] = sfTexture_createFromFile(WALL_S, NULL);
@@ -23,6 +24,18 @@ static sfTexture **init_texture(game_t *game)
     for (int i = 0; texture[i]; ++i)
         if (!texture[i]) {
             my_putstr("Erreur de chargement de texture.\n");
+=======
+    texture[0] = sfTexture_createFromFile(WALL_N, NULL);
+    texture[1] = sfTexture_createFromFile(SHOT, NULL);
+    texture[2] = sfTexture_createFromFile(WALL_S, NULL);
+    texture[3] = sfTexture_createFromFile(WEAPON, NULL);
+    texture[4] = sfTexture_createFromFile(FOG, NULL);
+    texture[5] = sfTexture_createFromFile(ZOMBIE, NULL);
+    texture[6] = NULL;
+    for (int i = 0; i < 6; ++i)
+        if (texture[i] == NULL) {
+            fprintf(stderr, "Failed to load texture.\n");
+>>>>>>> Stashed changes
             return NULL;
         }
     return texture;
