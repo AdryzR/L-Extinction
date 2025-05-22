@@ -86,6 +86,8 @@ int init_player(game_t *game, player_t *player)
     player->gun_reserve = DEFAULT_GUN_AMMO - GUN_MAG_SIZE;
     player->ak_mag = AK_MAG_SIZE;
     player->ak_reserve = DEFAULT_AK_AMMO - AK_MAG_SIZE;
+    game->player->reloading = false;
+    game->player->reload_end = 0.f;
     player->hp = DEFAULT_HP;
     init_player_ui(player);
     return 0;

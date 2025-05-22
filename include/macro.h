@@ -16,9 +16,16 @@
     #define WALL_S "assets/wall_light.png"
     #define SHOT "assets/fx/explosion_no_background.png"
     #define SHOT_SOUND "assets/fx/Gunshot Sound Effect Single Shot.mp3"
-    #define WP_AK_TEXTURE "assets/ak.png"
+    #define WP_AK_TEXTURE "assets/rifle.png"
     #define WP_GUN_TEXTURE "assets/weapon.png"
-    #define WP_KNIFE_TEXTURE "assets/weapon.png"
+
+    #define RELOAD_COOLDOWN 1.5f
+    #define RELOAD_SOUND_1 "assets/fx/reload_goofy.mp3"
+    #define RELOAD_SOUND_2 "assets/fx/reloading_english_man.mp3"
+    #define RELOAD_SOUND_3 "assets/fx/reload.mp3"
+    #define RELOAD_SOUNDS_COUNT 3
+
+    #define WP_KNIFE_TEXTURE "assets/knife.png"
     #define MENU "assets/background/menu.png"
     #define FONT "assets/fx/04B_03__.TTF"
     #define CURSOR "assets/fx/cursor.png"

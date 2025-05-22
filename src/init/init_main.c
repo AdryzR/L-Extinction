@@ -33,6 +33,7 @@ static int init_shot_struct(gunshot_t *gun_shot, sfTexture *shot,
     }
     gun_shot->shot_soundbuffer = sfSoundBuffer_createFromFile(SHOT_SOUND);
     sfSound_setBuffer(gun_shot->shot_sound, gun_shot->shot_soundbuffer);
+    sfSound_setVolume(gun_shot->shot_sound, 45.f);
     return 0;
 }
 
@@ -49,6 +50,26 @@ static int create_shot(game_t *game, gunshot_t *shot_struct, sfTexture *tex)
     if (!shot_struct->shot)
         return 84;
     return init_shot_struct(shot_struct, tex, game);
+}
+
+int init_sound(game_t *game)
+{
+    const char *paths[RELOAD_SOUNDS_COUNT] = {
+        RELOAD_SOUND_1,
+        RELOAD_SOUND_2,
+        RELOAD_SOUND_3
+    };
+
+    srand((unsigned)time(NULL));
+    for (int i = 0; i < RELOAD_SOUNDS_COUNT; i++) {
+        game->reload_buffers[i] = sfSoundBuffer_createFromFile(paths[i]);
+        if (!game->reload_buffers[i])
+            return 84;
+    }
+    game->reload_sound = sfSound_create();
+    if (game->reload_sound == NULL)
+        return abort_fx(game);
+    return 0;
 }
 
 static int init_fx(game_t *game, sfTexture *gun_shot_tex,
@@ -73,7 +94,7 @@ static int init_fx(game_t *game, sfTexture *gun_shot_tex,
         return abort_fx(game);
     if (create_shot(game, &game->ak_shot, gun_shot_tex) == 84)
         return abort_fx(game);
-    return 0;
+    return init_sound(game);
 }
 
 static int init_other(game_t *game, sfTexture **texture)

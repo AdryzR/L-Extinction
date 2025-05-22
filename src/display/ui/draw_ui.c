@@ -85,11 +85,9 @@ static void render_hp_ui(game_t *game)
     sfRenderWindow_drawSprite(game->windows.windows, pl->hp_sprite, NULL);
 }
 
-/*
- * Point d’entrée : dessine toutes les UI.
- */
 void draw_ui(game_t *game)
 {
-    render_ammo_ui(game);
+    if (game->player->wp_status != W_KNIFE)
+        render_ammo_ui(game);
     render_hp_ui(game);
 }

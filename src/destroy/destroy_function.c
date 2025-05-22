@@ -31,6 +31,12 @@ void destroy_fx(game_t *game)
     sfSprite_destroy(game->gun_shot.shot);
     sfSoundBuffer_destroy(game->gun_shot.shot_soundbuffer);
     sfSound_destroy(game->gun_shot.shot_sound);
+    if (game->reload_sound)
+        sfSound_destroy(game->reload_sound);
+    for (int i = 0; i < RELOAD_SOUNDS_COUNT; i++) {
+        if (game->reload_buffers[i])
+            sfSoundBuffer_destroy(game->reload_buffers[i]);
+    }
 }
 
 static void destroy_ui(player_t *player)

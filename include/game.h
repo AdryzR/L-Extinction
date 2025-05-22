@@ -47,6 +47,8 @@ typedef struct {
     float camera_x;
     float camera_y;
     weapon_t wp_status;
+    bool reloading;
+    float reload_end;
 } player_t;
 
 typedef struct {
@@ -130,6 +132,8 @@ typedef struct game_s {
     sfSprite *zombie;
     key_struct_t key;
     sfTexture **textures;
+    sfSound *reload_sound;
+    sfSoundBuffer *reload_buffers[RELOAD_SOUNDS_COUNT];
 } game_t;
 
 #endif /* GAME_H_ */
