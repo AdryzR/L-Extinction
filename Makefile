@@ -38,6 +38,7 @@ SRC	=			main.c										\
 				src/display/draw_player.c					\
 				src/display/ui/draw_ui.c					\
 				src/display/ui/reload.c						\
+				src/display/ui/is_mag_empty.c				\
 				src/display/ui/update_ak.c					\
 				src/display/ui/update_ui.c					\
 				src/display/ui/update_hp.c					\

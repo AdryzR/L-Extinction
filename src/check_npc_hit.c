@@ -33,6 +33,8 @@ void check_npc_hit(game_t *game)
 {
     ray_casting_t ray_struct = {0};
 
+    if (is_mag_empty(game))
+        return;
     init_ray(&ray_struct, game->player, game, game->windows.width / 2);
     while (ray_struct.distance_to_wall <= 200) {
         ray_struct.distance_to_wall += 0.1;
