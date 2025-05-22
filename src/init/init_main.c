@@ -81,8 +81,7 @@ static float *init_buffer(void)
     return buffer;
 }
 
-void init_weapons(game_t *game, sfTexture *gun_shot_tex,
-    sfTexture *ak_tex, sfTexture *weapon_tex)
+void init_weapons(game_t *game, sfTexture *ak_tex, sfTexture *weapon_tex)
 {
     game->ak_obj = init_object(ak_tex,
         (sfVector2f){WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.f});
@@ -104,7 +103,7 @@ static int init_fx(game_t *game, sfTexture *gun_shot_tex,
     game->multiplicator = 1;
     game->buffer = init_buffer();
     game->key = init_key();
-    init_weapons(game, gun_shot_tex, ak_tex, weapon_tex);
+    init_weapons(game, ak_tex, weapon_tex);
     game->wall_height = NULL;
     if (create_shot(game, &game->gun_shot, gun_shot_tex) == 84)
         return abort_fx(game);

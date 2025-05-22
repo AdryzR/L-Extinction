@@ -174,8 +174,7 @@ int display_loop(game_t *game, sfTexture **texture)
         while (sfRenderWindow_pollEvent(game->windows.windows, &event))
             analyse_events(game, event);
         manage_loop(game);
-        if (display_main(game, texture) == 84)
-            return 84;
+        display_main(game, texture);
     }
     return 0;
 }
