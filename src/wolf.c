@@ -9,8 +9,10 @@
 
 static sfTexture **init_texture(game_t *game)
 {
-    sfTexture **texture = malloc(sizeof(sfTexture *) * (TX_SIZE + 1));
+    sfTexture **texture = calloc(TX_SIZE + 1, sizeof(*texture));
 
+    if (!texture)
+        return NULL;
     texture[TX_WALL_N] = sfTexture_createFromFile(WALL_N, NULL);
     texture[TX_SHOT] = sfTexture_createFromFile(SHOT, NULL);
     texture[TX_WALL_S] = sfTexture_createFromFile(WALL_S, NULL);
@@ -18,6 +20,7 @@ static sfTexture **init_texture(game_t *game)
     texture[TX_FOG] = sfTexture_createFromFile(FOG, NULL);
     texture[TX_ZOMBIE] = sfTexture_createFromFile(ZOMBIE, NULL);
     texture[TX_AK] = sfTexture_createFromFile(WP_AK_TEXTURE, NULL);
+    texture[TX_KNIFE] = sfTexture_createFromFile(WP_KNIFE_TEXTURE, NULL);
     texture[TX_SIZE] = NULL;
     game->textures = texture;
     for (int i = 0; texture[i]; ++i)
