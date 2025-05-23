@@ -15,8 +15,8 @@ sfRenderWindow *createmywindow(game_t *game, unsigned int width,
 
     video_mode.width = width;
     video_mode.height = height;
-    game->windows.height = WINDOW_HEIGHT;
-    game->windows.width = WINDOW_WIDTH;
+    game->windows.height = height;
+    game->windows.width = width;
     video_mode.bitsPerPixel = 32;
     window = sfRenderWindow_create(video_mode, "Wolf3D", style, NULL);
     sfRenderWindow_setFramerateLimit(window, 60);

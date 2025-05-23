@@ -9,12 +9,13 @@
 
 void manage_fullscreen(game_t *game, sfEvent event)
 {
-    sfVideoMode mode = sfVideoMode_getDesktopMode();
+    size_t count;
+    sfVideoMode *mode = sfVideoMode_getFullscreenModes(&count);
 
     if (event.key.code == sfKeyF11 && game->fullscreen == false) {
             sfRenderWindow_close(game->windows.windows);
-            game->windows.windows = createmywindow(game, mode.width,
-            mode.height, sfFullscreen);
+            game->windows.windows = createmywindow(game, mode[0].width,
+            mode[0].height, sfFullscreen);
             game->fullscreen = true;
             return;
         }
