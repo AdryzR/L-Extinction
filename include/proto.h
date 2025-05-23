@@ -145,7 +145,7 @@ bool check_back_collision(game_t *game, sfVector2f position, int b);
 
 bool check_front_collision(game_t *game, sfVector2f position, int b);
 
-void open_settings(game_t *game);
+void open_settings(game_t *game, button_t *button);
 
 int create_button(button_t *button, char *text, int x_pos, int y_pos);
 
@@ -197,4 +197,7 @@ int add_particle(particle_t **begin, sfColor color,
 void update_particles(float dt, particle_t **begin, game_t *game);
 
 
+int create_button(button_t *button,  char *text, int x_pos, int y_pos);
+
+void settings_button(game_t *game, button_t *bsound);
 #endif /* PROTO_H_ */

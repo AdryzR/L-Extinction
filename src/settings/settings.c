@@ -20,12 +20,12 @@ bool check_event(game_t *game, sfEvent event)
     return true;
 }
 
-void open_settings(game_t *game)
+void open_settings(game_t *game, button_t *bsound)
 {
     sfEvent event;
     bool settings = true;
 
-    create_button(&game->button, "click here :)", 850, 770);
+    create_button(bsound, "click here :)", 850, 770);
     while (settings) {
         sfRenderWindow_clear(game->windows.windows, sfBlack);
         while (sfRenderWindow_pollEvent(game->windows.windows, &event))
@@ -33,6 +33,7 @@ void open_settings(game_t *game)
         sfRenderWindow_drawText(game->windows.windows,
             game->button.contain, NULL);
         sfRenderWindow_display(game->windows.windows);
+        settings_button(game, bsound);
     }
     return;
 }
