@@ -60,7 +60,7 @@ SRC	=			main.c										\
 				src/add_particle.c 							\
 				src/update_particle.c
 
-CFLAGS	+= -g
+CFLAGS	+= -g O3
 
 NAME    =	wolf3d
 

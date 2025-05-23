@@ -122,6 +122,7 @@ static int init_other(game_t *game, sfTexture **texture)
         return 84;
     }
     game->player->ak_reserve = DEFAULT_AK_AMMO;
+    game->player->gun_reserve = DEFAULT_GUN_AMMO;
     game->npc = init_npc(game, game->npc);
     return 0;
 }

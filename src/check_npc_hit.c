@@ -20,6 +20,8 @@ static void init_ray(ray_casting_t *ray_struct, player_t *player,
 
 static void npc_loop(ray_casting_t *ray_struct, game_t *game)
 {
+    unsigned int dmg;
+
     for (npc_t *temp = game->npc; temp; temp = temp->next)
         if (temp->hit == false && ray_struct->x <= temp->position.x + 20
             && ray_struct->y <= temp->position.y + 20 && ray_struct->x >
@@ -33,7 +35,8 @@ static void npc_loop(ray_casting_t *ray_struct, game_t *game)
             ray_struct->distance_to_wall},
             fabsf(ray_struct->distance_to_wall - 200 / 2));
             temp->hit = true;
-            temp->health -= 10;
+            dmg = (game->player->wp_status == W_AK) ? AK_DAMAGE : GUN_DAMAGE;
+            temp->health = (temp->health > dmg) ? (temp->health - dmg) : 0;
         }
 }
 

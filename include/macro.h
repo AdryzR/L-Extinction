@@ -20,6 +20,9 @@
     #define WP_GUN_TEXTURE "assets/weapon.png"
     #define RESERVE_ASSET "assets/ui/reserve_box.png"
 
+    #define GUN_DAMAGE 10
+    #define AK_DAMAGE 25
+
     #define RELOAD_COOLDOWN 1.5f
     #define RELOAD_SOUND_1 "assets/fx/reload_goofy.mp3"
     #define RELOAD_SOUND_2 "assets/fx/reloading_english_man.mp3"
@@ -56,12 +59,14 @@
     #define HP_25 "assets/ui/heart_25.png"
     #define HP_0 "assets/ui/heart_0.png"
     #define UI_FONT "assets/arial.ttf"
-    #define DEFAULT_GUN_AMMO 100
+
+    #define DEFAULT_GUN_AMMO 50
     #define DEFAULT_AK_AMMO 100
-    #define AK_MAG_SIZE 10
+    #define AK_MAG_SIZE 20
     #define GUN_MAG_SIZE 10
     #define DEFAULT_HP 100
     #define PLAYER_HEIGHT TILE_SIZE / 6 - 4
+
     #define GREY sfColor_fromRGB(100, 100, 100)
     #define LIGHT_GREY sfColor_fromRGB(170, 170, 170)
     #define LIGHT_BLUE sfColor_fromRGB(173, 216, 230)
