@@ -56,13 +56,16 @@ static void init_player_ui(player_t *player)
 {
     player->wp_status = W_GUN;
     player->font = sfFont_createFromFile(UI_FONT);
+    player->reserve_texture = sfTexture_createFromFile(RESERVE_ASSET, NULL);
+    player->reserve_sprite = create_ui_sprite(player->reserve_texture,
+        (sfVector2f){1780.f, 900.f}, (sfVector2f){0.9f, 0.75f});
     player->reserve_txt = create_ui_text(player->font,
         (sfVector2f){1860.f, 910.f}, (sfVector2f){1.f, 1.f});
-    player->ammo_txt = create_ui_text(player->font,
-        (sfVector2f){1860.f, 950.f}, (sfVector2f){1.f, 1.f});
     player->hp_txt = create_ui_text(player->font,
         (sfVector2f){1860.f, 1000.f}, (sfVector2f){1.f, 1.f});
     player->hp_texture = sfTexture_createFromFile(HP_ASSET, NULL);
+    player->ammo_txt = create_ui_text(player->font,
+        (sfVector2f){1860.f, 950.f}, (sfVector2f){1.f, 1.f});
     player->ammo_texture = sfTexture_createFromFile(AMMO_ASSET, NULL);
     player->ammo_sprite = create_ui_sprite(player->ammo_texture,
         (sfVector2f){1750.f, 920.f}, (sfVector2f){2.f, 1.5f});

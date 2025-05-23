@@ -19,6 +19,7 @@ static void render_reserve_ui(game_t *game, unsigned int rem)
     snprintf(buf, sizeof(buf), "%u", rem);
     sfText_setString(pl->reserve_txt, buf);
     sfText_setColor(pl->reserve_txt, sfWhite);
+    sfRenderWindow_drawSprite(game->windows.windows, pl->reserve_sprite, NULL);
     sfRenderWindow_drawText(game->windows.windows, pl->reserve_txt, NULL);
 }
 

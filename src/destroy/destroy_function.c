@@ -40,9 +40,11 @@ void destroy_fx(game_t *game)
 
 static void destroy_ui(player_t *player)
 {
+    sfSprite_destroy(player->reserve_sprite);
     sfSprite_destroy(player->ammo_sprite);
     sfSprite_destroy(player->hp_sprite);
     sfTexture_destroy(player->ammo_texture);
+    sfTexture_destroy(player->reserve_texture);
     sfTexture_destroy(player->hp_texture);
     sfText_destroy(player->ammo_txt);
     sfText_destroy(player->hp_txt);

@@ -18,6 +18,7 @@
     #define SHOT_SOUND "assets/fx/Gunshot Sound Effect Single Shot.mp3"
     #define WP_AK_TEXTURE "assets/rifle.png"
     #define WP_GUN_TEXTURE "assets/weapon.png"
+    #define RESERVE_ASSET "assets/ui/reserve_box.png"
 
     #define RELOAD_COOLDOWN 1.5f
     #define RELOAD_SOUND_1 "assets/fx/reload_goofy.mp3"
