@@ -131,8 +131,10 @@ static void analyse_events(game_t *game, sfEvent event)
             check_npc_hit(game);
     }
     update_hp(game);
-    if (event.type == sfEvtKeyPressed)
+    if (event.type == sfEvtKeyPressed) {
+        manage_fullscreen(game, event);
         analyse_key(game, event, true);
+    }
     if (event.type == sfEvtKeyReleased)
         analyse_key(game, event, false);
 }
@@ -166,10 +168,8 @@ int display_loop(game_t *game, sfTexture **texture)
     cast_all_rays(game->player, &game);
     while (sfRenderWindow_isOpen(game->windows.windows)) {
         game->i = get_action_time(game->clock, 0.001, &game->lastchance);
-        game->windows.width = sfRenderWindow_getSize(game->windows.
-        windows).x;
-        game->windows.height = sfRenderWindow_getSize(game->windows.
-        windows).y;
+        sfRenderWindow_setSize(game->windows.
+        windows, (sfVector2u) {game->windows.width, game->windows.height});
         sfRenderWindow_setSize(game->windows.windows, (sfVector2u)
         {game->windows.width, game->windows.height});
         while (sfRenderWindow_pollEvent(game->windows.windows, &event))

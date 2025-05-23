@@ -106,6 +106,7 @@ typedef struct {
     bool Down;
     bool shift;
     bool Echap;
+    bool f11;
 } key_struct_t;
 
 typedef struct {
@@ -166,6 +167,7 @@ typedef struct game_s {
     sfSound *reload_sound;
     sfSoundBuffer *reload_buffers[RELOAD_SOUNDS_COUNT];
     float *buffer;
+    bool fullscreen;
 } game_t;
 
 #endif /* GAME_H_ */
