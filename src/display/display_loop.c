@@ -127,7 +127,8 @@ static void analyse_events(game_t *game, sfEvent event)
     if (event.type == sfEvtMouseButtonPressed &&
         event.mouseButton.button == sfMouseLeft) {
         update_weapons(game);
-        check_npc_hit(game);
+        if (!game->player->reloading)
+            check_npc_hit(game);
     }
     update_hp(game);
     if (event.type == sfEvtKeyPressed)
