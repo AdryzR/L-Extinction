@@ -103,6 +103,7 @@ static int init_fx(game_t *game, sfTexture *gun_shot_tex,
     game->multiplicator = 1;
     game->buffer = init_buffer();
     game->key = init_key();
+    game->fullscreen = false;
     init_weapons(game, ak_tex, weapon_tex);
     game->wall_height = NULL;
     if (create_shot(game, &game->gun_shot, gun_shot_tex) == 84)

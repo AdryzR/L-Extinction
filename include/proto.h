@@ -196,8 +196,13 @@ int add_particle(particle_t **begin, sfColor color,
 
 void update_particles(float dt, particle_t **begin, game_t *game);
 
+sfRenderWindow *createmywindow(game_t *game, unsigned int width,
+    unsigned int height, sfUint32 style);
 
-int create_button(button_t *button,  char *text, int x_pos, int y_pos);
+void manage_fullscreen(game_t *game, sfEvent event);
+
+int create_button(button_t *button, char *text, int x_pos, int y_pos);
 
 void settings_button(game_t *game, button_t *bsound);
+
 #endif /* PROTO_H_ */
