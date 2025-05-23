@@ -15,7 +15,7 @@
     #define WALL_N "assets/wall_dark.png"
     #define WALL_S "assets/wall_light.png"
     #define SHOT "assets/fx/explosion_no_background.png"
-    #define SHOT_SOUND "assets/fx/Gunshot Sound Effect Single Shot.mp3"
+    #define SHOT_SOUND "assets/fx/gunshot.mp3"
     #define WP_AK_TEXTURE "assets/rifle.png"
     #define WP_GUN_TEXTURE "assets/weapon.png"
     #define RESERVE_ASSET "assets/ui/reserve_box.png"
