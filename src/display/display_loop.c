@@ -61,7 +61,7 @@ static game_t *analyse_other_key_press(game_t *game, int b)
     if (game->key.D == true)
         game->player->camera_x += PLAYER_ROTATION_SPEED * b;
     if (game->key.Echap == true)
-        open_settings(game);
+        open_settings(game, &game->button);
     return game;
 }
 
