@@ -27,7 +27,7 @@ static int check_colision(ray_casting_t *ray_struct, game_t **game)
         ray_struct->test_x >= 0 && ray_struct->test_x <
         (int)strlen((*game)->map.map2D[(ray_struct->test_y)]))
         return set_offset(ray_struct, 1);
-    if (is_entity((*game), ray_struct->x, ray_struct->y, '#') == 1)
+    if (is_entity((*game), ray_struct->x, ray_struct->y, "#C") == 1)
         return set_offset(ray_struct, 1);
     return set_offset(ray_struct, 0);
 }

@@ -18,26 +18,34 @@ static void init_ray(ray_casting_t *ray_struct, player_t *player,
     (x / game->windows.width) * FOV, 2 * M_PI);
 }
 
-static void npc_loop(ray_casting_t *ray_struct, game_t *game)
+static void do_damage(ray_casting_t *ray_struct, game_t *game, npc_t *temp)
 {
     unsigned int dmg;
 
+    if (temp->hit == false && ray_struct->x <= temp->position.x + 20
+        && ray_struct->y <= temp->position.y + 20 && ray_struct->x >
+        temp->position.x && ray_struct->y > temp->position.y) {
+        add_particle(&game->particle, sfRed, (sfVector2f)
+        {game->windows.width / 2, game->windows.height / 2 +
+        ray_struct->distance_to_wall},
+        fabsf(ray_struct->distance_to_wall - 200 / 2));
+        add_particle(&game->particle, sfRed, (sfVector2f)
+        {game->windows.width / 2, game->windows.height / 2 +
+        ray_struct->distance_to_wall},
+        fabsf(ray_struct->distance_to_wall - 200 / 2));
+        temp->hit = true;
+        dmg = (game->player->wp_status == W_AK) ? AK_DAMAGE : GUN_DAMAGE;
+        temp->health = (temp->health > dmg) ? (temp->health - dmg) : 0;
+    }
+    if (is_entity(game, ray_struct->x, ray_struct->y, "C") == 1)
+        game->map.map2D[(int) ray_struct->y / TILE_SIZE]
+        [(int) ray_struct->x / TILE_SIZE] = ' ';
+}
+
+static void npc_loop(ray_casting_t *ray_struct, game_t *game)
+{
     for (npc_t *temp = game->npc; temp; temp = temp->next)
-        if (temp->hit == false && ray_struct->x <= temp->position.x + 20
-            && ray_struct->y <= temp->position.y + 20 && ray_struct->x >
-            temp->position.x && ray_struct->y > temp->position.y) {
-            add_particle(&game->particle, sfRed, (sfVector2f)
-            {game->windows.width / 2, game->windows.height / 2 +
-            ray_struct->distance_to_wall},
-            fabsf(ray_struct->distance_to_wall - 200 / 2));
-            add_particle(&game->particle, sfRed, (sfVector2f)
-            {game->windows.width / 2, game->windows.height / 2 +
-            ray_struct->distance_to_wall},
-            fabsf(ray_struct->distance_to_wall - 200 / 2));
-            temp->hit = true;
-            dmg = (game->player->wp_status == W_AK) ? AK_DAMAGE : GUN_DAMAGE;
-            temp->health = (temp->health > dmg) ? (temp->health - dmg) : 0;
-        }
+        do_damage(ray_struct, game, temp);
 }
 
 void check_npc_hit(game_t *game)
