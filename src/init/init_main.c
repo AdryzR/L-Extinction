@@ -126,7 +126,7 @@ static int init_other(game_t *game, sfTexture **texture)
     game->player->gun_reserve = DEFAULT_GUN_AMMO;
     game->npc = init_npc(game, game->npc);
     game->drops = NULL;
-    game->drop_texture = sfTexture_createFromFile(DROP_ASSET, NULL);
+    game->drop_texture = texture[TX_AMMO];
     if (!game->drop_texture) {
         fprintf(stderr, "Error loading drop_texture\n");
         return 84;

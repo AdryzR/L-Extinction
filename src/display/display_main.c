@@ -112,10 +112,19 @@ static void display_shot(sfRenderWindow *window, gunshot_t *gun_shot,
     }
 }
 
-void display_drop(game_t *game)
+void render_weapon(game_t *game)
 {
-    for (ammo_drop_t *d = game->drops; d; d = d->next)
-        draw_ammo(game, d);
+    if (game->player->wp_status == W_GUN && game->gun_shot.gunshot) {
+        sfRenderWindow_drawSprite(game->windows.windows,
+            game->gun_shot.shot, NULL);
+        display_shot(game->windows.windows, &game->gun_shot, game);
+    } else if (game->player->wp_status == W_AK && game->ak_shot.gunshot) {
+        sfRenderWindow_drawSprite(game->windows.windows,
+            game->ak_shot.shot, NULL);
+        display_shot(game->windows.windows, &game->ak_shot, game);
+    }
+    sfRenderWindow_drawSprite(game->windows.windows,
+        game->weapon.sprite, NULL);
 }
 
 void display_main(game_t *game, sfTexture **texture)
@@ -125,20 +134,13 @@ void display_main(game_t *game, sfTexture **texture)
     sfRenderWindow_clear(game->windows.windows, sfBlack);
     draw_wall(temp, game, texture);
     manage_npc(game);
-    display_drop(game);
+    for (ammo_drop_t *d = game->drops; d; d = d->next)
+        draw_ammo(game, d);
     display_map(game);
     draw_player(game);
     for (npc_t *temp = game->npc; temp; temp = temp->next)
         draw_npc(game, temp);
     draw_ui(game);
-    if (game->player->wp_status == W_GUN && game->gun_shot.gunshot) {
-        sfRenderWindow_drawSprite(GAME_WINDOW, game->gun_shot.shot, NULL);
-        display_shot(game->windows.windows, &game->gun_shot, game);
-    } else if (game->player->wp_status == W_AK && game->ak_shot.gunshot) {
-        sfRenderWindow_drawSprite(GAME_WINDOW, game->ak_shot.shot, NULL);
-        display_shot(game->windows.windows, &game->ak_shot, game);
-    }
-    sfRenderWindow_drawSprite(game->windows.windows,
-        game->weapon.sprite, NULL);
+    render_weapon(game);
     sfRenderWindow_display(game->windows.windows);
 }

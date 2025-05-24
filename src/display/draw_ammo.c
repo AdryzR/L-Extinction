@@ -16,7 +16,7 @@ sprite_t init_sprite_ammo(game_t *game, float tx, float ty)
     sprite.ty = ty;
     sprite.sprite_screen_x = (int)((game->windows.width / 2) * (1 + tx / ty));
     sprite.sprite_height = abs((int)(TILE_SIZE *
-    game->windows.height / ty) / 2);
+    game->windows.height / ty) / 12);
     sprite.draw_start_y = -sprite.sprite_height + game->windows.height / ty
     + vertical_offset + 200;
     sprite.draw_end_y = sprite.sprite_height + game->windows.height / ty
@@ -79,10 +79,11 @@ void draw_ammo(game_t *game, ammo_drop_t *ammo)
         game->buffer[stripe] = spr.ty;
         spr.tex_x = ((stripe - (-spr.sprite_height / 2 + spr.sprite_screen_x))
         * sfTexture_getSize(ammo->texture).x) / spr.sprite_height;
-        spr.quad[0].position = (sfVector2f){stripe, spr.draw_start_y};
-        spr.quad[1].position = (sfVector2f){stripe + 1, spr.draw_start_y};
-        spr.quad[2].position = (sfVector2f){stripe + 1, spr.draw_end_y};
-        spr.quad[3].position = (sfVector2f){stripe, spr.draw_end_y};
+        spr.quad[0].position = (sfVector2f){stripe, spr.draw_start_y + 500};
+        spr.quad[1].position = (sfVector2f){stripe + 1, spr.draw_start_y
+        + 500};
+        spr.quad[2].position = (sfVector2f){stripe + 1, spr.draw_end_y + 500};
+        spr.quad[3].position = (sfVector2f){stripe, spr.draw_end_y + 500};
         render_sprite_ammo(game, ammo, &spr);
     }
 }

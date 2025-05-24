@@ -7,6 +7,12 @@
 
 #include "proto.h"
 
+static sfTexture **loading_texture_error(void)
+{
+    my_putstr("Erreur de chargement de texture.\n");
+    return NULL;
+}
+
 static sfTexture **init_texture(game_t *game)
 {
     sfTexture **texture = calloc(TX_SIZE + 1, sizeof(*texture));
@@ -21,13 +27,12 @@ static sfTexture **init_texture(game_t *game)
     texture[TX_ZOMBIE] = sfTexture_createFromFile(ZOMBIE, NULL);
     texture[TX_AK] = sfTexture_createFromFile(WP_AK_TEXTURE, NULL);
     texture[TX_KNIFE] = sfTexture_createFromFile(WP_KNIFE_TEXTURE, NULL);
+    texture[TX_AMMO] = sfTexture_createFromFile(DROP_ASSET, NULL);
     texture[TX_SIZE] = NULL;
     game->textures = texture;
     for (int i = 0; texture[i]; ++i)
-        if (!texture[i]) {
-            my_putstr("Erreur de chargement de texture.\n");
-            return NULL;
-        }
+        if (!texture[i])
+            return loading_texture_error();
     return texture;
 }
 
