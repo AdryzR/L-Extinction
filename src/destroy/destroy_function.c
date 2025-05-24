@@ -30,12 +30,19 @@ void destroy_fx(game_t *game)
     sfSprite_destroy(game->gun_shot.shot);
     sfSoundBuffer_destroy(game->gun_shot.shot_soundbuffer);
     sfSound_destroy(game->gun_shot.shot_sound);
+    sfSprite_destroy(game->ak_shot.shot);
+    sfSoundBuffer_destroy(game->ak_shot.shot_soundbuffer);
+    sfSound_destroy(game->ak_shot.shot_sound);
     if (game->reload_sound)
         sfSound_destroy(game->reload_sound);
-    for (int i = 0; i < RELOAD_SOUNDS_COUNT; i++) {
+    for (int i = 0; i < RELOAD_SOUNDS_COUNT; i++)
         if (game->reload_buffers[i])
             sfSoundBuffer_destroy(game->reload_buffers[i]);
-    }
+    if (game->knife_sound)
+        sfSound_destroy(game->knife_sound);
+    for (int i = 0; i < KNIFE_SOUNDS_COUNT; i++)
+        if (game->knife_buffers[i])
+            sfSoundBuffer_destroy(game->knife_buffers[i]);
 }
 
 static void destroy_ui(player_t *player)
@@ -51,6 +58,17 @@ static void destroy_ui(player_t *player)
     sfFont_destroy(player->font);
 }
 
+static void free_drops(game_t *game)
+{
+    ammo_drop_t *next;
+
+    while (game->drops) {
+        next = game->drops->next;
+        free(game->drops);
+        game->drops = next;
+    }
+}
+
 void destroy_main(game_t *game, sfTexture **texture)
 {
     destroy_window(game);
@@ -63,6 +81,8 @@ void destroy_main(game_t *game, sfTexture **texture)
     game->particle = free_particle(game);
     free_npc(game);
     free(game->buffer);
+    sfSprite_destroy(game->ak_obj.sprite);
     sfSprite_destroy(game->weapon.sprite);
     destroy_fx(game);
+    free_drops(game);
 }
