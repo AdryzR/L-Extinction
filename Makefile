@@ -62,6 +62,7 @@ SRC	=			main.c										\
 				src/update_particle.c 						\
 				src/settings/settings_button.c 				\
 				src/display/manage_fullscreen.c				\
+				src/display/pickup_drops.c					\
 				src/display/draw_ammo.c
 
 CFLAGS	+= -g O3

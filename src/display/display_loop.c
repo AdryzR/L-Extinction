@@ -139,36 +139,6 @@ static void analyse_events(game_t *game, sfEvent event)
         analyse_key(game, event, false);
 }
 
-void pickup_drops(game_t *game)
-{
-    sfVector2f p = { game->player->x, game->player->y };
-    ammo_drop_t *prev = NULL;
-    ammo_drop_t *cur  = game->drops;
-    ammo_drop_t *temp;
-    float dx;
-    float dy;
-
-    while (cur) {
-        dx = cur->position.x - p.x;
-        dy = cur->position.y - p.y;
-        if (dx * dx + dy * dy <= DROP_PICKUP_RADIUS * DROP_PICKUP_RADIUS) {
-            game->player->gun_reserve += DROP_AMMO_AMOUNT;
-            game->player->ak_reserve  += DROP_AMMO_AMOUNT;
-            temp = cur;
-            if (prev)
-                prev->next = cur->next;
-            else
-                game->drops = cur->next;
-            cur = cur->next;
-            free(temp);
-            continue;
-        } else {
-            prev = cur;
-            cur  = cur->next;
-        }
-    }
-}
-
 static void manage_loop(game_t *game)
 {
     if (game->i == true)
