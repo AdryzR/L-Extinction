@@ -221,4 +221,6 @@ void draw_ammo(game_t *game, ammo_drop_t *ammo);
 
 particle_t *free_particle(game_t *game);
 
+void draw_ammo_map(game_t *game, ammo_drop_t *ammo);
+
 #endif /* PROTO_H_ */

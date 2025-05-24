@@ -65,7 +65,8 @@ SRC	=			main.c										\
 				src/display/manage_fullscreen.c				\
 				src/display/pickup_drops.c					\
 				src/display/draw_ammo.c						\
-				src/destroy/free_particle.c
+				src/destroy/free_particle.c					\
+				src/display/draw_ammo_map.c 				\
 
 CFLAGS	+= -g O3
 
