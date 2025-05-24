@@ -159,7 +159,7 @@ bool check_back_collision(game_t *game, sfVector2f position, int b);
 
 bool check_front_collision(game_t *game, sfVector2f position, int b);
 
-void open_settings(game_t *game, button_t *button);
+void open_settings(game_t *game);
 
 int create_button(button_t *button, char *text, int x_pos, int y_pos);
 
