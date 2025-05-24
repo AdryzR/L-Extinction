@@ -76,16 +76,22 @@ static void set_weapon_texture(game_t *game, const char *path)
 void set_gun_texture(game_t *game)
 {
     set_weapon_texture(game, WP_GUN_TEXTURE);
+    sfSprite_setScale(game->weapon.sprite, (sfVector2f) {1, 1});
+    sfSprite_setOrigin(game->weapon.sprite, (sfVector2f) {1020 / 2.f, 0});
     refresh_ammo_sprite(game);
 }
 
 void set_ak_texture(game_t *game)
 {
     set_weapon_texture(game, WP_AK_TEXTURE);
+    sfSprite_setScale(game->weapon.sprite, (sfVector2f) {8, 8});
+    sfSprite_setOrigin(game->weapon.sprite, (sfVector2f) {64 / 2, 0});
     refresh_ammo_sprite(game);
 }
 
 void set_knife_texture(game_t *game)
 {
     set_weapon_texture(game, WP_KNIFE_TEXTURE);
+    sfSprite_setScale(game->weapon.sprite, (sfVector2f) {8, 8});
+    sfSprite_setOrigin(game->weapon.sprite, (sfVector2f) {64 / 2, 0});
 }

@@ -58,19 +58,20 @@ static void init_player_ui(player_t *player)
     player->font = sfFont_createFromFile(UI_FONT);
     player->reserve_texture = sfTexture_createFromFile(RESERVE_ASSET, NULL);
     player->reserve_sprite = create_ui_sprite(player->reserve_texture,
-        (sfVector2f){1780.f, 900.f}, (sfVector2f){0.9f, 0.75f});
-    player->reserve_txt = create_ui_text(player->font,
-        (sfVector2f){1860.f, 910.f}, (sfVector2f){1.f, 1.f});
-    player->hp_txt = create_ui_text(player->font,
-        (sfVector2f){1860.f, 1000.f}, (sfVector2f){1.f, 1.f});
+    (sfVector2f){WINDOW_WIDTH - 140.f, WINDOW_HEIGHT - 180.f},
+    (sfVector2f){0.9f, 0.75f});
+    player->reserve_txt = create_ui_text(player->font, (sfVector2f)
+    {WINDOW_WIDTH - 60.f, WINDOW_HEIGHT - 170.f}, (sfVector2f){1.f, 1.f});
+    player->hp_txt = create_ui_text(player->font, (sfVector2f){WINDOW_WIDTH
+    - 60.f, WINDOW_HEIGHT - 80.f}, (sfVector2f){1.f, 1.f});
     player->hp_texture = sfTexture_createFromFile(HP_ASSET, NULL);
-    player->ammo_txt = create_ui_text(player->font,
-        (sfVector2f){1860.f, 950.f}, (sfVector2f){1.f, 1.f});
+    player->ammo_txt = create_ui_text(player->font, (sfVector2f)
+    {WINDOW_WIDTH - 60.f, WINDOW_HEIGHT - 130.f}, (sfVector2f){1.f, 1.f});
     player->ammo_texture = sfTexture_createFromFile(AMMO_ASSET, NULL);
-    player->ammo_sprite = create_ui_sprite(player->ammo_texture,
-        (sfVector2f){1750.f, 920.f}, (sfVector2f){2.f, 1.5f});
-    player->hp_sprite = create_ui_sprite(player->hp_texture,
-        (sfVector2f){1750.f, 965.f}, (sfVector2f){2.f, 1.8f});
+    player->ammo_sprite = create_ui_sprite(player->ammo_texture, (sfVector2f)
+    {WINDOW_WIDTH - 170.f, WINDOW_HEIGHT - 160.f}, (sfVector2f){2.f, 1.5f});
+    player->hp_sprite = create_ui_sprite(player->hp_texture, (sfVector2f)
+    {WINDOW_WIDTH - 170.f, WINDOW_HEIGHT - 115.f}, (sfVector2f){2.f, 1.8f});
 }
 
 int init_player(game_t *game, player_t *player)
