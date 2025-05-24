@@ -112,6 +112,12 @@ static void display_shot(sfRenderWindow *window, gunshot_t *gun_shot,
     }
 }
 
+void display_drop(game_t *game)
+{
+    // for (ammo_drop_t *d = game->drops; d; d = d->next)
+        // TODO HERE: draw_drop(game, d);
+}
+
 void display_main(game_t *game, sfTexture **texture)
 {
     linked_list_t *temp = game->wall_height;
@@ -119,6 +125,7 @@ void display_main(game_t *game, sfTexture **texture)
     sfRenderWindow_clear(game->windows.windows, sfBlack);
     draw_wall(temp, game, texture);
     manage_npc(game);
+    display_drop(game);
     display_map(game);
     draw_player(game);
     for (npc_t *temp = game->npc; temp; temp = temp->next)

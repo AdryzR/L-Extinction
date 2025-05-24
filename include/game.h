@@ -140,6 +140,11 @@ typedef struct particle_s {
     struct particle_s *next;
 } particle_t;
 
+typedef struct ammo_drop_s {
+    sfVector2f position;
+    sfSprite *sprite;
+    struct ammo_drop_s *next;
+} ammo_drop_t;
 
 typedef struct game_s {
     windows_t windows;
@@ -168,6 +173,8 @@ typedef struct game_s {
     sfSoundBuffer *reload_buffers[RELOAD_SOUNDS_COUNT];
     float *buffer;
     bool fullscreen;
+    ammo_drop_t *drops;
+    sfTexture *drop_texture;
 } game_t;
 
 #endif /* GAME_H_ */

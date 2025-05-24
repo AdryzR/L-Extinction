@@ -19,9 +19,14 @@
     #define WP_AK_TEXTURE "assets/rifle.png"
     #define WP_GUN_TEXTURE "assets/weapon.png"
     #define RESERVE_ASSET "assets/ui/reserve_box.png"
+    #define DROP_ASSET "assets/mun.png"
 
     #define GUN_DAMAGE 10
     #define AK_DAMAGE 25
+
+    #define DROP_CHANCE_PCT 80
+    #define DROP_AMMO_AMOUNT 200
+    #define DROP_PICKUP_RADIUS 20
 
     #define RELOAD_COOLDOWN 1.5f
     #define RELOAD_SOUND_1 "assets/fx/reload_goofy.mp3"

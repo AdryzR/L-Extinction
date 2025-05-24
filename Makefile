@@ -44,6 +44,7 @@ SRC	=			main.c										\
 				src/display/ui/update_hp.c					\
 				src/display/ui/update_gun.c					\
 				src/display/ui/update_weapon_texture.c		\
+				src/display/ui/add_ammo_drop.c				\
 				src/display/check_collision.c 				\
 				src/settings/settings.c 					\
 				src/init/create_button.c 					\

@@ -68,6 +68,8 @@ bool get_action_time(sfClock *clock, const float every, float *last_action);
 
 int update_timer(game_t *game);
 
+void draw_drop(game_t *game, ammo_drop_t *drop);
+
 void update_gun(game_t *game);
 
 void update_ak(game_t *game);
@@ -77,6 +79,8 @@ void update_weapons(game_t *game);
 void reload_gun(game_t *game);
 
 void reload_ak(game_t *game);
+
+void add_ammo_drop(game_t *game, sfVector2f pos);
 
 int display_text(game_t *game);
 
@@ -94,6 +98,8 @@ void set_ak_texture(game_t *game);
 void set_knife_texture(game_t *game);
 
 int init_map(game_t *game);
+
+sprite_t init_sprite_npc(game_t *game, float tx, float ty);
 
 void destroy_button(button_t *button);
 

@@ -7,7 +7,7 @@
 
 #include "proto.h"
 
-static sprite_t init_sprite_npc(game_t *game, float tx, float ty)
+sprite_t init_sprite_npc(game_t *game, float tx, float ty)
 {
     sprite_t sprite = {0};
     float angle_offset = (game->player->camera_y - 90.0f);

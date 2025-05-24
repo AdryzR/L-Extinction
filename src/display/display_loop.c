@@ -139,6 +139,38 @@ static void analyse_events(game_t *game, sfEvent event)
         analyse_key(game, event, false);
 }
 
+void pickup_drops(game_t *game)
+{
+    sfVector2f p = { game->player->x, game->player->y };
+    ammo_drop_t *prev = NULL;
+    ammo_drop_t *cur  = game->drops;
+    ammo_drop_t *temp;
+    float dx;
+    float dy;
+
+    while (cur) {
+        dx = cur->position.x - p.x;
+        dy = cur->position.y - p.y;
+        if (dx * dx + dy * dy <= DROP_PICKUP_RADIUS * DROP_PICKUP_RADIUS) {
+            // ramassage
+            game->player->gun_reserve += DROP_AMMO_AMOUNT;
+            game->player->ak_reserve  += DROP_AMMO_AMOUNT;
+            // supprimer le drop
+            temp = cur;
+            if (prev)
+                prev->next = cur->next;
+            else
+                game->drops = cur->next;
+            cur = cur->next;
+            sfSprite_destroy(temp->sprite);
+            free(temp);
+            continue;
+        }
+        prev = cur;
+        cur  = cur->next;
+    }
+}
+
 static void manage_loop(game_t *game)
 {
     if (game->i == true)
@@ -175,6 +207,11 @@ int display_loop(game_t *game, sfTexture **texture)
         while (sfRenderWindow_pollEvent(game->windows.windows, &event))
             analyse_events(game, event);
         manage_loop(game);
+        pickup_drops(game);
+        if (is_movement(&game->key) && game->i) {
+            game->wall_height = free_linklist(game->wall_height);
+            cast_all_rays(game->player, &game);
+        }
         display_main(game, texture);
     }
     return 0;
