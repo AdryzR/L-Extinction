@@ -134,12 +134,14 @@ void display_main(game_t *game, sfTexture **texture)
     sfRenderWindow_clear(game->windows.windows, sfBlack);
     draw_wall(temp, game, texture);
     manage_npc(game);
-    for (ammo_drop_t *d = game->drops; d; d = d->next)
-        draw_ammo(game, d);
     display_map(game);
-    draw_player(game);
+    for (ammo_drop_t *d = game->drops; d; d = d->next) {
+        draw_ammo_map(game, d);
+        draw_ammo(game, d);
+    }
     for (npc_t *temp = game->npc; temp; temp = temp->next)
         draw_npc(game, temp);
+    draw_player(game);
     draw_ui(game);
     render_weapon(game);
     sfRenderWindow_display(game->windows.windows);
