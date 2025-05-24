@@ -1,0 +1,64 @@
+name: Workflow compilation && coding style
+
+on:
+  push:
+    branches-ignore:
+      - ga-ignore-*
+  pull_request:
+    branches-ignore:
+      - ga-ignore-*
+
+jobs:
+  check_coding_style:
+    name: Check coding style
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/epitech/coding-style-checker:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Get coding-style errors
+        id: check_coding_style
+        run: |
+          check.sh $(pwd) $(pwd)
+          if [[ -f coding-style-reports.log ]]; then
+            while read ERROR; do
+              filename=$(echo $ERROR | cut -d ':' -f 1 | cut -d '/' -f 2)
+              line=$(echo $ERROR | cut -d ':' -f 2)
+              gravity=$(echo $ERROR | awk -F ':' '{print $3}')
+              error=$(echo $ERROR | awk -F ':' '{print $4}')
+              echo "::error file=$filename,line=$line,title=$gravity coding style error::$error"
+            done < coding-style-reports.log
+            if [[ -s coding-style-reports.log ]]; then
+              exit 1  # Fait échouer le job si des erreurs sont détectées
+            fi
+          else
+            echo "No coding style issues found."
+          fi
+
+  check_program_compilation:
+    name: Checking compilation
+    runs-on: ubuntu-latest
+    container:
+      image: epitechcontent/epitest-docker:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Compile program
+        id: check_program_compilation
+        run: make
+        timeout-minutes: 2
+
+      - name: Clean build artifacts
+        run: make fclean
+
+      - name: Run executables
+        run: |
+          OIFS=$IFS
+          IFS=','
+          for x in $EXECUTABLES; do
+            ./$x $ARGUMENTS
+          done
+          IFS=$OIFS

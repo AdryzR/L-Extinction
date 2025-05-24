@@ -118,7 +118,7 @@ int display_menu_loop(game_t *game, button_t *, button_t *);
 
 int int_pointer_len(int *pointer);
 
-int is_entity(game_t *game, int x, int y, char c);
+int is_entity(game_t *game, int x, int y, char *c);
 
 ray_casting_t *cast_single_ray(ray_casting_t *ray_struct, game_t **game);
 
@@ -214,5 +214,7 @@ int create_button(button_t *button, char *text, int x_pos, int y_pos);
 void settings_button(game_t *game, button_t *bsound);
 
 void draw_ammo(game_t *game, ammo_drop_t *ammo);
+
+particle_t *free_particle(game_t *game);
 
 #endif /* PROTO_H_ */
