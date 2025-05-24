@@ -10,9 +10,11 @@
 static void update_position(game_t *game)
 {
     sfSprite_setPosition(game->gun_shot.shot, (sfVector2f)
-    {game->windows.width / 2, game->windows.height / 2});
-    game->weapon.position.x = game->windows.width / 2;
-    game->weapon.position.y = game->windows.height / 2;
+    {game->windows.width / 2.f, game->windows.height / 2.f});
+    game->weapon.position.x = game->windows.width / 2.f;
+    game->weapon.position.y = game->windows.height / 2.f;
+    sfSprite_setPosition(game->ak_shot.shot, (sfVector2f)
+    {game->windows.width / 2.f, game->windows.height / 2.f});
     sfSprite_setPosition(game->weapon.sprite, game->weapon.position);
     sfSprite_setPosition(game->player->reserve_sprite, (sfVector2f)
     {game->windows.width - 140.f, game->windows.height - 180.f});

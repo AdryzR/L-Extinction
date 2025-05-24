@@ -50,7 +50,7 @@
     #define ZOMBIE "assets/entity/Zombie_first.png"
     #define RANDOM_MIN 0
     #define RANDOM_MAX 8
-    #define PLAYER_ROTATION_SPEED 1 * (M_PI / 180)
+    #define PLAYER_ROTATION_SPEED 1.5 * (M_PI / 180)
     #define PLAYER_MOVE_SPEED 2
     #define PLAYER_RADIUS 5
     #define PLAYER_COS cosf(fmodf(game->player->camera_x, 2 * M_PI))

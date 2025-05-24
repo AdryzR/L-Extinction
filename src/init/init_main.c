@@ -20,7 +20,7 @@ static int init_shot_struct(gunshot_t *gun_shot, sfTexture *shot,
     sfSprite_setTexture(gun_shot->shot, shot, sfTrue);
     sfSprite_setOrigin(gun_shot->shot, (sfVector2f){682 / 2, 682 / 2});
     sfSprite_setPosition(gun_shot->shot,
-    (sfVector2f){WINDOW_WIDTH / 2 + 10, WINDOW_HEIGHT / 2 + 50});
+    (sfVector2f){WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2});
     gun_shot->rect.top = 0;
     gun_shot->rect.left = 0;
     gun_shot->rect.height = 682;
