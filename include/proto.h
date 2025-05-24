@@ -50,6 +50,8 @@ bool is_mag_empty(game_t *game);
 
 int init_main(game_t *game, sfTexture **texture);
 
+void init_weapons(game_t *game, sfTexture *ak_tex, sfTexture *weapon_tex);
+
 int init_background(game_t *game, sfTexture *texture);
 
 int init_text_start(button_t *button_start);
