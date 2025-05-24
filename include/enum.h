@@ -30,6 +30,7 @@ typedef enum texture_idx {
     TX_ZOMBIE,
     TX_AK,
     TX_KNIFE,
+    TX_AMMO,
     TX_SIZE
 }texture_idx_t;
 

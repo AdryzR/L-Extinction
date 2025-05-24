@@ -39,8 +39,7 @@ static sprite_t calcul_sprite(game_t *game, npc_t *npc)
     float tx = invDet * (dir_y * sprite_x - dir_x * sprite_y);
     float ty = invDet * (-plane_y * sprite_x + plane_x * sprite_y);
 
-    if (sprite_x <= 10 && sprite_x >= 0 && game->i == true
-        && game->player->hp > 0 && ty >= 0)
+    if (game->i == true && game->player->hp > 0 && ty > 0 && ty < 10)
         --game->player->hp;
     sprite = init_sprite_npc(game, tx, ty);
     if (ty <= 0.1f || sprite_x > WALL_DISTANCE) {
