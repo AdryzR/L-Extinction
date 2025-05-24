@@ -9,6 +9,7 @@
 
 void analyse_weapon_key(game_t *game, sfEvent event)
 {
+    sfKeyboard_isKeyPressed(sfKeyA);
     if (event.key.code == sfKeyNum1) {
         game->player->wp_status = W_AK;
         set_ak_texture(game);

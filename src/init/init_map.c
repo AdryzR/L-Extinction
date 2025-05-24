@@ -11,7 +11,7 @@ static bool line_valid(char *line)
 {
     for (int k = 0; line[k]; ++k) {
         if (line[k] != '#' && line[k] != ' ' && line[k] != 'P' &&
-            line[k] != 'Z')
+            line[k] != 'Z' && line[k] != 'C')
             return false;
     }
     return true;

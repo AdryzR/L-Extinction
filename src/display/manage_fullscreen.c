@@ -10,7 +10,7 @@
 void manage_fullscreen(game_t *game, sfEvent event)
 {
     size_t count;
-    sfVideoMode *mode = sfVideoMode_getFullscreenModes(&count);
+    const sfVideoMode *mode = sfVideoMode_getFullscreenModes(&count);
 
     if (event.key.code == sfKeyF11 && game->fullscreen == false) {
             sfRenderWindow_close(game->windows.windows);

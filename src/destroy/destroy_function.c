@@ -60,6 +60,8 @@ void destroy_main(game_t *game, sfTexture **texture)
     free(game->player);
     destroy_map(game);
     destroy_texture(texture);
+    game->particle = free_particle(game);
+    free(game->buffer);
     sfSprite_destroy(game->weapon.sprite);
     destroy_fx(game);
 }
