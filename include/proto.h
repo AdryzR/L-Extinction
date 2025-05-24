@@ -54,6 +54,10 @@ int init_text_start(button_t *button_start);
 
 int init_text_quit(button_t *button_start);
 
+int init_other(game_t *game, sfTexture **texture);
+
+int abort_fx(game_t *game);
+
 int init_window(game_t *game);
 
 void pickup_drops(game_t *game);

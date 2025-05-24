@@ -19,6 +19,7 @@ SRC	=			main.c										\
 				src/init/init_sprite.c 						\
 				src/init/init_window.c 						\
 				src/init/init_background.c 					\
+				src/init/init_other.c 						\
 				src/init/init_button_start.c       			\
 				src/init/init_button_quit.c       			\
 				src/init/init_object.c		       			\
