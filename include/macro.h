@@ -28,6 +28,12 @@
     #define DROP_AMMO_AMOUNT 20
     #define DROP_PICKUP_RADIUS 20
 
+    #define KNIFE_RANGE 50.0f
+    #define KNIFE_DAMAGE 50
+    #define KNIFE_SOUND_1 "assets/fx/knife1.mp3"
+    #define KNIFE_SOUND_2 "assets/fx/knife2.mp3"
+    #define KNIFE_SOUNDS_COUNT 2
+
     #define RELOAD_COOLDOWN 1.5f
     #define RELOAD_SOUND_1 "assets/fx/reload_goofy.mp3"
     #define RELOAD_SOUND_2 "assets/fx/reloading_english_man.mp3"

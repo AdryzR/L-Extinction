@@ -170,6 +170,9 @@ typedef struct game_s {
     sfTexture **textures;
     sfSound *reload_sound;
     sfSoundBuffer *reload_buffers[RELOAD_SOUNDS_COUNT];
+    sfSoundBuffer *knife_buffers[KNIFE_SOUNDS_COUNT];
+    sfSound *knife_sound;
+    int knife_sound_idx;
     float *buffer;
     bool fullscreen;
     ammo_drop_t *drops;

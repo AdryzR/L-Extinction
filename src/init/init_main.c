@@ -52,6 +52,25 @@ static int create_shot(game_t *game, gunshot_t *shot_struct, sfTexture *tex)
     return init_shot_struct(shot_struct, tex, game);
 }
 
+static int init_knife_sounds(game_t *game)
+{
+    const char *knife_paths[KNIFE_SOUNDS_COUNT] = {
+        KNIFE_SOUND_1,
+        KNIFE_SOUND_2
+    };
+
+    for (int i = 0; i < KNIFE_SOUNDS_COUNT; i++) {
+        game->knife_buffers[i] = sfSoundBuffer_createFromFile(knife_paths[i]);
+        if (!game->knife_buffers[i])
+            return 84;
+    }
+    game->knife_sound = sfSound_create();
+    if (!game->knife_sound)
+        return abort_fx(game);
+    game->knife_sound_idx = 0;
+    return 0;
+}
+
 int init_sound(game_t *game)
 {
     const char *paths[RELOAD_SOUNDS_COUNT] = {
@@ -69,7 +88,7 @@ int init_sound(game_t *game)
     game->reload_sound = sfSound_create();
     if (game->reload_sound == NULL)
         return abort_fx(game);
-    return 0;
+    return init_knife_sounds(game);
 }
 
 static float *init_buffer(void)

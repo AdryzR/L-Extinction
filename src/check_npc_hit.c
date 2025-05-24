@@ -6,61 +6,98 @@
 */
 
 #include "proto.h"
+#include <math.h>
 
-static void init_ray(ray_casting_t *ray_struct, player_t *player,
-    game_t *game, float x)
+static void init_ray(ray_casting_t *ray, player_t *pl, game_t *g, float x)
 {
-    ray_struct->entity = false;
-    ray_struct->x = player->x + 5;
-    ray_struct->y = player->y + 5;
-    ray_struct->distance_to_wall = 0.0;
-    ray_struct->angle = fmodf((fmodf(player->camera_x, 2 * M_PI) - FOV / 2.0) +
-    (x / game->windows.width) * FOV, 2 * M_PI);
+    ray->entity = false;
+    ray->x = pl->x + 5;
+    ray->y = pl->y + 5;
+    ray->distance_to_wall = 0.0f;
+    ray->angle = fmodf((fmodf(pl->camera_x, 2 * M_PI) - FOV / 2.0f)
+        + (x / g->windows.width) * FOV, 2 * M_PI);
 }
 
-static void do_damage(ray_casting_t *ray_struct, game_t *game, npc_t *temp)
+static void ray_step(ray_casting_t *ray)
 {
-    unsigned int dmg;
+    ray->distance_to_wall += 0.1f;
+    ray->x += cosf(ray->angle) * 0.1f;
+    ray->y += sinf(ray->angle) * 0.1f;
+    ray->test_x = (int)(ray->x / TILE_SIZE);
+    ray->test_y = (int)(ray->y / TILE_SIZE);
+}
 
-    if (temp->hit == false && ray_struct->x <= temp->position.x + 20
-        && ray_struct->y <= temp->position.y + 20 && ray_struct->x >
-        temp->position.x && ray_struct->y > temp->position.y) {
-        add_particle(&game->particle, sfRed, (sfVector2f)
-        {game->windows.width / 2, game->windows.height / 2 +
-        ray_struct->distance_to_wall},
-        fabsf(ray_struct->distance_to_wall - 200 / 2));
-        add_particle(&game->particle, sfRed, (sfVector2f)
-        {game->windows.width / 2, game->windows.height / 2 +
-        ray_struct->distance_to_wall},
-        fabsf(ray_struct->distance_to_wall - 200 / 2));
-        temp->hit = true;
-        dmg = (game->player->wp_status == W_AK) ? AK_DAMAGE : GUN_DAMAGE;
-        temp->health = (temp->health > dmg) ? (temp->health - dmg) : 0;
+static void apply_shot_damage(ray_casting_t *r, game_t *g, npc_t *npc)
+{
+    unsigned int dmg = 0;
+
+    for (int i = 0; i < 2; ++i)
+        add_particle(&g->particle, sfRed,
+            (sfVector2f){g->windows.width / 2.f,
+            g->windows.height / 2.f + r->distance_to_wall},
+            fabsf(r->distance_to_wall - 100.0f));
+    npc->hit = true;
+    dmg = (g->player->wp_status == W_AK) ? AK_DAMAGE : GUN_DAMAGE;
+    npc->health = (npc->health > dmg) ? npc->health - dmg : 0;
+}
+
+static bool loop_on_npc(game_t *game, ray_casting_t *ray)
+{
+    bool hit;
+
+    for (npc_t *npc = game->npc; npc; npc = npc->next) {
+        hit = (ray->x > npc->position.x) &&
+                (ray->x <= npc->position.x + 20) &&
+                (ray->y > npc->position.y) &&
+                (ray->y <= npc->position.y + 20);
+        if (!npc->hit && hit) {
+            apply_shot_damage(ray, game, npc);
+            return true;
+        }
     }
-    if (is_entity(game, ray_struct->x, ray_struct->y, "C") == 1)
-        game->map.map2D[(int) ray_struct->y / TILE_SIZE]
-        [(int) ray_struct->x / TILE_SIZE] = ' ';
+    return false;
 }
 
-static void npc_loop(ray_casting_t *ray_struct, game_t *game)
+static void check_shot_hits(game_t *game)
 {
-    for (npc_t *temp = game->npc; temp; temp = temp->next)
-        do_damage(ray_struct, game, temp);
+    ray_casting_t r = {0};
+
+    if (is_mag_empty(game))
+        return;
+    init_ray(&r, game->player, game, game->windows.width / 2.f);
+    while (r.distance_to_wall <= 200.0f) {
+        ray_step(&r);
+        if (loop_on_npc(game, &r))
+            return;
+    }
+}
+
+static void handle_knife(game_t *g)
+{
+    float px = g->player->x;
+    float py = g->player->y;
+    float dx;
+    float dy;
+
+    for (npc_t *z = g->npc; z; z = z->next) {
+        dx = z->position.x - px;
+        dy = z->position.y - py;
+        if (dx * dx + dy * dy <= KNIFE_RANGE * KNIFE_RANGE) {
+            z->hit = true;
+            z->health = (z->health > KNIFE_DAMAGE)
+                        ? z->health - KNIFE_DAMAGE : 0;
+            add_particle(&g->particle, sfRed,
+                (sfVector2f){g->windows.width / 2, g->windows.height / 2},
+                KNIFE_RANGE);
+            return;
+        }
+    }
 }
 
 void check_npc_hit(game_t *game)
 {
-    ray_casting_t ray_struct = {0};
-
-    if (is_mag_empty(game))
-        return;
-    init_ray(&ray_struct, game->player, game, game->windows.width / 2);
-    while (ray_struct.distance_to_wall <= 200) {
-        ray_struct.distance_to_wall += 0.1;
-        ray_struct.x += cos(ray_struct.angle) * 0.1;
-        ray_struct.y += sin(ray_struct.angle) * 0.1;
-        ray_struct.test_x = (int)(ray_struct.x / TILE_SIZE);
-        ray_struct.test_y = (int)(ray_struct.y / TILE_SIZE);
-        npc_loop(&ray_struct, game);
-    }
+    if (game->player->wp_status == W_KNIFE)
+        handle_knife(game);
+    else
+        check_shot_hits(game);
 }
