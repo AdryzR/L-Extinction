@@ -72,6 +72,13 @@ static void check_shot_hits(game_t *game)
     }
 }
 
+static void handle_knife_sound(game_t *g)
+{
+    sfSound_setBuffer(g->knife_sound, g->knife_buffers[g->knife_sound_idx]);
+    sfSound_play(g->knife_sound);
+    g->knife_sound_idx = (g->knife_sound_idx + 1) % KNIFE_SOUNDS_COUNT;
+}
+
 static void handle_knife(game_t *g)
 {
     float px = g->player->x;
@@ -89,6 +96,7 @@ static void handle_knife(game_t *g)
             add_particle(&g->particle, sfRed,
                 (sfVector2f){g->windows.width / 2, g->windows.height / 2},
                 KNIFE_RANGE);
+            handle_knife_sound(g);
             return;
         }
     }
