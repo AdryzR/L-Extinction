@@ -50,6 +50,9 @@ static bool loop_on_npc(game_t *game, ray_casting_t *ray)
                 (ray->x <= npc->position.x + 20) &&
                 (ray->y > npc->position.y) &&
                 (ray->y <= npc->position.y + 20);
+        if (is_entity(game, ray->x, ray->y, "C") == 1)
+            game->map.map2D[(int) ray->y / TILE_SIZE]
+        [(int) ray->x / TILE_SIZE] = ' ';
         if (!npc->hit && hit) {
             apply_shot_damage(ray, game, npc);
             return true;

@@ -34,6 +34,8 @@
 
 int open_script(script_t *script, char *filepath, game_t *game);
 
+npc_t *free_npc(game_t *game);
+
 sfSprite *init_sprite(sfTexture *texture);
 
 void destroy_main(game_t *game, sfTexture **texture);
