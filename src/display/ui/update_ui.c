@@ -10,6 +10,8 @@
 static void update_based_on_weapon(game_t *game)
 {
     switch (game->player->wp_status) {
+        case W_KNIFE:
+            break;
         case W_GUN:
             update_gun(game);
             if (game->gun_shot.gunshot) {
