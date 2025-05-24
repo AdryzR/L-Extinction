@@ -16,5 +16,5 @@ void manage_npc(game_t *game)
         if (game->i == true)
             temp_npc->position = move_npc(game, temp_npc->position);
     }
-    check_death_npc(&game->npc);
+    check_death_npc(&game->npc, game);
 }

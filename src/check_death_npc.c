@@ -8,8 +8,10 @@
 #include "proto.h"
 
 void delete_npc(npc_t *prev,
-    npc_t **current, npc_t **begin)
+    npc_t **current, npc_t **begin, game_t *game)
 {
+    if ((rand() % 100) < DROP_CHANCE_PCT)
+        add_ammo_drop(game, (*current)->position);
     if (prev == NULL) {
         *begin = (*current)->next;
         free((*current));
@@ -21,14 +23,14 @@ void delete_npc(npc_t *prev,
     }
 }
 
-int check_death_npc(npc_t **begin)
+int check_death_npc(npc_t **begin, game_t *game)
 {
     npc_t *current = *begin;
     npc_t *prev = NULL;
 
     while (current != NULL) {
         if (current->health <= 0) {
-            delete_npc(prev, &current, begin);
+            delete_npc(prev, &current, begin, game);
         } else {
             prev = current;
             current = current->next;

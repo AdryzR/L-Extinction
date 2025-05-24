@@ -16,7 +16,6 @@ static int add_npc(npc_t **begin, sfTexture *texture, int y, int x)
         return 84;
     element->health = 100;
     element->hit = false;
-    element->hit_box = (sfIntRect){0};
     element->texture = texture;
     element->position = (sfVector2f) {x * TILE_SIZE, y * TILE_SIZE};
     element->next = NULL;

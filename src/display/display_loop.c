@@ -152,22 +152,20 @@ void pickup_drops(game_t *game)
         dx = cur->position.x - p.x;
         dy = cur->position.y - p.y;
         if (dx * dx + dy * dy <= DROP_PICKUP_RADIUS * DROP_PICKUP_RADIUS) {
-            // ramassage
             game->player->gun_reserve += DROP_AMMO_AMOUNT;
             game->player->ak_reserve  += DROP_AMMO_AMOUNT;
-            // supprimer le drop
             temp = cur;
             if (prev)
                 prev->next = cur->next;
             else
                 game->drops = cur->next;
             cur = cur->next;
-            sfSprite_destroy(temp->sprite);
             free(temp);
             continue;
+        } else {
+            prev = cur;
+            cur  = cur->next;
         }
-        prev = cur;
-        cur  = cur->next;
     }
 }
 

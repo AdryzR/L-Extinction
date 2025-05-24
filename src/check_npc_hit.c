@@ -37,8 +37,6 @@ static void npc_loop(ray_casting_t *ray_struct, game_t *game)
             temp->hit = true;
             dmg = (game->player->wp_status == W_AK) ? AK_DAMAGE : GUN_DAMAGE;
             temp->health = (temp->health > dmg) ? (temp->health - dmg) : 0;
-            if ((rand() % 100) < DROP_CHANCE_PCT)
-                add_ammo_drop(game, temp->position);
         }
 }
 

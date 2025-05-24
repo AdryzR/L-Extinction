@@ -114,8 +114,8 @@ static void display_shot(sfRenderWindow *window, gunshot_t *gun_shot,
 
 void display_drop(game_t *game)
 {
-    // for (ammo_drop_t *d = game->drops; d; d = d->next)
-        // TODO HERE: draw_drop(game, d);
+    for (ammo_drop_t *d = game->drops; d; d = d->next)
+        draw_ammo(game, d);
 }
 
 void display_main(game_t *game, sfTexture **texture)

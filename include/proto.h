@@ -191,7 +191,7 @@ void draw_npc(game_t *game, npc_t *npc);
 
 void check_npc_hit(game_t *game);
 
-int check_death_npc(npc_t **begin);
+int check_death_npc(npc_t **begin, game_t *game);
 
 sfVector2f move_npc(game_t *game, sfVector2f position);
 
@@ -210,5 +210,7 @@ void manage_fullscreen(game_t *game, sfEvent event);
 int create_button(button_t *button, char *text, int x_pos, int y_pos);
 
 void settings_button(game_t *game, button_t *bsound);
+
+void draw_ammo(game_t *game, ammo_drop_t *ammo);
 
 #endif /* PROTO_H_ */

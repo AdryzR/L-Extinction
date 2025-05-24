@@ -82,7 +82,6 @@ typedef struct npc_s {
     sfTexture *texture;
     double health;
     bool hit;
-    sfIntRect hit_box;
     struct npc_s *next;
 } npc_t;
 
@@ -142,7 +141,7 @@ typedef struct particle_s {
 
 typedef struct ammo_drop_s {
     sfVector2f position;
-    sfSprite *sprite;
+    sfTexture *texture;
     struct ammo_drop_s *next;
 } ammo_drop_t;
 

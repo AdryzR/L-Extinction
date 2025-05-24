@@ -14,9 +14,7 @@ void add_ammo_drop(game_t *game, sfVector2f pos)
     if (!d)
         return;
     d->position = pos;
-    d->sprite = sfSprite_create();
-    sfSprite_setTexture(d->sprite, game->drop_texture, sfTrue);
-    sfSprite_setPosition(d->sprite, pos);
+    d->texture = game->drop_texture;
     d->next = game->drops;
     game->drops = d;
 }
