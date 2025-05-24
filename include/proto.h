@@ -50,6 +50,8 @@ bool is_mag_empty(game_t *game);
 
 int init_main(game_t *game, sfTexture **texture);
 
+void init_weapons(game_t *game, sfTexture *ak_tex, sfTexture *weapon_tex);
+
 int init_background(game_t *game, sfTexture *texture);
 
 int init_text_start(button_t *button_start);
@@ -159,7 +161,7 @@ bool check_back_collision(game_t *game, sfVector2f position, int b);
 
 bool check_front_collision(game_t *game, sfVector2f position, int b);
 
-void open_settings(game_t *game, button_t *button);
+void open_settings(game_t *game);
 
 int create_button(button_t *button, char *text, int x_pos, int y_pos);
 
