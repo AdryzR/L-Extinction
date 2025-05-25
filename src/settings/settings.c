@@ -12,6 +12,7 @@ static void init_buttons(button_t btns[3])
     create_button(&btns[0], "Quit the game", 0, 0);
     create_button(&btns[1], "Volume Up", 0, 0);
     create_button(&btns[2], "Volume Down", 0, 0);
+    create_button(&btns[3], "Toggle Music", 0, 0);
 }
 
 static void update_layout(game_t *game, button_t btns[3])
@@ -25,15 +26,23 @@ static void update_layout(game_t *game, button_t btns[3])
     sfText_setPosition(btns[0].contain, (sfVector2f){x, y0});
     sfText_setPosition(btns[1].contain, (sfVector2f){x, y0 + dy});
     sfText_setPosition(btns[2].contain, (sfVector2f){x, y0 + 2 * dy});
-    btns[0].hitbox = sfText_getGlobalBounds(btns[0].contain);
-    btns[1].hitbox = sfText_getGlobalBounds(btns[1].contain);
-    btns[2].hitbox = sfText_getGlobalBounds(btns[2].contain);
+    sfText_setPosition(btns[3].contain, (sfVector2f){x, y0 + 3 * dy});
+    for (int i = 0; i < 4; ++i)
+        btns[i].hitbox = sfText_getGlobalBounds(btns[i].contain);
 }
 
 static bool close_window(game_t *game)
 {
     sfRenderWindow_close(game->windows.windows);
     return false;
+}
+
+void handle_button_toggle_music(game_t *game)
+{
+    if (sfMusic_getStatus(game->music) == sfPlaying)
+        sfMusic_pause(game->music);
+    else
+        sfMusic_play(game->music);
 }
 
 static bool handle_menu_buttons_event(game_t *game, button_t btns[3])
@@ -54,6 +63,8 @@ static bool handle_menu_buttons_event(game_t *game, button_t btns[3])
         vol = sfListener_getGlobalVolume() - 10.f;
         sfListener_setGlobalVolume(vol < 0.f ? 0.f : vol);
     }
+    if (sfFloatRect_contains(&btns[3].hitbox, m.x, m.y))
+        handle_button_toggle_music(game);
     return true;
 }
 
@@ -73,14 +84,14 @@ static bool handle_event(game_t *game, button_t btns[3], sfEvent *evt)
 static void draw_buttons(game_t *game, button_t btns[3])
 {
     sfRenderWindow_clear(game->windows.windows, sfBlack);
-    for (int i = 0; i < 3; ++i)
+    for (int i = 0; i < 4; ++i)
         sfRenderWindow_drawText(game->windows.windows, btns[i].contain, NULL);
     sfRenderWindow_display(game->windows.windows);
 }
 
 void open_settings(game_t *game)
 {
-    button_t btns[3];
+    button_t btns[4];
     bool running = true;
     sfEvent evt;
 
@@ -91,7 +102,7 @@ void open_settings(game_t *game)
             running = handle_event(game, btns, &evt);
         draw_buttons(game, btns);
     }
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 4; ++i) {
         sfText_destroy(btns[i].contain);
         sfFont_destroy(btns[i].font);
     }
