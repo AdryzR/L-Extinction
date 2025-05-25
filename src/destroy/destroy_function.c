@@ -85,4 +85,8 @@ void destroy_main(game_t *game, sfTexture **texture)
     sfSprite_destroy(game->weapon.sprite);
     destroy_fx(game);
     free_drops(game);
+    if (game->music) {
+        sfMusic_stop(game->music);
+        sfMusic_destroy(game->music);
+    }
 }

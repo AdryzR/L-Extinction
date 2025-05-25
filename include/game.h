@@ -177,6 +177,7 @@ typedef struct game_s {
     bool fullscreen;
     ammo_drop_t *drops;
     sfTexture *drop_texture;
+    sfMusic *music;
 } game_t;
 
 #endif /* GAME_H_ */

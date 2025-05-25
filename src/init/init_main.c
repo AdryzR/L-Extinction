@@ -68,7 +68,7 @@ static int init_knife_sounds(game_t *game)
     if (!game->knife_sound)
         return abort_fx(game);
     game->knife_sound_idx = 0;
-    return 0;
+    return init_music(game);
 }
 
 int init_sound(game_t *game)

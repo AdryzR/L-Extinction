@@ -23,6 +23,7 @@ SRC	=			main.c										\
 				src/init/init_button_start.c       			\
 				src/init/init_button_quit.c       			\
 				src/init/init_object.c		       			\
+				src/init/init_music.c		       			\
 				src/display/display_loop.c 					\
 				src/display/display_main.c 					\
 				src/destroy/destroy_function.c				\

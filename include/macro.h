@@ -21,6 +21,8 @@
     #define RESERVE_ASSET "assets/ui/reserve_box.png"
     #define DROP_ASSET "assets/mun.png"
 
+    #define GAME_MUSIC "assets/fx/game_music.mp3"
+
     #define GUN_DAMAGE 10
     #define AK_DAMAGE 25
 
