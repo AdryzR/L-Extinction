@@ -30,7 +30,7 @@ static sfTexture **init_texture(game_t *game)
     texture[TX_AMMO] = sfTexture_createFromFile(DROP_ASSET, NULL);
     texture[TX_SIZE] = NULL;
     game->textures = texture;
-    for (int i = 0; texture[i]; ++i)
+    for (int i = 0; i < TX_SIZE; ++i)
         if (!texture[i])
             return loading_texture_error();
     return texture;
