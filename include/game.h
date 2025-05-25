@@ -178,6 +178,8 @@ typedef struct game_s {
     ammo_drop_t *drops;
     sfTexture *drop_texture;
     sfMusic *music;
+    sfSoundBuffer *menu_btn_buffer;
+    sfSound *menu_btn_sound;
 } game_t;
 
 #endif /* GAME_H_ */

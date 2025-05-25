@@ -71,6 +71,24 @@ static int init_knife_sounds(game_t *game)
     return init_music(game);
 }
 
+static int init_menu_buttons(game_t *game)
+{
+    game->menu_btn_buffer = sfSoundBuffer_createFromFile(BUTTON_SOUND);
+    if (!game->menu_btn_buffer) {
+        fprintf(stderr,
+            "Warning: impossible de charger le son de bouton '%s'\n",
+            BUTTON_SOUND);
+    }
+    game->menu_btn_sound = sfSound_create();
+    if (game->menu_btn_sound && game->menu_btn_buffer) {
+        sfSound_setBuffer(game->menu_btn_sound, game->menu_btn_buffer);
+    } else if (game->menu_btn_sound && !game->menu_btn_buffer) {
+        sfSound_destroy(game->menu_btn_sound);
+        game->menu_btn_sound = NULL;
+    }
+    return 0;
+}
+
 int init_sound(game_t *game)
 {
     const char *paths[RELOAD_SOUNDS_COUNT] = {
@@ -79,6 +97,7 @@ int init_sound(game_t *game)
         RELOAD_SOUND_3
     };
 
+    init_menu_buttons(game);
     srand((unsigned)time(NULL));
     for (int i = 0; i < RELOAD_SOUNDS_COUNT; i++) {
         game->reload_buffers[i] = sfSoundBuffer_createFromFile(paths[i]);
@@ -98,18 +117,6 @@ static float *init_buffer(void)
     for (int i = 0; i < 3000; ++i)
         buffer[i] = 0.f;
     return buffer;
-}
-
-void init_weapons(game_t *game, sfTexture *ak_tex, sfTexture *weapon_tex)
-{
-    game->ak_obj = init_object(ak_tex,
-        (sfVector2f){WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.f});
-    sfSprite_setOrigin(game->ak_obj.sprite,
-        (sfVector2f){1020 / 2.f, 0.f});
-    game->weapon = init_object(weapon_tex,
-        (sfVector2f){WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.f});
-    sfSprite_setOrigin(game->weapon.sprite,
-        (sfVector2f){1020 / 2.f, 0.f});
 }
 
 static int init_fx(game_t *game, sfTexture *gun_shot_tex,

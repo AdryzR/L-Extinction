@@ -42,6 +42,7 @@
     #define RELOAD_SOUND_3 "assets/fx/reload.mp3"
     #define RELOAD_SOUNDS_COUNT 3
 
+    #define BUTTON_SOUND "assets/fx/menu-button.mp3"
     #define WP_KNIFE_TEXTURE "assets/knife.png"
     #define MENU "assets/background/menu.png"
     #define FONT "assets/fx/04B_03__.TTF"

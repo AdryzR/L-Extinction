@@ -24,6 +24,18 @@ void destroy_button(button_t *button)
     sfFont_destroy(button->font);
 }
 
+static void destroy_sound_buttons(game_t *game)
+{
+    if (game->menu_btn_sound) {
+        sfSound_destroy(game->menu_btn_sound);
+        game->menu_btn_sound = NULL;
+    }
+    if (game->menu_btn_buffer) {
+        sfSoundBuffer_destroy(game->menu_btn_buffer);
+        game->menu_btn_buffer = NULL;
+    }
+}
+
 void destroy_fx(game_t *game)
 {
     sfClock_destroy(game->clock);
@@ -43,6 +55,7 @@ void destroy_fx(game_t *game)
     for (int i = 0; i < KNIFE_SOUNDS_COUNT; i++)
         if (game->knife_buffers[i])
             sfSoundBuffer_destroy(game->knife_buffers[i]);
+    destroy_sound_buttons(game);
 }
 
 static void destroy_ui(player_t *player)
