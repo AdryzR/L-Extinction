@@ -26,8 +26,8 @@
     #define GUN_DAMAGE 10
     #define AK_DAMAGE 25
 
-    #define DROP_CHANCE_PCT 80
-    #define DROP_AMMO_AMOUNT 20
+    #define DROP_CHANCE_PCT 100
+    #define DROP_AMMO_AMOUNT 10
     #define DROP_PICKUP_RADIUS 20
 
     #define KNIFE_RANGE 50.0f

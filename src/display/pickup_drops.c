@@ -7,20 +7,19 @@
 
 #include <proto.h>
 
-static void update_drop_list(game_t *game, ammo_drop_t *cur,
+static ammo_drop_t *update_drop_list(game_t *game, ammo_drop_t *cur,
     ammo_drop_t *prev)
 {
-    ammo_drop_t *temp;
+    ammo_drop_t *next = cur->next;
 
     game->player->gun_reserve += DROP_AMMO_AMOUNT;
     game->player->ak_reserve += DROP_AMMO_AMOUNT;
-    temp = cur;
     if (prev)
         prev->next = cur->next;
     else
         game->drops = cur->next;
-    cur = cur->next;
-    free(temp);
+    free(cur);
+    return next;
 }
 
 void pickup_drops(game_t *game)
@@ -35,8 +34,7 @@ void pickup_drops(game_t *game)
         dx = cur->position.x - p.x;
         dy = cur->position.y - p.y;
         if (dx * dx + dy * dy <= DROP_PICKUP_RADIUS * DROP_PICKUP_RADIUS) {
-            update_drop_list(game, cur, prev);
-            continue;
+            cur = update_drop_list(game, cur, prev);
         } else {
             prev = cur;
             cur = cur->next;
