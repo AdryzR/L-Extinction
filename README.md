@@ -1,6 +1,6 @@
 # 🕹️ L'Extinction
 
-**L'Extinction** is a retro-style first-person shooter inspired by the classic *Wolfenstein 3D*. Built from scratch in C including raycasting engine, the game offers fast-paced, immersive gameplay set in a post-apocalyptic world.
+**L'Extinction** is a retro-style first-person shooter inspired by the classic *Wolfenstein 3D*. Built from scratch in C, using C-SFML and including raycasting engine, the game offers fast-paced, immersive gameplay set in a post-apocalyptic world.
 
 > Humanity is on the brink of extinction. Alone, surrounded by enemies, your only goal: survive... and uncover the truth.
 
