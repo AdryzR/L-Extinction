@@ -23,3 +23,7 @@
 - `make` and `gcc`
 
 ---
+
+> [Game trailer](https://www.youtube.com/watch?v=7cYyM-dj6So)
+
+---
