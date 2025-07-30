@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2024
-** bs_wolf3D
+** G-ING-210-STG-2-1-wolf3d-mateo.antoni-christ
 ** File description:
 ** is_entity.c
 */
